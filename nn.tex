@@ -1,0 +1,80 @@
+\documentclass[x11names, handout]{beamer}
+
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{bm}
+\usepackage{natbib}
+\usepackage[absolute, overlay]{textpos} % showboxes to show boxes.
+\usepackage{tikz}
+% \usepackage{wasysym}
+
+% Fields.
+\newcommand*{\Reals}{\mathbb{R}}
+
+% Make a variant of \vdots without the top vertical space.
+\makeatletter
+\DeclareRobustCommand{\vvdots}{%
+    \vbox{
+        \baselineskip4\p@\lineskiplimit\z@
+        \kern-\p@
+        \hbox{.}\hbox{.}\hbox{.}
+    }
+}
+\makeatother
+
+% Theme settings.
+\usetheme{Frankfurt}
+\usefonttheme[onlymath]{serif}
+
+% Other Beamer settings.
+\setbeamercovered{transparent}
+\AtBeginSection[]{%
+    \begin{frame}{Outline}
+        \tableofcontents[currentsection]
+    \end{frame}
+}
+
+% TikZ commands.
+\usetikzlibrary{arrows.meta, positioning}
+
+% Figures.
+\graphicspath{{figures/}}
+
+% Title, author, date, classification, etc.
+\title{Machine learning \& neural network introduction}
+\author[Kevin K. Chen]{%
+    \texorpdfstring{%
+        Kevin K. Chen \\
+        \normalsize \href{%
+            mailto:kkchen@ccrwest.org%
+        }{%
+            \textcolor{blue}{\texttt{kkchen@ccrwest.org}}%
+        }%
+    }{%
+        Kevin K. Chen%
+    }%
+}
+\institute[IDA/CCRL]{Institute for Defense Analyses \\ Center for Communications Research - La Jolla}
+\date{February 20, 2018}
+
+% Bibliography commands.
+\bibliographystyle{plainnat}
+\setcitestyle{round}
+
+\begin{document}
+
+\include{sections/preamble}
+\include{sections/introduction}
+\include{sections/ml}
+\include{sections/dense}
+\include{sections/optimization}
+\include{sections/regularization}
+\include{sections/cnn}
+\include{sections/conclusion}
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
