@@ -1,15 +1,25 @@
 \documentclass[x11names, handout]{beamer}
 
+\usefonttheme{professionalfonts}
+
 \usepackage[T1]{fontenc}
-\usepackage{lmodern}
+\usepackage{newpxtext}
+\usepackage{newpxmath}
 \usepackage{bm}
 \usepackage{natbib}
 \usepackage[absolute, overlay]{textpos} % showboxes to show boxes.
 \usepackage{tikz}
-% \usepackage{wasysym}
+\usepackage{wasysym}
 
 % Fields.
 \newcommand*{\Reals}{\mathbb{R}}
+
+% LaTeX things.
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+
+% Other commands.
+\newcommand{\bluelink}[2]{\href{#1}{\textcolor{blue}{#2}}}
+\newcommand{\blueurl}[1]{\textcolor{blue}{\url{#1}}}
 
 % Make a variant of \vdots without the top vertical space.
 \makeatletter
@@ -24,7 +34,7 @@
 
 % Theme settings.
 \usetheme{Frankfurt}
-\usefonttheme[onlymath]{serif}
+\usefonttheme{serif}
 
 % Other Beamer settings.
 \setbeamercovered{transparent}
@@ -73,6 +83,7 @@
 \include{sections/cnn}
 \include{sections/software}
 \include{sections/conclusion}
+\include{sections/references}
 
 \end{document}
 
