@@ -84,28 +84,48 @@
     \begin{block}{Supervised learning}
         \begin{itemize}
             \item Data represented as $\{(x_i, y_i)\}_{i=1}^n$, with $x_i$ an input and $y_i$ an output
-            \item Given $x_i$, predict $y_i$
+            \item Given $x$, predict $y$
         \end{itemize}
     \end{block}
 
     Supervised learning further split into: \\[1ex]
     \begin{columns}[t]
         \begin{column}{0.47\textwidth}
-            \alert{Regression}: $y_i$ continuous, e.g.:
+            \alert{Regression}: $y$ continuous, e.g.
             \begin{itemize}
-                \item $x_i =$ (age, sex, race, weight, height, LDL, HDL, zip code, etc.), $y_i =$ life expectancy
-                \item $x_i =$ (stock price history, market conditions, interest rates, etc.), $y_i =$ tomorrow's stock price
+                \item $x =$ (age, sex, race, weight, height, LDL, HDL, zip code, etc.), $y =$ life expectancy
+                \item $x =$ (stock price history, market conditions, interest rates, etc.), $y =$ tomorrow's stock price
             \end{itemize}
         \end{column}
         \begin{column}{0.45\textwidth}
-            \alert{Classification}: $y_i$ discrete, e.g.:
+            \alert{Classification}: $y$ discrete, e.g.
             \begin{itemize}
-                \item $x_i =$ lots of pixels; $y_i =$ image label (cat, dog, etc.)
-                \item $x_i =$ audio speech sample; $y_i =$ words spoken
-                \item $x_i =$ list of movies you like; $y_i =$ whether you like \emph{Interstellar}
+                \item $x =$ lots of pixels, $y =$ image label (cat, dog, etc.)
             \end{itemize}
         \end{column}
     \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{More supervised learning examples}
+
+    Regression
+    \begin{itemize}
+        \item Text-to-speech: $x =$ words, $y =$ speech audio
+        \item Denoising: $x = \text{data} + \text{noise}$, $y = \text{data}$
+        \item Anomaly detection: $x =$ (time, location, amount, type) of credit card purchase, $y = \P(\text{fraud})$
+        \item Prognosis: $x =$ conditions of existing medical condition, $y =$ expected remaining life
+    \end{itemize}
+    \pause
+
+    Classification
+    \begin{itemize}
+        \item Speech-to-text: $x =$ audio speech sample, $y =$ words spoken
+        \item Spell check: $x =$ misspelled word, $y =$ intended word
+        \item Machine translation: $x =$ a sentence in English, $y =$ the sentence in French
+        \item Recommender problem: $x =$ list of movies you like/dislike, $y =$ whether you like \emph{Interstellar}
+        \item Diagnosis: $x =$ your complete medical record, $y =$ what medical condition(s) you have
+    \end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -169,7 +189,7 @@
 
         \begin{column}{0.56\textwidth}
             \uncover<.->{%
-                I will only focus on neural networks today.
+                I will only focus on neural networks.
                 Even then, variations are plentiful:
             }
             \begin{itemize}[<.->]
@@ -179,6 +199,7 @@
                 \item Autoencoders: for data representations
                 \item Reinforcement learning: for AI/games
                 \item Generative models: for making new data
+                \item Recommender systems
                 \item Etc.
             \end{itemize}
             \uncover<.->{These can generally be combined freely}
