@@ -102,8 +102,8 @@
             \begin{itemize}
                 \item $x_i =$ lots of pixels; $y_i =$ image label (cat, dog, etc.)
                 \item $x_i =$ audio speech sample; $y_i =$ words spoken
+                \item $x_i =$ list of movies you like; $y_i =$ whether you like \emph{Interstellar}
             \end{itemize}
-            Classification problems usually cast as regression via an easy trick (shown later)
         \end{column}
     \end{columns}
 \end{frame}
@@ -130,8 +130,61 @@
     \only<3->{\includegraphics[scale=0.7]{clusters}}
 \end{frame}
 
-% Universal approximation
-% Quick thing on decision trees
+\begin{frame}
+    \frametitle{Notes on supervised vs.~unsupervised learning}
+
+    \begin{itemize}
+        \item I will only focus on supervised learning today \& Thursday
+        \begin{itemize}
+            \item Theory more mature
+            \item Techniques more powerful
+        \end{itemize}
+        \item Many experts believe a strong future in ML requires a shift toward unsupervised learning
+        \begin{itemize}
+            \item $\exists$ tons of data in the world, but often unlabeled
+        \end{itemize}
+        \item Semi-supervised learning: usually, small amount of labeled data + lots of unlabeled data
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Machine learning algorithms}
+
+    \begin{columns}
+        \begin{column}{0.44\textwidth}
+            \uncover<+->{The list is long:}
+            \begin{itemize}[<.->]
+                \item Logistic regression
+                \item Gaussian mixture models
+                \item Kernel methods
+                \item Naive Bayes classifier
+                \item $k$-nearest neighbors, $k$-means, $k$-medians
+                \item Decision trees
+                \item Random forests
+                \item Support vector machines
+                \item \alert<+->{(Artificial) neural networks}
+                \item Etc.
+            \end{itemize}
+        \end{column}
+
+        \begin{column}{0.56\textwidth}
+            \uncover<.->{%
+                I will only focus on neural networks today.
+                Even then, variations are plentiful:
+            }
+            \begin{itemize}[<.->]
+                \item \alert<3->{Dense (fully-connected) NN: generic}
+                \item Convolutional NN: for spatial data
+                \item \alert<3->{Recurrent NN: for temporal data (Thursday's topic)}
+                \item Autoencoders: for data representations
+                \item Reinforcement learning: for AI/games
+                \item Generative models: for making new data
+                \item Etc.
+            \end{itemize}
+            \uncover<.->{These can generally be combined freely}
+        \end{column}
+    \end{columns}
+\end{frame}
 
 %%% Local Variables:
 %%% mode: latex
