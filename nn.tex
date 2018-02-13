@@ -12,18 +12,23 @@
 \usepackage{tikz}
 \usepackage{wasysym}
 
-% Fields.
+% Sets.
 \newcommand*{\Reals}{\mathbb{R}}
+\newcommand*{\X}{\mathcal{X}}
+\newcommand*{\Y}{\mathcal{Y}}
+\newcommand*{\Yh}{\hat{\Y}}
 
 % Operators.
 \newcommand*{\E}[1]{\cdot 10^{#1}}
-\renewcommand*{\P}{\mathbf{P}}
+\DeclareMathOperator{\Prob}{\mathrm{P}}
+\DeclareMathOperator*{\argmax}{arg\,max}
 \DeclareMathOperator{\softmax}{\mathrm{softmax}}
 
 % Vectors.
 \newcommand*{\e}{\mathbf{e}}
 \newcommand*{\x}{\mathbf{x}}
 \newcommand*{\y}{\mathbf{y}}
+\newcommand*{\yh}{\hat{\y}}
 
 % LaTeX things.
 \renewcommand{\thefootnote}{\fnsymbol{footnote}}

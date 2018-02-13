@@ -78,29 +78,29 @@
 
 \begin{frame}
     \frametitle{Supervised learning}
-
+,
     Machine learning problems/algorithms categorized as \alert{supervised} vs.~\alert{unsupervised}
 
     \begin{block}{Supervised learning}
         \begin{itemize}
-            \item Data represented as $\{(x_i, y_i)\}_{i=1}^n$, with $x_i$ an input and $y_i$ an output
-            \item Given $x$, predict $y$
+            \item Data represented as $\{(\x_i, \y_i)\}_{i=1}^n$, with $\x_i$ an input and $\y_i$ an output
+            \item Given $\x$, predict $\y$
         \end{itemize}
     \end{block}
 
     Supervised learning further split into: \\[1ex]
     \begin{columns}[t]
         \begin{column}{0.47\textwidth}
-            \alert{Regression}: $y$ continuous, e.g.
+            \alert{Regression}: $\y$ continuous, e.g.
             \begin{itemize}
-                \item $x =$ (age, sex, race, weight, height, LDL, HDL, zip code, etc.), $y =$ life expectancy
-                \item $x =$ (stock price history, market conditions, interest rates, etc.), $y =$ tomorrow's stock price
+                \item $\x =$ (age, sex, race, weight, height, LDL, HDL, zip code, etc.), $y =$ life expectancy
+                \item $\x =$ (stock price history, market conditions, interest rates, etc.), $y =$ tomorrow's stock price
             \end{itemize}
         \end{column}
         \begin{column}{0.45\textwidth}
-            \alert{Classification}: $y$ discrete, e.g.
+            \alert{Classification}: $\y$ discrete, e.g.
             \begin{itemize}
-                \item $x =$ lots of pixels, $y =$ image label (cat, dog, etc.)
+                \item $\x =$ lots of pixels, $\y =$ image label (cat, dog, etc.)
             \end{itemize}
         \end{column}
     \end{columns}
@@ -111,20 +111,20 @@
 
     Regression
     \begin{itemize}
-        \item Text-to-speech: $x =$ words, $y =$ speech audio
-        \item Denoising: $x = \text{data} + \text{noise}$, $y = \text{data}$
-        \item Anomaly detection: $x =$ (time, location, amount, type) of credit card purchase, $y = \P(\text{fraud})$
-        \item Prognosis: $x =$ conditions of existing medical condition, $y =$ expected remaining life
+        \item Text-to-speech: $\x =$ words, $\y =$ speech audio
+        \item Denoising: $\x = \text{data} + \text{noise}$, $\y = \text{data}$
+        \item Anomaly detection: $\x =$ (time, location, amount, type) of credit card purchase, $y = \Prob(\text{fraud})$
+        \item Prognosis: $\x =$ conditions of existing medical condition, $y =$ expected remaining life
     \end{itemize}
     \pause
 
     Classification
     \begin{itemize}
-        \item Speech-to-text: $x =$ audio speech sample, $y =$ words spoken
-        \item Spell check: $x =$ misspelled word, $y =$ intended word
-        \item Machine translation: $x =$ a sentence in English, $y =$ the sentence in French
-        \item Recommender problem: $x =$ list of movies you like/dislike, $y =$ whether you like \emph{Interstellar}
-        \item Diagnosis: $x =$ your complete medical record, $y =$ what medical condition(s) you have
+        \item Speech-to-text: $\x =$ audio speech sample, $\y =$ words spoken
+        \item Spell check: $\x =$ misspelled word, $\y =$ intended word
+        \item Machine translation: $\x =$ a sentence in English, $\y =$ the sentence in French
+        \item Recommender problem: $\x =$ list of movies you like/dislike, $y =$ whether you like \emph{Interstellar}
+        \item Diagnosis: $\x =$ your complete medical record, $\y =$ what medical condition(s) you have
     \end{itemize}
 \end{frame}
 
@@ -140,7 +140,7 @@
     One-hot vectors loosely interpreted as
     \begin{equation*}
         \begin{bmatrix}
-            \P(\text{label} = 1) & \cdots & \P(\text{label} = n)
+            \Prob(\text{label} = 1) & \cdots & \Prob(\text{label} = n)
         \end{bmatrix}
     \end{equation*}
 
@@ -179,14 +179,17 @@
         \end{align*}
         \vspace{-10pt}
     \end{block}
-        Like one-hot, output loosely interpreted as
-        \begin{equation*}
-            \textcolor{Green4}{%
-                \begin{bmatrix}
-                    \P(\text{label} = 1) & \cdots & \P(\text{label} = n)
-                \end{bmatrix}%
-            }
-        \end{equation*}
+
+    Like one-hot, output loosely interpreted as
+    \begin{equation*}
+        \textcolor{Green4}{%
+            \begin{bmatrix}
+                \Prob(\text{label} = 1) & \cdots & \Prob(\text{label} = n)
+            \end{bmatrix}\footnote{%
+                Real statisticians object to calling these \emph{probabilities}, but we'll be flexible for now%
+            }%
+        }
+    \end{equation*}
 
     \begin{itemize}
         \item E.g.: model outputs \textcolor{blue}{%
@@ -222,7 +225,7 @@
     \end{columns}
     \vspace{1em}
 
-    Loose interpretation: $\P(\text{class } 1) = \sigma(y)$, $\P(\text{class } 2) = 1 - \sigma(y)$
+    Loose interpretation: $\Prob(\text{class } 1) = \sigma(y)$, $\Prob(\text{class } 2) = 1 - \sigma(y)$
 
     \begin{itemize}
         \item Technically, any function of this shape is called ``sigmoid''

@@ -4,6 +4,69 @@
 
 \begin{frame}
     \frametitle{How good is a prediction?}
+
+    \begin{itemize}
+        \item<+-> $\x \in \X$: data \& model input
+        \item $\y \in \Y$: data output
+        \item $\yh \in \Yh$: model output with $\dim(\Yh) = \dim(\Y)$ (generally, $\Yh = \Y$)
+        \item $f : \X \to \Yh, \x \mapsto \yh$: model
+    \end{itemize}
+    \pause
+
+    \begin{block}{Loss function}
+        A function that specifies how bad of a prediction $\yh = f(\x)$ is for the ground truth $\y$
+        \begin{equation*}
+            L : \Y \times \Yh \to \Reals_{\ge 0}
+        \end{equation*}
+    \end{block}
+    \pause
+
+    Common examples, regression:
+    \begin{itemize}
+        \item \alert{Mean squared error}: $L(\y, \yh) := \dfrac{\|\y - \yh\|_2^2}{\dim(\y)}$
+        \begin{itemize}
+            \item Most common loss for regression
+        \end{itemize}
+        \item Mean absolute error: $L(\y, \yh) := \dfrac{\|\y - \yh\|_1}{\dim(\y)}$
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Classification loss}
+    Assumptions:
+    \begin{itemize}
+        \item<+-> $\y$ one-hot; $\argmax(\y) = k$ (the correct label)
+        \item<.-> $\yh =
+        \begin{bmatrix}
+            \hat{y}_1 & \cdots & \hat{y}_n
+        \end{bmatrix} =
+        \begin{bmatrix}
+            \Prob(\text{label} = 1) & \cdots & \Prob(\text{label} = n)
+        \end{bmatrix}$
+    \end{itemize}
+
+    Losses:
+    \begin{itemize}[<+->]
+        \item Easiest---zero--one loss: $L(\y, \yh) := \begin{cases}
+            0 &\mid \argmax(\yh) = k \\
+            1 &\mid \argmax(\yh) \ne k
+        \end{cases}$
+        \begin{itemize}
+            \item Problem: non-differentiable
+        \end{itemize}
+        \item Cross-entropy loss: $L(\y, \yh) := -\log(\hat{y}_k) = \log\left(\dfrac{1}{\Prob(\text{label} = k)}\right)$
+        \begin{itemize}
+            \item Most common loss for labeling with $> 2$ classes
+            \item $L = 0 \iff P(\text{label} = k) = 1$;
+            $L \to \infty \iff P(\text{label} = k) \to 0$
+            \item Note: penalizes being unconfident about correct label, \emph{not} having the wrong $\argmax(\yh)$
+        \end{itemize}
+        \item Binary cross-entropy loss: $L(y, \hat{y}) := -y \log \hat{y} - (1 - y) \log(1 - \hat{y})$
+        \begin{itemize}
+            \item Recall: for binary problems, classes are $y = 0$ and $1$
+            \item $L(0, \hat{y}) = -\log(1 - \hat{y})$; $L(1, \hat{y}) = -\log \hat{y}$
+        \end{itemize}
+    \end{itemize}
 \end{frame}
 
 %%% Local Variables:
