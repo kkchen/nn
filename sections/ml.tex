@@ -110,6 +110,7 @@
 
     \begin{block}{Softmax activation}
         Converts arbitrary real vector (called \textcolor{blue}{logits}) to \textcolor{Green4}{vector of probabilities that sums to 1}
+        \vspace{-1pt}
         \begin{align*}
             \softmax &: \textcolor{blue}{\Reals^n} \to
             \textcolor{Green4}{(0, 1)^n \text{ with } L^1 \text{ norm} = 1} \\
@@ -123,7 +124,9 @@
                 \end{bmatrix}%
             }
         \end{align*}
+        \vspace{-1pt}
         Like one-hot, output loosely interpreted as
+        \vspace{-1pt}
         \begin{equation*}
             \textcolor{Green4}{%
                 \begin{bmatrix}
@@ -133,16 +136,16 @@
         \end{equation*}
     \end{block}
 
-    E.g.: model outputs \textcolor{blue}{%
-        logits
-        $\y = \begin{bmatrix} -3.33 & 9.62 & 9.18 & \cdots \end{bmatrix}$
-    }
-    $\implies$
-    \textcolor{Green4}{%
-        $\softmax(\y) = \begin{bmatrix} 1.40\E{-6} & 0.593 & 0.381 & \cdots \end{bmatrix}$
-    }
-    $\implies$ model is 59.3\% confident in ``cat,'' 38.1\% confident in ``dog''
-
+    \begin{itemize}
+        \item E.g.: model outputs \textcolor{blue}{%
+            logits
+            $\y = \begin{bmatrix} -3.33 & 9.62 & 9.18 & \cdots \end{bmatrix}$
+        }
+        \item \textcolor{Green4}{%
+            $\softmax(\y) = \begin{bmatrix} 1.40\E{-6} & 0.593 & 0.381 & \cdots \end{bmatrix}$
+        }
+        \item Model is 59.3\% confident in ``cat,'' 38.1\% confident in ``dog''
+    \end{itemize}
 \end{frame}
 
 %%% Local Variables:
