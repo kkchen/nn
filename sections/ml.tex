@@ -77,13 +77,57 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{Supervised vs.\ unsupervised learning}
-    
+    \frametitle{Supervised learning}
+
+    Machine learning problems/algorithms categorized as \alert{supervised} vs.~\alert{unsupervised}
+
+    \begin{block}{Supervised learning}
+        \begin{itemize}
+            \item Data represented as $\{(x_i, y_i)\}_{i=1}^n$, with $x_i$ an input and $y_i$ an output
+            \item Given $x_i$, predict $y_i$
+        \end{itemize}
+    \end{block}
+
+    Supervised learning further split into: \\[1ex]
+    \begin{columns}[t]
+        \begin{column}{0.47\textwidth}
+            \alert{Regression}: $y_i$ continuous, e.g.:
+            \begin{itemize}
+                \item $x_i =$ (age, sex, race, weight, height, LDL, HDL, zip code, etc.), $y_i =$ life expectancy
+                \item $x_i =$ (stock price history, market conditions, interest rates, etc.), $y_i =$ tomorrow's stock price
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.45\textwidth}
+            \alert{Classification}: $y_i$ discrete, e.g.:
+            \begin{itemize}
+                \item $x_i =$ lots of pixels; $y_i =$ image label (cat, dog, etc.)
+                \item $x_i =$ audio speech sample; $y_i =$ words spoken
+            \end{itemize}
+            Classification problems usually cast as regression via an easy trick (shown later)
+        \end{column}
+    \end{columns}
 \end{frame}
 
 \begin{frame}
-    \frametitle{Regression vs.\ classification}
-    
+    \frametitle{Unsupervised learning}
+    \begin{block}{Unsupervised learning}<+->
+        \begin{itemize}
+            \item Data represented as $\{x_i\}_{i=1}^n$ only: no outputs
+            \item \alert{Density estimation}: learn the data's probability distribution
+        \end{itemize}
+    \end{block}
+
+    \uncover<+->{Related problem: \alert{clustering}---find which clusters data belong to} \\[1ex]
+
+    \uncover<+->{Examples:}
+    \begin{itemize}[<.->]
+        \item Generative modeling: given pictures of volcanoes, generate new ones that look realistic
+        \item Determine if loan/insurance applicant is low/medium/high-risk
+    \end{itemize}
+
+    % To do: put in volcano images.
+    \only<2>{\includegraphics[scale=0.7]{cluster}}
+    \only<3->{\includegraphics[scale=0.7]{clusters}}
 \end{frame}
 
 % Universal approximation

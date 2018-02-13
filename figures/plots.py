@@ -26,6 +26,9 @@ class Plots:
 
     def plot(self):
         """Run the plotting method based on the tag; save or display."""
+        if 'cluster' in self.tag or 'clusters' in self.tag:
+            self._set_cluster_data()
+
         if self.nprocs == 1:
             # Have this option available in case Pool doesn’t behave.
             for t in self.tag:
@@ -50,6 +53,44 @@ class Plots:
         ax.axis('off')
         ax.plot(x, y, '.', ms=3)
         ax.plot(z, np.polyval(p, z), 'r-')
+
+    def _plot_cluster(self):
+        """Plot a monochrome example of a cluster."""
+        self._cluster_plot(False)
+
+    def _plot_clusters(self):
+        """Plot a colored example of clusters."""
+        self._cluster_plot(True)
+
+    def _set_cluster_data(self):
+        """Get the 2-D cluster data."""
+        n = 100
+
+        self._cluster_x = [
+            np.random.normal(-1, 1, n),
+            np.random.normal(0, 0.7, n),
+            np.random.normal(2, 1.2, n)
+        ]
+        self._cluster_y = [
+            np.random.normal(3, 1, n),
+            np.random.normal(-1, 0.7, n),
+            np.random.normal(2, 1.2, n)
+        ]
+
+    def _cluster_plot(self, colors):
+        """Make a plot of the clusters, signaling whether to use colors."""
+        plt.figure(figsize=(2, 1.5))
+        ax = plt.axes((0, 0, 1, 1))
+        fmt = '.'
+
+        if not colors:
+            fmt += 'k'
+
+        for a, b in zip(self._cluster_x, self._cluster_y):
+            ax.plot(a, b, fmt, ms=3)
+
+        ax.axis('off')
+
 
     def _parse(self):
         """Parse the command-line arguments."""
@@ -139,7 +180,7 @@ class Plots:
         else:
             y = ylim[1] / (ylim[1] / ylim[0]) ** yshift
 
-        plt.text(x, y, f'({label})')
+        plt.text(x, y, '({})'.format(label))
 
 
 def main():
