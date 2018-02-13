@@ -14,6 +14,7 @@
             \item that \alert{iteratively} improve their model parameters via continual training.
         \end{itemize}
     \end{block}
+    \pause
 
     \begin{columns}
         \begin{column}{2.5in}
@@ -78,7 +79,6 @@
 
 \begin{frame}
     \frametitle{Supervised learning}
-,
     Machine learning problems/algorithms categorized as \alert{supervised} vs.~\alert{unsupervised}
 
     \begin{block}{Supervised learning}
@@ -87,6 +87,7 @@
             \item Given $\x$, predict $\y$
         \end{itemize}
     \end{block}
+    \pause
 
     Supervised learning further split into: \\[1ex]
     \begin{columns}[t]
@@ -97,6 +98,7 @@
                 \item $\x =$ (stock price history, market conditions, interest rates, etc.), $y =$ tomorrow's stock price
             \end{itemize}
         \end{column}
+        \pause
         \begin{column}{0.45\textwidth}
             \alert{Classification}: $\y$ discrete, e.g.
             \begin{itemize}
@@ -136,6 +138,7 @@
     \begin{block}{One-hot encoding}
         For labels $1, \dots, n$, represent each label as the unit vector $\e_i$, $i = 1, \dots, n$ \\[1ex]
     \end{block}
+    \pause
 
     One-hot vectors loosely interpreted as
     \begin{equation*}
@@ -179,6 +182,7 @@
         \end{align*}
         \vspace{-10pt}
     \end{block}
+    \pause
 
     Like one-hot, output loosely interpreted as
     \begin{equation*}
@@ -224,6 +228,7 @@
         \end{column}
     \end{columns}
     \vspace{1em}
+    \pause
 
     Loose interpretation: $\Prob(\text{class } 1) = \sigma(y)$, $\Prob(\text{class } 2) = 1 - \sigma(y)$
 
@@ -235,24 +240,25 @@
 
 \begin{frame}
     \frametitle{Unsupervised learning}
-    \begin{block}{Unsupervised learning}<+->
+    \begin{block}{Unsupervised learning}
         \begin{itemize}
             \item Data represented as $\{x_i\}_{i=1}^n$ only: no outputs
             \item \alert{Density estimation}: learn the data's probability distribution
         \end{itemize}
     \end{block}
 
-    \uncover<+->{Related problem: \alert{clustering}---find which clusters data belong to} \\[1ex]
+    \uncover<2->{Related problem: \alert{clustering}---find which clusters data belong to} \\[1ex]
 
-    \uncover<+->{Examples:}
-    \begin{itemize}[<.->]
-        \item Generative modeling: given pictures of volcanoes, generate new ones that look realistic
-        \item Determine if loan/insurance applicant is low/medium/high-risk
+    \uncover<4->{Examples:}
+    \begin{itemize}
+        \item<4-> Generative modeling: given pictures of volcanoes, generate new ones that look realistic
+        \item<5-> Determine if loan/insurance applicant is low/medium/high-risk
     \end{itemize}
 
-    % To do: put in volcano images.
     \only<2>{\includegraphics[scale=0.7]{cluster}}
     \only<3->{\includegraphics[scale=0.7]{clusters}}
+    % To do: put in volcano images.
+    \uncover<4->{}
 \end{frame}
 
 \begin{frame}
