@@ -83,13 +83,14 @@
 
     \begin{block}{One-hot encoding}
         For labels $1, \dots, n$, represent each label as the unit vector $\e_i$, $i = 1, \dots, n$ \\[1ex]
-        One-hot vectors loosely interpreted as
-        \begin{equation*}
-            \begin{bmatrix}
-                \P(\text{label} = 1) & \cdots & \P(\text{label} = n)
-            \end{bmatrix}
-        \end{equation*}
     \end{block}
+
+    One-hot vectors loosely interpreted as
+    \begin{equation*}
+        \begin{bmatrix}
+            \P(\text{label} = 1) & \cdots & \P(\text{label} = n)
+        \end{bmatrix}
+    \end{equation*}
 
     E.g. image classification: \\[0.5ex]
 
@@ -124,9 +125,9 @@
                 \end{bmatrix}%
             }
         \end{align*}
-        \vspace{-1pt}
+        \vspace{-10pt}
+    \end{block}
         Like one-hot, output loosely interpreted as
-        \vspace{-1pt}
         \begin{equation*}
             \textcolor{Green4}{%
                 \begin{bmatrix}
@@ -134,7 +135,6 @@
                 \end{bmatrix}%
             }
         \end{equation*}
-    \end{block}
 
     \begin{itemize}
         \item E.g.: model outputs \textcolor{blue}{%
@@ -145,6 +145,36 @@
             $\softmax(\y) = \begin{bmatrix} 1.40\E{-6} & 0.593 & 0.381 & \cdots \end{bmatrix}$
         }
         \item Model is 59.3\% confident in ``cat,'' 38.1\% confident in ``dog''
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Converting classification to regression: sigmoid}
+    If $\exists$ only two classes (e.g., yes/no), second probability is redundant.
+    Alternative:
+
+    \begin{columns}
+        \begin{column}{2.3in}
+            \begin{block}{Standard logistic activation}
+                Converts arbitrary real scalar (called \textcolor{blue}{logit}) to single probability
+                \begin{align*}
+                    \sigma &: \textcolor{blue}{\Reals} \to \textcolor{Green4}{(0, 1)} \\
+                    &\hspace{1.25ex} \textcolor{blue}{y} \mapsto
+                    \textcolor{Green4}{\frac{1}{1 + e^{-y}}}
+                \end{align*}
+            \end{block}
+        \end{column}
+        \begin{column}{1.8in}
+            \includegraphics{sigmoid}
+        \end{column}
+    \end{columns}
+    \vspace{1em}
+
+    Loose interpretation: $\P(\text{class } 1) = \sigma(y)$, $\P(\text{class } 2) = 1 - \sigma(y)$
+
+    \begin{itemize}
+        \item Technically, any function of this shape is called ``sigmoid''
+        \item Many people use ``sigmoid'' to refer specifically to the standard logistic
     \end{itemize}
 \end{frame}
 

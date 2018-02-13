@@ -51,6 +51,20 @@ class Plots:
         ax.plot(x, y, '.', ms=3)
         ax.plot(z, np.polyval(p, z), 'r-')
 
+    def _plot_sigmoid(self):
+        """Plot the standard logistic function."""
+        x = np.linspace(-5, 5, 10001)
+        y = 1 / (np.exp(-x) + 1)
+
+        plt.figure(figsize=(1.8, 1.2))
+        plt.plot(x, y, 'g')
+        plt.grid(True)
+        plt.axis((-5, 5, 0, 1))
+        plt.xlabel('$y$')
+        plt.ylabel('$\sigma$')
+        plt.gca().set_yticks(np.arange(0, 1.5, 0.5))
+        plt.tight_layout(0)
+
     def _parse(self):
         """Parse the command-line arguments."""
         prefix = '_plot_'
