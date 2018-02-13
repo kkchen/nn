@@ -129,6 +129,108 @@
 \end{frame}
 
 \begin{frame}
+    \frametitle{Converting classification to regression: one-hot}
+
+    Classification problems almost always converted to regression via easy trick
+
+    \begin{block}{One-hot encoding}
+        For labels $1, \dots, n$, represent each label as the unit vector $\e_i$, $i = 1, \dots, n$ \\[1ex]
+    \end{block}
+
+    One-hot vectors loosely interpreted as
+    \begin{equation*}
+        \begin{bmatrix}
+            \P(\text{label} = 1) & \cdots & \P(\text{label} = n)
+        \end{bmatrix}
+    \end{equation*}
+
+    E.g. image classification: \\[0.5ex]
+
+    \centering
+    \begin{tabular}{c|cc}
+        label & index & one-hot vector \\
+        \hline
+        bird & 1 & $\begin{bmatrix} 1 & 0 & 0 & 0 & \cdots & 0 \end{bmatrix}$ \\
+        cat & 2 & $\begin{bmatrix} 0 & 1 & 0 & 0 & \cdots & 0 \end{bmatrix}$ \\
+        dog & 3 & $\begin{bmatrix} 0 & 0 & 1 & 0 & \cdots & 0 \end{bmatrix}$ \\
+    \end{tabular}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Converting classification to regression: softmax}
+    One-hot works for labeling data.
+    What about model outputs?
+
+    \begin{block}{Softmax activation}
+        Converts arbitrary real vector (called \textcolor{blue}{logits}) to \textcolor{Green4}{vector of probabilities that sums to 1}
+        \vspace{-1pt}
+        \begin{align*}
+            \softmax &: \textcolor{blue}{\Reals^n} \to
+            \textcolor{Green4}{(0, 1)^n \text{ with } L^1 \text{ norm} = 1} \\
+            &\hspace{1.25ex} \textcolor{blue}{%
+                \left(\begin{bmatrix} y_1 & \cdots & y_n \end{bmatrix}\right)%
+            } \mapsto
+            \textcolor{Green4}{%
+                \frac{1}{\sum_{i=1}^n e^{y_i}}
+                \begin{bmatrix}
+                    e^{y_1} & \cdots & e^{y_n}
+                \end{bmatrix}%
+            }
+        \end{align*}
+        \vspace{-10pt}
+    \end{block}
+        Like one-hot, output loosely interpreted as
+        \begin{equation*}
+            \textcolor{Green4}{%
+                \begin{bmatrix}
+                    \P(\text{label} = 1) & \cdots & \P(\text{label} = n)
+                \end{bmatrix}%
+            }
+        \end{equation*}
+
+    \begin{itemize}
+        \item E.g.: model outputs \textcolor{blue}{%
+            logits
+            $\y = \begin{bmatrix} -3.33 & 9.62 & 9.18 & \cdots \end{bmatrix}$
+        }
+        \item \textcolor{Green4}{%
+            $\softmax(\y) = \begin{bmatrix} 1.40\E{-6} & 0.593 & 0.381 & \cdots \end{bmatrix}$
+        }
+        \item Model is 59.3\% confident in ``cat,'' 38.1\% confident in ``dog''
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Converting classification to regression: sigmoid}
+    If $\exists$ only two classes (e.g., yes/no), second probability is redundant.
+    Alternative:
+
+    \begin{columns}
+        \begin{column}{2.3in}
+            \begin{block}{Standard logistic activation}
+                Converts arbitrary real scalar (called \textcolor{blue}{logit}) to single probability
+                \begin{align*}
+                    \sigma &: \textcolor{blue}{\Reals} \to \textcolor{Green4}{(0, 1)} \\
+                    &\hspace{1.25ex} \textcolor{blue}{y} \mapsto
+                    \textcolor{Green4}{\frac{1}{1 + e^{-y}}}
+                \end{align*}
+            \end{block}
+        \end{column}
+        \begin{column}{1.8in}
+            \includegraphics{sigmoid}
+        \end{column}
+    \end{columns}
+    \vspace{1em}
+
+    Loose interpretation: $\P(\text{class } 1) = \sigma(y)$, $\P(\text{class } 2) = 1 - \sigma(y)$
+
+    \begin{itemize}
+        \item Technically, any function of this shape is called ``sigmoid''
+        \item Many people use ``sigmoid'' to refer specifically to the standard logistic
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
     \frametitle{Unsupervised learning}
     \begin{block}{Unsupervised learning}<+->
         \begin{itemize}

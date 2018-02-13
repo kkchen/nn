@@ -62,6 +62,20 @@ class Plots:
         """Plot a colored example of clusters."""
         self._cluster_plot(True)
 
+    def _plot_sigmoid(self):
+        """Plot the standard logistic function."""
+        x = np.linspace(-5, 5, 10001)
+        y = 1 / (np.exp(-x) + 1)
+
+        plt.figure(figsize=(1.8, 1.2))
+        plt.plot(x, y, 'g')
+        plt.grid(True)
+        plt.axis((-5, 5, 0, 1))
+        plt.xlabel('$y$')
+        plt.ylabel('$\sigma$')
+        plt.gca().set_yticks(np.arange(0, 1.5, 0.5))
+        plt.tight_layout(0)
+
     def _set_cluster_data(self):
         """Get the 2-D cluster data."""
         n = 100
@@ -90,7 +104,6 @@ class Plots:
             ax.plot(a, b, fmt, ms=3)
 
         ax.axis('off')
-
 
     def _parse(self):
         """Parse the command-line arguments."""
