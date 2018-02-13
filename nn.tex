@@ -5,6 +5,7 @@
 \usepackage[T1]{fontenc}
 \usepackage{newpxtext}
 \usepackage{newpxmath}
+\usepackage{amsmath}
 \usepackage{bm}
 \usepackage{natbib}
 \usepackage[absolute, overlay]{textpos} % showboxes to show boxes.
@@ -13,6 +14,16 @@
 
 % Fields.
 \newcommand*{\Reals}{\mathbb{R}}
+
+% Operators.
+\newcommand*{\E}[1]{\cdot 10^{#1}}
+\renewcommand*{\P}{\mathbf{P}}
+\DeclareMathOperator{\softmax}{\mathrm{softmax}}
+
+% Vectors.
+\newcommand*{\e}{\mathbf{e}}
+\newcommand*{\x}{\mathbf{x}}
+\newcommand*{\y}{\mathbf{y}}
 
 % LaTeX things.
 \renewcommand{\thefootnote}{\fnsymbol{footnote}}
@@ -76,8 +87,8 @@
 \include{sections/preamble}
 \include{sections/introduction}
 \include{sections/ml}
-\include{sections/dense}
 \include{sections/loss}
+\include{sections/dense}
 \include{sections/optimization}
 \include{sections/regularization}
 \include{sections/cnn}
