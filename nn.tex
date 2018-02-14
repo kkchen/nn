@@ -1,4 +1,4 @@
-\documentclass[x11names, handout, 10pt]{beamer}
+\documentclass[x11names, 10pt]{beamer}
 
 \usefonttheme{professionalfonts}
 
@@ -65,6 +65,17 @@
 
 % TikZ commands.
 \usetikzlibrary{arrows.meta, positioning}
+\tikzset{
+    onslide/.code args={<#1>#2}{
+        \only<#1>{\pgfkeysalso{#2}} % \pgfkeysalso doesn't change the path
+    }
+}
+\tikzset{
+    temporal/.code args={<#1>#2#3#4}{
+        % \pgfkeysalso doesn't change the path
+        \temporal<#1>{\pgfkeysalso{#2}}{\pgfkeysalso{#3}}{\pgfkeysalso{#4}}
+    }
+}
 
 % Figures.
 \graphicspath{{figures/}}

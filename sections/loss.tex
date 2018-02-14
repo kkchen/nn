@@ -6,7 +6,7 @@
     \frametitle{How good is a prediction?}
 
     \begin{itemize}
-        \item<+-> $\x \in \X$: data \& model input
+        \item $\x \in \X$: data \& model input
         \item $\y \in \Y$: data output
         \item $\yh \in \Yh$: model output with $\dim(\Yh) = \dim(\Y)$ (generally, $\Yh = \Y$)
         \item $\f : \X \to \Yh, \x \mapsto \yh$: model
@@ -95,7 +95,7 @@
     \frametitle{Classification loss function: more cross-entropy}
     Recall: for binary problems, classes are $y = 0$ (no) and $1$ (yes)
 
-    \begin{block}{Binary cross-entropy loss}<+->
+    \begin{block}{Binary cross-entropy loss}
         \vspace{-1em}
         \begin{align*}
             L(y, \hat{y}) &:= -y \log \hat{y} - (1 - y) \log(1 - \hat{y}) \\
@@ -134,12 +134,12 @@
 \begin{frame}
     \frametitle{Model risk and batch loss}
 
-    The \alert{model risk} is the expected loss over all $\x \in \X$:
+    The \alert{model risk} is the expected loss over all $\x \in \X$ with distribution $p_\X$:
 
     \begin{block}{Model risk}
         \vspace{-1em}
         \begin{align*}
-            R(f) &:= \E_{\x \sim \X}(\E_{\y \mid \x}(L(\y, \f(\x)))) \\
+            R(f) &:= \E_{\x \sim p_\X}(\E_{\y \mid \x}(L(\y, \f(\x)))) \\
             &= \int_\X \int_\Y L(\y, \f(\x)) \Prob(\y | \x) \, d\y \Prob(\x) \, d\x
         \end{align*}
     \end{block}
@@ -150,13 +150,13 @@
     \begin{block}{Approximate model risk / batch loss}
         \vspace{-1em}
         \begin{align*}
-            \hat{R}(f) &:= \E_{(\x, \y) \sim \B}(L(\y, \f(\x))) \\
+            \hat{R}(f) &:= \E_{(\x, \y) \in \B}(L(\y, \f(\x))) \\
             &= \frac{1}{m} \sum_{i=1}^m L(\y_i, \f(\x_i))
         \end{align*}
     \end{block}
     \pause
 
-    The objective of machine learning training is to minimize this loss over some set of data.
+    Objective of machine learning training: \alert{minimize this loss over some data set}.
 \end{frame}
 
 %%% Local Variables:

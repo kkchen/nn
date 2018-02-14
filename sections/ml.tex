@@ -27,7 +27,7 @@
             \end{itemize}
         \end{column}
         \begin{column}{1.75in}
-            \includegraphics{linear_regression}
+            \visible<+->{\includegraphics{linear_regression}}
         \end{column}
     \end{columns}
 \end{frame}
@@ -189,11 +189,10 @@
         \textcolor{Green4}{%
             \begin{bmatrix}
                 \Prob(\text{label} = 1) & \cdots & \Prob(\text{label} = n)
-            \end{bmatrix}\footnote{%
-                Real statisticians object to calling these \emph{probabilities}, but we'll be flexible for now%
-            }%
+            \end{bmatrix}
         }
     \end{equation*}
+    (Real statisticians object to calling these \emph{probabilities}; we'll be flexible)
 
     \begin{itemize}
         \item E.g.: model outputs \textcolor{blue}{%
@@ -238,7 +237,7 @@
     \end{itemize}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[t]
     \frametitle{Unsupervised learning}
     \begin{block}{Unsupervised learning}
         \begin{itemize}
@@ -251,14 +250,30 @@
 
     \uncover<4->{Examples:}
     \begin{itemize}
-        \item<4-> Generative modeling: given pictures of volcanoes, generate new ones that look realistic
-        \item<5-> Determine if loan/insurance applicant is low/medium/high-risk
+        \item<4-> Generative modeling: given \textcolor<5->{blue}{pictures of volcanoes}, generate \textcolor<5->{Green4}{new ones that look realistic}
+        \item<6-> Determine if loan/insurance applicant is low/medium/high-risk
     \end{itemize}
 
-    \only<2>{\includegraphics[scale=0.7]{cluster}}
-    \only<3->{\includegraphics[scale=0.7]{clusters}}
-    % To do: put in volcano images.
-    \uncover<4->{}
+    \temporal<2>{%
+    }{%
+        \includegraphics{cluster}%
+    }{%
+        \includegraphics{clusters}%
+    }
+    \hfill
+    \begin{tikzpicture}[
+        node distance=5mm,
+        frame/.style={draw, rectangle, ultra thick, inner sep=1pt}
+    ]
+        \visible<4->{
+            \node (real) [frame, temporal=<5>{white}{blue}{blue}] {
+                \includegraphics[width=3.2cm]{volcano_data}
+            };
+            \node (gen) [right=of real, frame, temporal=<5>{white}{Green4}{Green4}] {
+                \includegraphics[width=3.2cm]{volcano_generated}
+            };
+        }
+    \end{tikzpicture}
 \end{frame}
 
 \begin{frame}
@@ -283,7 +298,7 @@
 
     \begin{columns}
         \begin{column}{0.44\textwidth}
-            \uncover<+->{The list is long:}
+            The list is long:
             \begin{itemize}[<.->]
                 \item Logistic regression
                 \item Gaussian mixture models
@@ -293,17 +308,17 @@
                 \item Decision trees
                 \item Random forests
                 \item Support vector machines
-                \item \alert<+->{(Artificial) neural networks}
+                \item \alert<2->{(Artificial) neural networks}
                 \item Etc.
             \end{itemize}
         \end{column}
 
         \begin{column}{0.56\textwidth}
-            \uncover<.->{%
+            \uncover<2->{%
                 I will only focus on neural networks.
                 Even then, variations are plentiful:
             }
-            \begin{itemize}[<.->]
+            \begin{itemize}[<2->]
                 \item \alert<3->{Dense (fully-connected) NN: generic}
                 \item Convolutional NN: for spatial data
                 \item \alert<3->{Recurrent NN: for temporal data (Thursday's topic)}
@@ -313,7 +328,7 @@
                 \item Recommender systems
                 \item Etc.
             \end{itemize}
-            \uncover<.->{These can generally be combined freely}
+            \uncover<2->{These can generally be combined freely}
         \end{column}
     \end{columns}
 \end{frame}

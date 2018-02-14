@@ -93,7 +93,7 @@ class Plots:
 
     def _cluster_plot(self, colors):
         """Make a plot of the clusters, signaling whether to use colors."""
-        plt.figure(figsize=(2, 1.5))
+        plt.figure(figsize=(1.3, 1.3))
         ax = plt.axes((0, 0, 1, 1))
         fmt = '.'
 
@@ -101,7 +101,7 @@ class Plots:
             fmt += 'k'
 
         for a, b in zip(self._cluster_x, self._cluster_y):
-            ax.plot(a, b, fmt, ms=3)
+            ax.plot(a, b, fmt, ms=1)
 
         ax.axis('off')
 
