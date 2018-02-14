@@ -106,9 +106,9 @@ class Plots:
         zeros = np.zeros(x.shape)
         relu = np.maximum(zeros, x)
 
-        plt.plot(x, relu, 'b')
-        plt.plot(x, relu + np.minimum(zeros, 0.05 * x), 'r')
         plt.plot(x, relu + np.minimum(zeros, np.exp(x) - 1), 'm')
+        plt.plot(x, relu + np.minimum(zeros, 0.05 * x), 'r')
+        plt.plot(x, relu, 'b')
 
         plt.axis((-4, 4, -1, 4))
         plt.xlabel('$x$')

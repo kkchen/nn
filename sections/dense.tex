@@ -159,8 +159,20 @@
                 \begin{itemize}
                     \item Most common, but suffers from vanishing gradients
                 \end{itemize}
-                \item \textcolor{red}{Leaky/parametric ReLU \citep{MaasICML13}: $\sigma(x) = \begin{cases} x &\mid x \ge 0 \\ \alpha x &| x < 0 \end{cases}$}
-                \item \textcolor{magenta}{Exponential linear unit (ELU) \citep{ClevertICLR16}: $\sigma(x) = \begin{cases} x &\mid x > 0 \\ \alpha (e^x - 1) &\mid x \le 0 \end{cases}$}
+                \item \textcolor{red}{Leaky/parametric ReLU} \citep{MaasICML13}:
+                \textcolor{red}{
+                    $\sigma(x) = \begin{cases}
+                        x &\mid x \ge 0 \\
+                        \alpha x &| x < 0
+                    \end{cases}$
+                }
+                \item \textcolor{Magenta3}{Exponential linear unit (ELU)} \citep{ClevertICLR16}:
+                \textcolor{Magenta3}{
+                    $\sigma(x) = \begin{cases}
+                        x &\mid x > 0 \\
+                        \alpha (e^x - 1) &\mid x \le 0
+                    \end{cases}$
+                }
             \end{itemize}
         \end{column}
         \begin{column}{2in}
