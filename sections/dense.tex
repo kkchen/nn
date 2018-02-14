@@ -193,7 +193,19 @@
 
 \begin{frame}
     \frametitle{What can dense neural networks model?}
-    % Universal approximation
+    \begin{block}{Universal approximation theorem}
+        Anything, basically, if $\text{width} \to \infty$.
+        \begin{itemize}
+            \item Depth not required; 1 hidden layer is enough
+        \end{itemize}
+    \end{block}
+
+    Some mild conditions required.
+    Limitations on $\sigma$:
+    \begin{itemize}
+        \item $\sigma$ is sigmoid \citep{CybenkoMCSS89,HornikNN89,HornikNN91}
+        \item $\sigma$ can be ReLU, polynomial, Gaussian, etc. \citep{SonodaACHA}
+    \end{itemize}
 \end{frame}
 
 %%% Local Variables:
