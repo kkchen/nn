@@ -62,18 +62,35 @@ class Plots:
         """Plot a colored example of clusters."""
         self._cluster_plot(True)
 
-    def _plot_sigmoid(self):
+    def _plot_sigmoid(self, figsize=(1.8, 1.2)):
         """Plot the standard logistic function."""
         x = np.linspace(-5, 5, 10001)
         y = 1 / (np.exp(-x) + 1)
 
-        plt.figure(figsize=(1.8, 1.2))
+        plt.figure(figsize=figsize)
         plt.plot(x, y, 'g')
         plt.grid(True)
         plt.axis((-5, 5, 0, 1))
         plt.xlabel('$y$')
         plt.ylabel('$\sigma$')
         plt.gca().set_yticks(np.arange(0, 1.5, 0.5))
+        plt.tight_layout(0)
+
+    def _plot_activations(self):
+        """Plot common activation functions."""
+        self._plot_sigmoid((2, 2.2))
+        x = np.linspace(-5, 5, 10001)
+        zeros = np.zeros(x.shape)
+        relu = np.maximum(zeros, x)
+
+        plt.plot(x, relu, 'b')
+        plt.plot(x, relu + np.minimum(zeros, 0.05 * x), 'r')
+        plt.plot(x, relu + np.minimum(zeros, np.exp(x) - 1), 'm')
+
+        plt.axis((-4, 4, -1, 4))
+        plt.xlabel('$x$')
+        plt.gca().set_xticks(range(-4, 6, 2))
+        plt.gca().set_yticks(range(-1, 5))
         plt.tight_layout(0)
 
     def _set_cluster_data(self):

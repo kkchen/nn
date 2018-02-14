@@ -110,6 +110,47 @@
 \end{frame}
 
 \begin{frame}
+    \frametitle{Activation functions}
+    \begin{block}{Why do neurons have nonlinear activation functions?}
+        If $\sigma$ is linear (including the identity $\sigma(x) = x$, i.e. no activation), the neural network $\f : \x \mapsto \y$ is necessarily linear \\[1ex]
+        For $\f$ to be nonlinear, \alert{activation functions must be nonlinear}!
+    \end{block}
+
+    In some sense, it doesn't even matter what $\sigma$ is, as long as it's nonlinear. \\[1ex]
+
+    To be more particular, $\sigma$ should
+    \begin{itemize}
+        \item be fast to compute (will be called gazillions of times)
+        \item not lead to vanishing or exploding gradients
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Common activation functions}
+    \begin{columns}
+        \begin{column}{2.5in}
+            \begin{itemize}
+                \item \textcolor{Green4}{Standard logistic/sigmoid function: $\sigma(x) = \dfrac{1}{1 + e^{-x}} = \dfrac{\tanh(x) + 1}{2}$}
+                \begin{itemize}
+                    \item Used to be preferred
+                    \item Now thought to be too slow
+                    \item Suffers from vanishing gradients
+                \end{itemize}
+                \item \textcolor{blue}{Rectified linear unit (ReLU): $\sigma(x) = \max(0, x)$}
+                \begin{itemize}
+                    \item Most common, but suffers from vanishing gradients
+                \end{itemize}
+                \item \textcolor{red}{Leaky/parametric ReLU \citep{MaasICML13}: $\sigma(x) = \begin{cases} x &\mid x \ge 0 \\ \alpha x &| x < 0 \end{cases}$}
+                \item \textcolor{magenta}{Exponential linear unit (ELU) \citep{ClevertICLR16}: $\sigma(x) = \begin{cases} x &\mid x > 0 \\ \alpha (e^x - 1) &\mid x \le 0 \end{cases}$}
+            \end{itemize}
+        \end{column}
+        \begin{column}{2in}
+            \includegraphics{activations}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
     \frametitle{Deep neural networks}
 
     No reason to stop at only one hidden layer!
@@ -121,10 +162,15 @@
     Common but not necessary for $\SIGMA$ to be the same in each layer
 \end{frame}
 
-% Nonlinearities: why necessary, and common choices
-% Choice of activation
-% Expressivity in depth
-% Universal approximation
+\begin{frame}
+    \frametitle{Why is deep better than wide?}
+    % Expressivity in depth
+\end{frame}
+
+\begin{frame}
+    \frametitle{What can dense neural networks model?}
+    % Universal approximation
+\end{frame}
 
 %%% Local Variables:
 %%% mode: latex
