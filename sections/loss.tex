@@ -21,21 +21,43 @@
     \end{block}
     \pause
 
-    Common examples, regression:
-    \begin{itemize}
-        \item \alert{Mean squared error}: $L(\y, \yh) := \dfrac{\|\y - \yh\|_2^2}{\dim(\y)}$
-        \begin{itemize}
-            \item Most common loss for regression
-        \end{itemize}
-        \item Mean absolute error: $L(\y, \yh) := \dfrac{\|\y - \yh\|_1}{\dim(\y)}$
-    \end{itemize}
+    We will see later that ``training a machine learning algorithm'' basically means ``minimizing the expected loss over the training data.'' \\[1ex]
+
+    You get to pick the loss function!
 \end{frame}
 
 \begin{frame}
-    \frametitle{Classification loss}
+    \frametitle{Regression loss functions}
+    Let $\y = \begin{bmatrix} y_1 & \cdots & y_n \end{bmatrix}$,
+    $\yh = \begin{bmatrix} \hat{y}_1 & \cdots & \hat{y}_n \end{bmatrix}$
+
+    \begin{block}{Mean squared error}
+        \vspace{-1em}
+        \begin{align*}
+            L(\y, \yh) &:= \frac{1}{n} \sum_{i=1}^n (y_n - \hat{y}_n)^2 \\
+            &= \dfrac{\|\y - \yh\|_2^2}{n}
+        \end{align*}
+        \vspace{-1em}
+        \begin{itemize}
+            \item Most common loss for regression
+        \end{itemize}
+    \end{block}
+
+    \begin{block}{Mean absolute error}
+        \vspace{-1em}
+        \begin{align*}
+            L(\y, \yh) &:= \frac{1}{n} \sum_{i=1}^n |y_n - \hat{y}_n| \\
+            &= \dfrac{\|\y - \yh\|_1}{n}
+        \end{align*}
+        \vspace{-1em}
+    \end{block}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Classification loss functions}
     Assumptions:
     \begin{itemize}
-        \item<+-> $\y$ one-hot; $\argmax(\y) = k$ (the correct label)
+        \item<+-> correct label $= k$; $\y = \e_k$ (one-hot)
         \item<.-> $\yh =
         \begin{bmatrix}
             \hat{y}_1 & \cdots & \hat{y}_n
@@ -45,27 +67,67 @@
         \end{bmatrix}$
     \end{itemize}
 
-    Losses:
-    \begin{itemize}[<+->]
-        \item Easiest---zero--one loss: $L(\y, \yh) := \begin{cases}
-            0 &\mid \argmax(\yh) = k \\
-            1 &\mid \argmax(\yh) \ne k
-        \end{cases}$
+    \begin{block}{Zero--one loss}<+->
+        \begin{equation*}
+            L(\y, \yh) := \begin{cases}
+                0 &\mid \argmax(\yh) = k \\
+                1 &\mid \argmax(\yh) \ne k
+            \end{cases}
+        \end{equation*}
         \begin{itemize}
-            \item Problem: non-differentiable
+            \item Easiest, but non-differentiable
         \end{itemize}
-        \item Cross-entropy loss: $L(\y, \yh) := -\log(\hat{y}_k) = \log\left(\dfrac{1}{\Prob(\text{label} = k)}\right)$
+    \end{block}
+
+    \begin{block}{(Categorical) cross-entropy loss}<+->
+        \begin{equation*}
+            L(\y, \yh) := -\log\hat{y}_k = \log\left(\dfrac{1}{\Prob(\text{label} = k)}\right)
+        \end{equation*}
         \begin{itemize}
             \item Most common loss for labeling with $> 2$ classes
             \item $L = 0 \iff P(\text{label} = k) = 1$;
             $L \to \infty \iff P(\text{label} = k) \to 0$
-            \item Note: penalizes being unconfident about correct label, \emph{not} having the wrong $\argmax(\yh)$
         \end{itemize}
-        \item Binary cross-entropy loss: $L(y, \hat{y}) := -y \log \hat{y} - (1 - y) \log(1 - \hat{y})$
-        \begin{itemize}
-            \item Recall: for binary problems, classes are $y = 0$ and $1$
-            \item $L(0, \hat{y}) = -\log(1 - \hat{y})$; $L(1, \hat{y}) = -\log \hat{y}$
-        \end{itemize}
+    \end{block}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Classification loss function: more cross-entropy}
+    Recall: for binary problems, classes are $y = 0$ (no) and $1$ (yes)
+
+    \begin{block}{Binary cross-entropy loss}<+->
+        \vspace{-1em}
+        \begin{align*}
+            L(y, \hat{y}) &:= -y \log \hat{y} - (1 - y) \log(1 - \hat{y}) \\
+            &= \begin{cases}
+                -\log(1 - \hat{y}) &\mid y = 0 \\
+                -\log \hat{y} &\mid y = 1
+            \end{cases}
+        \end{align*}
+    \end{block}
+    \pause
+
+    Note: high accuracy $\centernot\implies$ small loss
+    \begin{itemize}
+        \item Typically, model prediction taken to be $\argmax(\yh)$
+        \item Cross-entropy penalizes being unconfident about correct label, \emph{not} having the wrong $\argmax(\yh)$
+        \pause
+        \item E.g., if $k = 3$ is correct answer, cross-entropy:
+        \begin{align*}
+            L(
+                \begin{bmatrix} 0 & 0 & 1 & 0 \end{bmatrix},
+                \begin{bmatrix}
+                    0.05 & 0.03 & \textcolor{blue}{0.9} & 0.02
+                \end{bmatrix}
+            ) &= 0.105 \\
+            L(
+                \begin{bmatrix} 0 & 0 & 1 & 0 \end{bmatrix},
+                \begin{bmatrix}
+                    0.25 & 0.25 & \textcolor{blue}{0.26} & 0.24
+                \end{bmatrix}
+            ) &= 1.35
+        \end{align*}
+        even though both $\yh$ correctly predict $\argmax(\yh) = 3$
     \end{itemize}
 \end{frame}
 
