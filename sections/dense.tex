@@ -45,7 +45,7 @@
         \item weight vectors $\w_k \in \Reals^q$, $k = 1, \ldots, n$,
         \item biases $b_k \in \Reals$, $k = 1, \ldots, n$,
     \end{itemize}
-    \begin{block}{The \alert{hidden layer}}
+    \begin{block}{\alert{Hidden layer}}
         \vspace{-1em}
         \begin{align*}
             z_k &= \sigma(\w_k \cdot \x + b_k), \quad k = 1, \ldots, n \\
@@ -77,7 +77,36 @@
 
 \begin{frame}
     \frametitle{Single hidden-layer neural network: matrix equations}
-    
+
+    The equations are more compact in matrix form:
+    \begin{itemize}
+        \item Weight matrix $\W \in \Reals^{n \times q}$
+        \item Bias vector $\b \in \Reals^n$
+        \item Element-wise activation function
+        \begin{align*}
+            \SIGMA &: \Reals^n \to \Reals^n \\
+            &\hspace{1.25ex} \begin{bmatrix} \xi_1 & \cdots & \xi_n \end{bmatrix} \mapsto
+            \begin{bmatrix} \sigma(\xi_1) & \cdots & \sigma(\xi_n) \end{bmatrix}
+        \end{align*}
+    \end{itemize}
+
+    \begin{block}{Hidden layer}
+        \begin{equation*}
+            \z = \SIGMA(\W \x + \b)
+        \end{equation*}
+    \end{block}
+    \pause
+
+    \begin{itemize}
+        \item Weight matrix $\V \in \Reals^{q \times n}$
+        \item Bias vector $\c \in \Reals^q$
+    \end{itemize}
+
+    \begin{block}{Single hidden-layer neural network}
+        \begin{equation*}
+            \y = \V \z + \c
+        \end{equation*}
+    \end{block}
 \end{frame}
 % Nonlinearities: why necessary, and common choices
 % Universal approximation
