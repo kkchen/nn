@@ -3,7 +3,7 @@
 \subsection{}
 
 \begin{frame}
-    \frametitle{The neuron}
+    \frametitle{The neuron: equations}
 
     Consider an input $\x \in \Reals^q$.
     \begin{block}{}
@@ -35,6 +35,10 @@
         \end{itemize}
         \item Today, relation is largely only conceptual/philosophical
     \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{The neuron: geometric interpretation}
 \end{frame}
 
 \begin{frame}
@@ -164,7 +168,27 @@
 
 \begin{frame}
     \frametitle{Why is deep better than wide?}
-    % Expressivity in depth
+    \begin{itemize}
+        \item Depth: \# layers
+        \item Width: \# neurons in each layer (need not be fixed)
+    \end{itemize}
+    \pause
+
+    Neural network with $\sigma = \text{ReLU}$ is piecewise linear function
+    \begin{itemize}
+        \item \alert{Expressivity} of ReLU network measured by \# linear pieces
+        \item For a network with width $w$ and depth $l$, \alert{$\max \text{expressivity} \sim w^l$} \citep{Pascanu13,MontufarNIPS14,Chen16}
+        \begin{itemize}
+            \item Polynomial in width
+            \item Exponential in depth!
+        \end{itemize}
+    \end{itemize}
+    \pause
+
+    Common for layers closer to the input to be wider
+    \begin{itemize}
+        \item Closer to the input $\implies$ more expressive power over output \citep{RaghuICML17}
+    \end{itemize}
 \end{frame}
 
 \begin{frame}
