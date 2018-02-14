@@ -1,4 +1,4 @@
-\begin{tikzpicture}[>=latex, node distance=9mm]
+\begin{tikzpicture}[node distance=9mm]
     % Inputs.
     \uncover<+->{
         \node (x1) [scalar] {$x_1$};
@@ -56,9 +56,12 @@
 
     % Connections.
 
-    \foreach \i/\a in {1/130, 2/110, 3/90, 4/70, 5/50} {
+    \foreach \i in {1, ..., 5} {
+        \pgfmathtruncatemacro{\a}{150 - 20 * \i}
+
         % Inputs to affines.
-        \foreach \j/\b in {1/230, 2/257, 3/283, 4/310} {
+        \foreach \j in {1, ..., 4} {
+            \pgfmathtruncatemacro{\b}{202.5 + 27.5 * \j}
             \uncover<2->{\draw [path] (x\j.\a) -- (affine x\i.\b);}
         }
 
@@ -66,9 +69,12 @@
         \uncover<3->{\draw [path] (affine x\i) -- (sigma\i);}
     }
 
-    \foreach \j/\b in {1/120, 2/90, 3/60} {
+    \foreach \j in {1, ..., 3} {
+        \pgfmathtruncatemacro{\b}{150 - 30 * \j}
+
         % Hidden layer activations to output affines.
-        \foreach \i/\a in {1/230, 2/250, 3/270, 4/290, 5/310} {
+        \foreach \i in {1, ..., 5} {
+            \pgfmathtruncatemacro{\a}{210 + 20 * \i}
             \uncover<4->{\draw [path] (sigma\i.\b) -- (affine y\j.\a);}
         }
 

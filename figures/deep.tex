@@ -1,0 +1,80 @@
+\begin{tikzpicture}[node distance=6mm]
+    % Layer 1.
+    \uncover<2->{\node (n11) [neuron] {};}
+
+    \foreach \i in {1, ..., 4} {
+        \pgfmathtruncatemacro{\j}{\i + 1}
+        \uncover<2->{\node (n1\j) [neuron, right=of n1\i] {};}
+
+        % Inputs.
+        \node (x\i) [io, below=of n1\i, xshift=6mm] {};
+        % Layer 2.
+        \uncover<3->{\node (n2\i) [neuron, above=of n1\i, xshift=6mm] {};}
+    }
+
+    \foreach \i in {1, ..., 3} {
+        % Invisible layer 3.
+        \node (n3\i) [minimum width=5mm, above=of n2\i, xshift=5mm] {};
+        % Invisible layer 4.
+        \node (n4\i) [above=4mm of n3\i] {};
+    }
+
+    % Etc.
+    \uncover<4->{\node (etc) [above=8mm of n22, xshift=6mm] {$\vdots$};}
+
+    \uncover<5->{
+        \node (nl1) [neuron, above=of etc, xshift=-6mm] {};
+        \node (nl2) [neuron, right=of nl1] {};
+    }
+
+    % Outputs.
+    \uncover<6->{
+        \node (y2) [io, above=of nl1] {};
+        \node (y3) [io, above=of nl2] {};
+        \node (y1) [io, left=of y2] {};
+        \node (y4) [io, right=of y3] {};
+    }
+
+    \node [right=of x4, xshift=5.5mm] {$\x \in \Reals^q$};
+    \uncover<2->{
+        \node [right=of n15] {$\z_1 = \SIGMA(\W_1 \x + \b_1) \in \Reals^{n_1}$};
+    }
+    \uncover<3->{
+        \node [right=of n24, xshift=5.4mm] {$\z_2 = \SIGMA(\W_2 \z_1 + \b_2) \in \Reals^{n_2}$};
+    }
+    \uncover<4->{
+        \node [right=of n33, yshift=-2mm, xshift=1.64cm] {$\vdots$};
+        \node [right=of etc, yshift=-1mm, xshift=2.28cm] {$\z_i = \SIGMA(\W_i \z_{i-1} + \b_i) \in \Reals^{n_i}$};
+    }
+    \uncover<5->{
+        \node [right=of n43, yshift=5mm, xshift=1.76cm] {$\vdots$};
+        \node [right=of nl2, xshift=1.68cm] {$\z_l = \SIGMA(\W_l \z_{l-1} + \b_l) \in \Reals^{n_l}$};
+    }
+    \uncover<6->{\node [right=of y4, xshift=5.4mm] {$\y = \V \z_l + \c \in \Reals^p$};}
+
+    \foreach \i in {1, ..., 4} {
+        \foreach \j in {1, ..., 5} {
+            \uncover<2->{\draw [path] (x\i.90) -- (n1\j.270);}
+            \uncover<3->{\draw [path] (n1\j.90) -- (n2\i.270);}
+        }
+
+        \foreach \j in {1, ..., 3} {
+            \uncover<4->{\draw [path] (n2\i.90) -- (n3\j.270);}
+        }
+    }
+
+    \foreach \i in {1, 2} {
+        \foreach \j in {1, ..., 3} {
+            \uncover<5->{\draw [path] (n4\j.90) -- (nl\i.270);}
+        }
+
+        \foreach \j in {1, ..., 4} {
+            \uncover<6->{\draw [path] (nl\i.90) -- (y\j.270);}
+        }
+    }
+\end{tikzpicture}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../nn"
+%%% End:

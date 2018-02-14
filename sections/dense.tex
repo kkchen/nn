@@ -45,7 +45,7 @@
         \item weight vectors $\w_k \in \Reals^q$, $k = 1, \ldots, n$,
         \item biases $b_k \in \Reals$, $k = 1, \ldots, n$,
     \end{itemize}
-    \begin{block}{\alert{Hidden layer}}
+    \begin{block}{Hidden layer}
         \vspace{-1em}
         \begin{align*}
             z_k &= \sigma(\w_k \cdot \x + b_k), \quad k = 1, \ldots, n \\
@@ -108,7 +108,22 @@
         \end{equation*}
     \end{block}
 \end{frame}
+
+\begin{frame}
+    \frametitle{Deep neural networks}
+
+    No reason to stop at only one hidden layer!
+
+    \vspace{1mm}
+    \input{figures/deep}
+    \vspace{1mm}
+
+    Common but not necessary for $\SIGMA$ to be the same in each layer
+\end{frame}
+
 % Nonlinearities: why necessary, and common choices
+% Choice of activation
+% Expressivity in depth
 % Universal approximation
 
 %%% Local Variables:
