@@ -39,6 +39,21 @@
 
 \begin{frame}
     \frametitle{The neuron: geometric interpretation}
+
+    \begin{itemize}
+        \item Activation functions $\sigma(x)$ typically most ``interesting'' at $x = 0$
+        \item For neuron $\phi(x) = \sigma(\w \cdot \x + b)$, \textcolor{Green4}{hyperplane} $\w \cdot \x + b = 0$ is a natural boundary in $\X$
+        \item Simple example:
+        \begin{itemize}
+            \item $\x =$ (sex, age, weight, height, LDL, HDL, exercise hrs/wk, smoker)
+            \item $y =$ heart disease risk
+            \item Medical intuition: larger risk for men, older, heavier, shorter, higher LDL, lower HDL, less exercise, smoker
+            \item Geometric interpretation: draw \textcolor{Green4}{hyperplane} through $\Reals^8$ best separating \alert{high-risk} from \textcolor{blue}{low-risk}
+        \end{itemize}
+    \end{itemize}
+
+    \centering
+    \includegraphics{plane}
 \end{frame}
 
 \begin{frame}
@@ -189,12 +204,18 @@
     \begin{itemize}
         \item Closer to the input $\implies$ more expressive power over output \citep{RaghuICML17}
     \end{itemize}
+    \pause
+
+    \begin{block}{}
+        Depth is (arguably) the key reason for the ML/AI explosion in the last decade.
+        Recall ResNet---152 layers deep!
+    \end{block}
 \end{frame}
 
 \begin{frame}
     \frametitle{What can dense neural networks model?}
     \begin{block}{Universal approximation theorem}
-        Anything, basically, if $\text{width} \to \infty$.
+        Anything, basically, if $\text{width} \to \infty$
         \begin{itemize}
             \item Depth not required; 1 hidden layer is enough
         \end{itemize}

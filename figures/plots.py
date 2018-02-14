@@ -76,6 +76,29 @@ class Plots:
         plt.gca().set_yticks(np.arange(0, 1.5, 0.5))
         plt.tight_layout(0)
 
+    def _plot_plane(self):
+        """Plot a hyperplane example."""
+        # Color, from blue (s = 0) to red (s = 1).
+        color = lambda s: (s, 0, 1 - s)
+
+        plt.figure(figsize=(2.7, 1.4))
+
+        for i in range(1000):
+            x = np.random.uniform()
+            y = np.random.uniform()
+            s = min(max(0, (x + y) - 0.5 + np.random.normal(scale=0.5)), 1)
+
+            plt.plot(x, y, '.', color=color(s), ms=1)
+
+        plt.plot((0, 1), (1, 0), 'g-', lw=2)
+
+        plt.axis((0, 1, 0, 1))
+        plt.xlabel('age')
+        plt.ylabel('LDL')
+        plt.gca().set_xticks([])
+        plt.gca().set_yticks([])
+        plt.tight_layout(0)
+
     def _plot_activations(self):
         """Plot common activation functions."""
         self._plot_sigmoid((2, 2.2))
