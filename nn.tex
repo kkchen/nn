@@ -1,4 +1,4 @@
-\documentclass[x11names, 10pt]{beamer}
+\documentclass[x11names, 10pt, handout]{beamer}
 
 \usefonttheme{professionalfonts}
 
@@ -26,12 +26,19 @@
 \DeclareMathOperator*{\argmax}{arg\,max}
 \DeclareMathOperator{\softmax}{\mathrm{softmax}}
 
+% Matrices.
+\newcommand*{\W}{\mathbf{W}}
+
 % Vectors.
+\renewcommand*{\b}{\mathbf{b}}
 \newcommand*{\e}{\mathbf{e}}
 \newcommand*{\f}{\mathbf{f}}
+\renewcommand*{\v}{\mathbf{v}}
+\newcommand*{\w}{\mathbf{w}}
 \newcommand*{\x}{\mathbf{x}}
 \newcommand*{\y}{\mathbf{y}}
 \newcommand*{\yh}{\hat{\y}}
+\newcommand*{\z}{\mathbf{z}}
 
 % LaTeX things.
 \renewcommand{\thefootnote}{\fnsymbol{footnote}}
@@ -65,6 +72,7 @@
 
 % TikZ commands.
 \usetikzlibrary{arrows.meta, positioning}
+
 \tikzset{
     onslide/.code args={<#1>#2}{
         \only<#1>{\pgfkeysalso{#2}} % \pgfkeysalso doesn't change the path
@@ -76,6 +84,12 @@
         \temporal<#1>{\pgfkeysalso{#2}}{\pgfkeysalso{#3}}{\pgfkeysalso{#4}}
     }
 }
+
+\tikzstyle{activation} = [draw, block, fill=green!20]
+\tikzstyle{affine} = [draw, block, fill=blue!20]
+\tikzstyle{block} = [minimum width=7mm, minimum height=7mm, thick, rectangle, rounded corners, font=\small, inner sep=2.5pt]
+\tikzstyle{path} = [-Latex, thick]
+\tikzstyle{scalar} = [draw, block, fill=yellow!20, text height=1.5ex, text depth=0.25ex]
 
 % Figures.
 \graphicspath{{figures/}}

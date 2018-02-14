@@ -1,2 +1,89 @@
+\section{Dense neural networks}
+
+\subsection{}
+
+\begin{frame}
+    \frametitle{The neuron}
+
+    Consider an input $\x \in \Reals^q$.
+    \begin{block}{}
+        Consider some \emph{weight vector} $\w \in \Reals^q$ and \emph{bias} $b \in \Reals$.
+        The mapping
+        \begin{align*}
+            g &: \Reals^q \to \Reals \\
+            &\hspace{1.25ex} \x \mapsto \w \cdot \x + b
+        \end{align*}
+        is an \alert{affine transformation}.
+    \end{block}
+    \pause
+
+    Consider a generally nonlinear \alert{activation function} $\sigma: \Reals \to \Reals$.
+
+    \begin{block}{}
+        An (artifical) \alert{neuron} is the function $\phi = \sigma \circ g$, i.e.,
+        \begin{align*}
+            \phi &: \Reals^q \to \Reals \\
+            &\hspace{1.25ex} \x \mapsto \sigma(\w \cdot \x + b)
+        \end{align*}
+    \end{block}
+    \pause
+
+    \begin{itemize}
+        \item Historically, artificial neuron modeled on biological neurons
+        \begin{itemize}
+            \item Bio neuron triggers impulse by nonlinear function of inputs
+        \end{itemize}
+        \item Today, relation is largely only conceptual/philosophical
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Single hidden-layer neural network: vector equations}
+
+    Consider $n$ neurons each taking in $\x \in \Reals^q$: given
+    \begin{itemize}
+        \item weight vectors $\w_k \in \Reals^q$, $k = 1, \ldots, n$,
+        \item biases $b_k \in \Reals$, $k = 1, \ldots, n$,
+    \end{itemize}
+    \begin{block}{The \alert{hidden layer}}
+        \vspace{-1em}
+        \begin{align*}
+            z_k &= \sigma(\w_k \cdot \x + b_k), \quad k = 1, \ldots, n \\
+            \z &= \begin{bmatrix} z_1 & \cdots & z_n \end{bmatrix} \in \Reals^n
+        \end{align*}
+    \end{block}
+    \pause
+
+    Let the model output $\y \in \Reals^p$ be affine transformations of $\z$: given
+    \begin{itemize}
+        \item weight vectors $\v_k \in \Reals^n$, $k = 1, \ldots, p$
+        \item biases $c_k \in \Reals$, $k = 1, \ldots, p$
+    \end{itemize}
+    \begin{block}{Single hidden-layer neural network}
+        \vspace{-1em}
+        \begin{align*}
+            y_k &= \v_k \cdot \z + c_k, \quad k = 1, \ldots, p \\
+            \y &= \begin{bmatrix} y_1 & \cdots & y_p \end{bmatrix}
+        \end{align*}
+    \end{block}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Single hidden-layer neural network: figure}
+
+    \centering
+    \input{figures/shallow}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Single hidden-layer neural network: matrix equations}
+    
+\end{frame}
 % Nonlinearities: why necessary, and common choices
 % Universal approximation
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../nn"
+%%% End:
+

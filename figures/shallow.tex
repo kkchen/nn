@@ -1,0 +1,83 @@
+\begin{tikzpicture}[>=latex, node distance=9mm]
+    % Inputs.
+    \uncover<+->{
+        \node (x1) [scalar] {$x_1$};
+        \node (x2) [scalar, right=of x1] {$x_2$};
+        \node (x3) [scalar, right=of x2] {$\cdots$};
+        \node (x4) [scalar, right=of x3] {$x_q$};
+
+        \node [right=1.25cm of x4] {$\x$};
+
+    }
+
+    \uncover<+->{
+        % Hidden layer.
+        \draw [very thick, rounded corners, fill=red!10]
+        (-1.2, 0.9) rectangle (6.27, 3.5);
+
+        % Hidden layer combinations.
+        \node (affine x1) [affine, above=of x1, xshift=-5mm] {affine};
+        \node (affine x2) [affine, right=6mm of affine x1] {affine};
+        \node (affine x3) [affine, right=6mm of affine x2] {affine};
+        \node (affine x4) [affine, right=6mm of affine x3] {$\cdots$};
+        \node (affine x5) [affine, right=6mm of affine x4] {affine};
+
+        \node [right=4.3mm of affine x5] {$\w_k \cdot \x + b_k$};
+    }
+
+    \uncover<+->{
+        % Hidden layer activations.
+        \foreach \i in {1, 2, 3, 5} {
+            \node (sigma\i) [activation, above=4mm of affine x\i] {$\sigma$};
+        }
+
+        \node (sigma4) [activation, above=4mm of affine x4] {$\cdots$};
+
+        \node [right=5.5mm of sigma5] {$z_k = \sigma(\w_k \cdot \x + b_k)$};
+    }
+
+    % Output combinations.
+    \uncover<+->{
+        \node (affine y1) [affine, above=of sigma2] {affine};
+        \node (affine y2) [affine, above=of sigma3] {$\cdots$};
+        \node (affine y3) [affine, above=of sigma4] {affine};
+
+        \node [right=1.88cm of affine y3] {$y_k = \v_k \cdot \z + c_k$};
+    }
+
+    % Outputs.
+    \uncover<+->{
+        \node (y1) [scalar, above=of affine y1] {$y_1$};
+        \node (y2) [scalar, above=of affine y2] {$\cdots$};
+        \node (y3) [scalar, above=of affine y3] {$y_p$};
+
+        \node [right=2cm of y3] {$\y$};
+    }
+
+    % Connections.
+
+    \foreach \i/\a in {1/130, 2/110, 3/90, 4/70, 5/50} {
+        % Inputs to affines.
+        \foreach \j/\b in {1/230, 2/257, 3/283, 4/310} {
+            \uncover<2->{\draw [path] (x\j.\a) -- (affine x\i.\b);}
+        }
+
+        % Hidden layer affines to activations.
+        \uncover<3->{\draw [path] (affine x\i) -- (sigma\i);}
+    }
+
+    \foreach \j/\b in {1/120, 2/90, 3/60} {
+        % Hidden layer activations to output affines.
+        \foreach \i/\a in {1/230, 2/250, 3/270, 4/290, 5/310} {
+            \uncover<4->{\draw [path] (sigma\i.\b) -- (affine y\j.\a);}
+        }
+
+        % Output affines to outputs.
+        \uncover<5->{\draw [path] (affine y\j) -- (y\j);}
+    }
+\end{tikzpicture}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../nn"
+%%% End:
