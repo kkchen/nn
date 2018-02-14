@@ -9,19 +9,19 @@
         \item<+-> $\x \in \X$: data \& model input
         \item $\y \in \Y$: data output
         \item $\yh \in \Yh$: model output with $\dim(\Yh) = \dim(\Y)$ (generally, $\Yh = \Y$)
-        \item $f : \X \to \Yh, \x \mapsto \yh$: model
+        \item $\f : \X \to \Yh, \x \mapsto \yh$: model
     \end{itemize}
     \pause
 
     \begin{block}{Loss function}
-        A function that specifies how bad of a prediction $\yh = f(\x)$ is for the ground truth $\y$
+        A function that specifies how bad of a prediction $\yh = \f(\x)$ is for the ground truth $\y$
         \begin{equation*}
             L : \Y \times \Yh \to \Reals_{\ge 0}
         \end{equation*}
     \end{block}
     \pause
 
-    We will see later that ``training a machine learning algorithm'' basically means ``minimizing the expected loss over the training data.'' \\[1ex]
+    We will see that ``training a machine learning algorithm'' basically means ``minimizing the expected loss over the training data.'' \\[1ex]
 
     You get to pick the loss function!
 \end{frame}
@@ -129,6 +129,34 @@
         \end{align*}
         even though both $\yh$ correctly predict $\argmax(\yh) = 3$
     \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Model risk and batch loss}
+
+    The \alert{model risk} is the expected loss over all $\x \in \X$:
+
+    \begin{block}{Model risk}
+        \vspace{-1em}
+        \begin{align*}
+            R(f) &:= \E_{\x \sim \X}(\E_{\y \mid \x}(L(\y, \f(\x)))) \\
+            &= \int_\X \int_\Y L(\y, \f(\x)) \Prob(\y | \x) \, d\y \Prob(\x) \, d\x
+        \end{align*}
+    \end{block}
+    \pause
+
+    Since we usually can't exhaust over all $\x \in \X$, select a batch $\B = \{(\x_i, \y_i)\}_{i=1}^m \subset \X \times \Y$, then use:
+
+    \begin{block}{Approximate model risk / batch loss}
+        \vspace{-1em}
+        \begin{align*}
+            \hat{R}(f) &:= \E_{(\x, \y) \sim \B}(L(\y, \f(\x))) \\
+            &= \frac{1}{m} \sum_{i=1}^m L(\y_i, \f(\x_i))
+        \end{align*}
+    \end{block}
+    \pause
+
+    The objective of machine learning training is to minimize this loss over some set of data.
 \end{frame}
 
 %%% Local Variables:
