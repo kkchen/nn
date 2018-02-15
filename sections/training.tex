@@ -10,7 +10,7 @@
         \item<+-> A neural network $\f$
         \begin{itemize}
             \item User-selected \alert{architecture} (\# layers, \# neurons/layer, activations)
-            \item Parametrized by thousands--billions of \alert{weights} and \alert{biases} $\THETA = (\W_1, \b_1, \W_2, \b_2, \ldots)$
+            \item Behavior set by thousands--billions of \alert{parameters} (weights \& biases) $\THETA = (\W_1, \b_1, \W_2, \b_2, \ldots)$
             \item \alert{Predicts} $\yh$ from $\x$ via $\yh = \f(\x; \THETA)$
             \item \alert{Universal approximation theorem}: $\f$ can model anything if $\THETA$ big enough
         \end{itemize}
@@ -34,7 +34,7 @@
         \item $\exists$ global minimization methods, but very slow
         \item Direct gradient descent usually bad
         \item Better methods: conjugate gradient, quasi-Newton
-        \item \alert{Easily falls into local minima that not globally minimal}
+        \item \alert{Easily falls into non-global minima}
     \end{itemize}
     \pause
 
@@ -78,6 +78,73 @@
         \footnotemark[1]The \alert{partition} means that $\M_i \subseteq \S$ and $|\M_i| > 0$ $\forall i$, $\displaystyle \S = \bigcup_{i=1}^m \M_i$, and $\M_i \cap \M_j = \varnothing$ for $i \ne j$.
         I.e., randomize the data order in $\S$, and peel off $|\S| / m$ elements at a time.%
     }
+\end{frame}
+
+\begin{frame}
+    \frametitle{Why stochastic gradient descent \& mini-batching?}
+    It kills two birds with one stone.
+
+    \begin{block}{Tractability}
+        \textcolor{red}{Gradient descent}: intractable to compute gradient $\p{\hat{R}(\f; \THETA; \S)}{\THETA}$ when $|\S| \approx \dim(\THETA) = \O(10^3 \text{--} 10^{10})$ \\[1ex]
+        \textcolor{blue}{SGD}: tractable when $|\M| = \O(10^1 \text{--} 10^3)$
+    \end{block}
+
+    \begin{block}{Global minimization}
+        \textcolor{red}{Gradient descent}: easily falls into local minima \\[1ex]
+        \textcolor{blue}{SGD}: stochastic because it takes gradient steps based on random small mini-batches
+        \begin{itemize}
+            \item Over long-run average, SGD mimics true gradient using all data
+            \item In short-run, stochasticity gives SGD a chance to climb out of local minima if needed
+        \end{itemize}
+    \end{block}
+\end{frame}
+
+\begin{frame}
+    \frametitle{SGD-based optimizers}
+    \uncover<+->{Issues with vanilla SGD}
+    \begin{itemize}
+        \item In $\Reals^n$ with $n \gg 1$, most critical points are saddle points
+        \item SGD easily gets stuck in saddle points
+        \item In gradient step $\THETA \leftarrow \THETA - \alpha \bnabla\hat{R}$, need to decay learning rate $\alpha$
+    \end{itemize}
+
+    \uncover<+->{Better alternatives}
+    \begin{itemize}[<+->]
+        \item<.-> Momentum: $\THETA \leftarrow \THETA - \alpha \bnabla\hat{R} + \eta \mathbf{\Delta}\THETA$---encourages continuing previous update \citep{RumelhartNature86}
+        \item RMSprop: divide learning rate by mean of recent gradient norms \citep{HintonRMSProp}
+        \item Adagrad: each parameter has own learning rate determined by its gradients \citep{DuchJMLR11}
+        \item Adadelta: improves Adagrad by making learning rate decay less aggressive \citep{Zeiler12}
+        \item \alert<+->{Adam}: adaptive learning rate \& momentum \citep{KingmaICLR15}
+    \end{itemize}
+
+    \uncover<.->{Short: use Adam; it's generally best and works great out-of-the-box}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Mini-batch size}
+
+    Mini-batch size not a random decision; can have huge effects on training
+    \begin{itemize}
+        \item Mini-batch size usually integer power of 2---better GPU optimization
+        \item $\text{Stochasticity} \sim \dfrac{\text{learning rate}}{(\text{mini-batch size}) (1 - \text{momentum})}$ \citep{SmithNIPS17}
+        \item Historically, $\text{size} = 16 \text{--} 256$ common
+        \item Growing trend toward extremely large (e.g., 8,192+) sizes
+    \end{itemize}
+    \pause
+
+    Choosing the mini-batch size
+    \begin{itemize}
+        \item Smaller mini-batch: more stochastic
+        \begin{itemize}
+            \item Better at escaping non-global minima
+        \end{itemize}
+        \item Larger mini-batch: less stochastic
+        \begin{itemize}
+            \item Better at converging to deep, narrow minima
+            \item Faster--better GPU optimization
+            \item But limited by available GPU memory
+        \end{itemize}
+    \end{itemize}
 \end{frame}
 
 % Initialization
