@@ -9,7 +9,6 @@ import sys
 
 from matplotlib import cm
 from matplotlib import pyplot as plt
-from matplotlib import rc
 from mpl_toolkits.mplot3d import Axes3D
 import numpy as np
 
@@ -19,14 +18,14 @@ class Plots:
 
     """Class for making figure plots."""
 
-    _fontsize = 10
+    _fontsize = 9
 
     def __init__(self):
         """Parse the command line argument(s) and save the tag."""
         self._parse()
 
-        rc('text', usetex=True)
-        rc('font', size=self._fontsize)
+        plt.rc('text', usetex=True)
+        plt.rc('font', size=self._fontsize, family='serif')
 
     def plot(self):
         """Run the plotting method based on the tag; save or display."""
@@ -46,7 +45,7 @@ class Plots:
 
     def _plot_linear_regression(self):
         """Plot a linear regression example."""
-        n = 100
+        n = 50
         x = np.random.uniform(0, 1, n)
         y = x + np.random.normal(0, 0.2, n)
         z = np.arange(0, 2)
@@ -154,6 +153,34 @@ class Plots:
         ax.axis('off')
         ax.dist = 8
 
+    def _plot_under_over_train(self):
+        """Plot under/properly/over-trained model."""
+        x = np.random.uniform(0, 2 * np.pi, 100)
+        x = np.sort(x)
+        y = np.sin(x) + np.random.normal(0, 0.4, len(x))
+
+        plt.figure(figsize=(4.25, 1.5))
+        ax = [plt.axes((0.045 + i * 0.32, 0.11, 0.31, 0.75)) for i in range(3)]
+
+        z = np.array((0, 1, 4, 2 * np.pi))
+        ax[0].plot(z, np.sin(z))
+
+        z = np.linspace(0, 2 * np.pi, 20)
+        ax[1].plot(z, np.sin(z))
+
+        ax[2].plot(x, y)
+
+        for a in ax:
+            a.plot(x, y, '.', ms=1)
+
+            a.set_xlabel('$x$')
+            a.set_xticks([])
+            a.set_yticks([])
+
+        ax[0].set_ylabel('$y$')
+        ax[0].set_title('Underfitted')
+        ax[1].set_title('Good model')
+        ax[2].set_title('Overfitted')
 
     def _set_cluster_data(self):
         """Get the 2-D cluster data."""

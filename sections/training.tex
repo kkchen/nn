@@ -253,9 +253,44 @@
     \end{itemize}
 \end{frame}
 
-% Initialization
-% Powers of 2.
-% Local/global minima
+\begin{frame}
+    \frametitle{Initializing the weights and biases}
+
+    \begin{itemize}
+        \item Common approach: initialize weights by Glorot uniform \citep{GlorotAISTATS10}
+        \begin{itemize}
+            \item Basically, intelligently scaled uniform distribution
+        \end{itemize}
+        \item Initialize biases to 0
+        \item Random initialization helps optimizer find initial directions
+        \item Note: every training invocation gives different result!
+        \begin{itemize}
+            \item Manually set pseudorandom seed if reproducibility required
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Underfitting and overfitting}
+
+    \begin{alertblock}{Danger!}
+        Neural networks are hard to fit, and real-life data are noisy.
+        \emph{Underfitting} and \emph{overfitting} are your two biggest obstacles.
+    \end{alertblock}
+    \vspace{1ex}
+
+    \includegraphics{under_over_train}
+    \pause
+
+    \begin{itemize}
+        \item Underfitting occurs when you don't train enough for the model to capture the underlying behavior
+        \item Overfitting occurs when the training is so good that the neural network memorizes the data, including its underlying noise
+        \begin{itemize}
+            \item Recall: with enough parameters, neural networks learn anything
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
 % Including train/validation/test, or put in separate section.
 % Under/overfit
 
