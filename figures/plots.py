@@ -105,7 +105,7 @@ class Plots:
 
     def _plot_activations(self):
         """Plot common activation functions."""
-        self._plot_sigmoid((2, 2.2))
+        self._plot_sigmoid((2, 1.6))
         x = np.linspace(-5, 5, 10001)
         zeros = np.zeros(x.shape)
         relu = np.maximum(zeros, x)

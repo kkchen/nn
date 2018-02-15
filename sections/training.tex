@@ -14,14 +14,121 @@
             \item \alert{Predicts} $\yh$ from $\x$ via $\yh = \f(\x; \THETA)$
             \item \alert{Universal approximation theorem}: $\f$ can model anything if $\THETA$ big enough
         \end{itemize}
-        \item<+-> Gobs of \alert{data} pairs $(\x_i, \y_i)$
+        \item<+-> Gobs of \alert{data} pairs $\S = \{(\x, \y)\}$
         \item<+-> User-selected \alert{loss function} $L(\y, \yh)$
-        \item<+-> The desire to minimize \alert{model risk} $R(\f) = \E_{(\x, \y)}(L(\y, \f(\x; \THETA)))$
+        \item<+-> Desire to minimize \alert{model risk} $R(\f; \THETA; \S) = \E_{(\x, \y) \in \S}(L(\y, \f(\x; \THETA)))$
     \end{itemize}
 
     \begin{block}{Training objective}<+->
-        Iterate on $\THETA$ to minimize $R(\f)$
+        Iterate on $\THETA$ to minimize $R(\f; \THETA; \S)$
     \end{block}
+
+    \begin{block}{Methodology}<+->
+        Compute $\p{R}{\THETA}$ and use gradient descent
+    \end{block}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Backpropagation}
+
+    \uncover<+->{
+        Since model risk $R$ is average over data of losses $L(\y, \f(\x; \THETA))$, gradient $\p{R}{\THETA}$ is average over data of $\p{L}{\THETA}$
+    }
+
+    \begin{block}{}<+->
+        Backpropagation is how to compute $\p{L}{\THETA}$.
+        It's literally just the chain rule.
+    \end{block}
+
+    \begin{itemize}
+        \item<+-> Technique: symbolically pre-compute every element of $\p{L}{\THETA}$ via chain rule (one-time work)
+        \begin{itemize}
+            \item Software does this automatically
+            \item Tedious, so we'll see one brief example next
+        \end{itemize}
+        \item<+-> When new datum $(\x, \y)$ arrives, plug in to get $\p{L}{\THETA}$
+        \begin{itemize}
+            \item Just multiplies, adds, \& activation functions---lightning fast
+        \end{itemize}
+        \item<+-> Average over data to get $\p{R}{\THETA}$
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Backpropagation example (1/3)}
+    \begin{itemize}
+        \item Single hidden-layer dense $\Reals^q \to \Reals^p$ neural network
+        \item $n$ neurons with ReLU activation in hidden layer
+        \item Mean squared error loss
+    \end{itemize}
+    \pause
+
+    \begin{block}{}
+        \vspace{-1em}
+        \begin{align*}
+            \hat{y}_k &= \sum_{j=1}^n v_{kj} \sigma\left(\sum_{i=1}^q w_{ji} x_i + b_j\right) + c_k,
+            \quad
+            k = 1, \ldots, p \\
+            L(\y, \yh) &= \frac{1}{p} \sum_{k=1}^p (y_k - \hat{y}_k)^2
+        \end{align*}
+    \end{block}
+    \pause
+
+    Note: for ReLU $\sigma$, $\d{\sigma}{x} = H(x)$, the Heaviside step function
+
+    \begin{equation*}
+        \p{L}{\hat{y}_k} = \frac{2 (\hat{y}_k - y_k)}{p}
+    \end{equation*}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Backpropagation example (2/3)}
+
+    \begin{block}{}
+        \vspace{-1em}
+        \begin{align*}
+            \hat{y}_k &= \sum_{j=1}^n v_{kj} \sigma\left(\sum_{i=1}^q w_{ji} x_i + b_j\right) + c_k,
+            \quad
+            k = 1, \ldots, p \\
+            L(\y, \yh) &= \frac{1}{p} \sum_{k=1}^p (y_k - \hat{y}_k)^2, \qquad
+            \p{L}{\hat{y}_k} = \frac{2 (\hat{y}_k - y_k)}{p}
+        \end{align*}
+    \end{block}
+    \pause
+
+    \begin{align*}
+        \p{L}{v_{kj}} &= \p{L}{\hat{y}_k} \p{\hat{y}_k}{v_{kj}}
+        = \frac{2 (\hat{y}_k - y_k)}{p} \sigma\left(\sum_{i=1}^q w_{ji} x_i + b_j\right) \\
+        \pause
+        \p{L}{c_k} &= \p{L}{\hat{y}_k} \p{\hat{y}_k}{c_k}
+        = \frac{2 (\hat{y}_k - y_k)}{p}
+    \end{align*}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Backpropagation example (3/3)}
+
+    \begin{block}{}
+        \vspace{-1em}
+        \begin{align*}
+            \hat{y}_k &= \sum_{j=1}^n v_{kj} \sigma\left(\sum_{i=1}^q w_{ji} x_i + b_j\right) + c_k,
+            \quad
+            k = 1, \ldots, p \\
+            L(\y, \yh) &= \frac{1}{p} \sum_{k=1}^p (y_k - \hat{y}_k)^2, \qquad
+            \p{L}{\hat{y}_k} = \frac{2 (\hat{y}_k - y_k)}{p}
+        \end{align*}
+    \end{block}
+    \pause
+
+    \begin{align*}
+        \p{L}{w_{ji}} &= \sum_{k=1}^p \p{L}{\hat{y}_k} \p{\hat{y}_k}{w_{ji}}
+        = \sum_{k=1}^p \frac{2 (\hat{y}_k - y_k)}{p} v_{kj} H\left(\sum_{i=1}^q w_{jl} x_l + b_j\right) x_i \\
+        \pause
+        \p{L}{b_j} &= \sum_{k=1}^p \p{L}{\hat{y}_k} \p{\hat{y}_k}{b_j}
+        = \sum_{k=1}^p \frac{2 (\hat{y}_k - y_k)}{p} v_{kj} H\left(\sum_{i=1}^q w_{jl} x_l + b_j\right)
+    \end{align*}
+
+    \ldots You get the point.
 \end{frame}
 
 \begin{frame}[t]
@@ -46,7 +153,7 @@
     For neural networks:
     \begin{itemize}
         \item Given data set $\S = \{(\x_i, \y_i)\}$ with enormous $|\S|$
-        \item Want to find $\THETA$ to minimize approximate model risk $\displaystyle \hat{R}(\f; \THETA; \S) = \frac{1}{|\S|} \sum_{(\x, \y) \in \S} L(\y, \f(\x; \THETA))$
+        \item Want to find $\THETA$ to minimize approximate model risk $\displaystyle R(\f; \THETA; \S) = \frac{1}{|\S|} \sum_{(\x, \y) \in \S} L(\y, \f(\x; \THETA))$
         \item \alert{Intractable}
     \end{itemize}
 \end{frame}
@@ -60,7 +167,7 @@
         \uncover<+->{\STATE Peel off the next $k \ll |\S|$ elements of $\S$ into the \alert{mini-batch} $\M$}
         \uncover<+->{
             \STATE \label{item:gradient}
-            Compute $\h = \p{\hat{R}(\f; \THETA; \M)}{\THETA}$ using only the mini-batch $\M$
+            Compute $\h = \p{R(\f; \THETA; \M)}{\THETA}$ using only the mini-batch $\M$
         }
         \uncover<+->{
             \STATE Take a small step against the gradient: $\THETA \leftarrow \THETA - \alpha\h$ with $0 < \alpha \ll 1$
@@ -84,8 +191,8 @@
     It kills two birds with one stone
 
     \begin{block}{Tractability}
-        \textcolor{red}{Gradient descent}: intractable to compute gradient $\p{\hat{R}(\f; \THETA; \S)}{\THETA}$ when $|\S| \approx \dim(\THETA) = \O(10^3 \text{--} 10^{10})$ \\[1ex]
-        \textcolor{blue}{SGD}: $\p{\hat{R}(\f; \THETA; \M)}{\THETA}$ tractable when $|\M| = \O(10^1 \text{--} 10^3)$
+        \textcolor{red}{Gradient descent}: intractable to compute gradient $\p{R(\f; \THETA; \S)}{\THETA}$ when $|\S| \approx \dim(\THETA) = \O(10^3 \text{--} 10^{10})$ \\[1ex]
+        \textcolor{blue}{SGD}: $\p{R(\f; \THETA; \M)}{\THETA}$ tractable when $|\M| = \O(10^1 \text{--} 10^3)$
     \end{block}
 
     \begin{block}{Global minimization}
@@ -104,12 +211,12 @@
     \begin{itemize}
         \item In $\Reals^n$ with $n \gg 1$, most critical points are saddle points
         \item SGD easily gets stuck in saddle points
-        \item In gradient step $\THETA \leftarrow \THETA - \alpha \bnabla\hat{R}$, need to decay learning rate $\alpha$
+        \item In gradient step $\THETA \leftarrow \THETA - \alpha \bnabla R$, need to decay learning rate $\alpha$
     \end{itemize}
 
     \uncover<+->{Better alternatives}
     \begin{itemize}[<+->]
-        \item<.-> Momentum: $\THETA \leftarrow \THETA - \alpha \bnabla\hat{R} + \eta \mathbf{\Delta}\THETA$---encourages continuing previous update \citep{RumelhartNature86}
+        \item<.-> Momentum: $\THETA \leftarrow \THETA - \alpha \bnabla R + \eta \mathbf{\Delta}\THETA$---encourages continuing previous update \citep{RumelhartNature86}
         \item RMSprop: divide learning rate by mean of recent gradient norms \citep{TielemanRMSProp}
         \item Adagrad: each parameter has own learning rate determined by its gradients \citep{DuchJMLR11}
         \item Adadelta: improves Adagrad by making learning rate decay less aggressive \citep{Zeiler12}

@@ -78,7 +78,7 @@
         \item weight vectors $\v_k \in \Reals^n$, $k = 1, \ldots, p$
         \item biases $c_k \in \Reals$, $k = 1, \ldots, p$
     \end{itemize}
-    \begin{block}{Single hidden-layer neural network}
+    \begin{block}{Single hidden-layer dense neural network}
         \vspace{-1em}
         \begin{align*}
             y_k &= \v_k \cdot \z + c_k, \quad k = 1, \ldots, p \\
@@ -90,8 +90,13 @@
 \begin{frame}
     \frametitle{Single hidden-layer neural network: figure}
 
-    \centering
-    \input{figures/shallow}
+    {
+        \centering
+        \input{figures/shallow}
+    }
+    \vspace{0.5ex}
+
+    Dense neural network, a.k.a.~feedforward neural network, a.k.a.~multi-layer perceptron
 \end{frame}
 
 \begin{frame}
@@ -121,7 +126,7 @@
         \item Bias vector $\c \in \Reals^q$
     \end{itemize}
 
-    \begin{block}{Single hidden-layer neural network}
+    \begin{block}{Single hidden-layer dense neural network}
         \begin{equation*}
             \y = \V \z + \c
         \end{equation*}
@@ -159,7 +164,18 @@
                 \begin{itemize}
                     \item Most common, but suffers from vanishing gradients
                 \end{itemize}
-                \item \textcolor{red}{Leaky/parametric ReLU} \citep{MaasICML13}:
+            \end{itemize}
+        \end{column}
+        \begin{column}{2in}
+            \includegraphics{activations}
+        \end{column}
+    \end{columns}
+
+    % Ugly hack to make the bullets line up.
+    \begin{columns}
+        \begin{column}{4.7in}
+            \begin{itemize}
+                \item \textcolor{red}{Leaky/parametric ReLU} \citep{MaasICML13,He15a}:
                 \textcolor{red}{
                     $\sigma(x) = \begin{cases}
                         x &\mid x \ge 0 \\
@@ -174,9 +190,6 @@
                     \end{cases}$
                 }
             \end{itemize}
-        \end{column}
-        \begin{column}{2in}
-            \includegraphics{activations}
         \end{column}
     \end{columns}
 \end{frame}
@@ -238,7 +251,7 @@
         \begin{column}{0.5\textwidth}
             \centering
             \includegraphics[width=1.85in]{ripple_1layer} \\
-            1 layer, 50 neurons, \\ 201 parameters: $\hat{R} = 8.1 \cdot 10^{-2}$
+            1 layer, 50 neurons, \\ 201 parameters: $R = 8.1 \cdot 10^{-2}$
         \end{column}
     \end{columns}
     \pause
@@ -247,14 +260,14 @@
         \begin{column}{0.5\textwidth}
             \centering
             \includegraphics[width=1.85in]{ripple_2layer} \\
-            2 layers, 17--8 neurons, \\ 204 parameters: $\hat{R} = 4.9 \cdot 10^{-3}$
+            2 layers, 17--8 neurons, \\ 204 parameters: $R = 4.9 \cdot 10^{-3}$
         \end{column}
         \hfill
         \pause
         \begin{column}{0.5\textwidth}
             \centering
             \includegraphics[width=1.85in]{ripple_3layer} \\
-            3 layers, 15--7--4 neurons, \\ 194 parameters: $\hat{R} = 1.6 \cdot 10^{-3}$
+            3 layers, 15--7--4 neurons, \\ 194 parameters: $R = 1.6 \cdot 10^{-3}$
         \end{column}
     \end{columns}
 \end{frame}
