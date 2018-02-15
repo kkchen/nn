@@ -270,57 +270,6 @@
     \end{itemize}
 \end{frame}
 
-\begin{frame}
-    \frametitle{Underfitting and overfitting}
-
-    \begin{alertblock}{Danger!}
-        Neural networks are hard to fit, and real-life data are noisy.
-        \emph{Underfitting} and \emph{overfitting} are your two biggest obstacles.
-    \end{alertblock}
-    \vspace{1ex}
-
-    \includegraphics{under_over_train}
-    \pause
-
-    \begin{itemize}
-        \item Underfitting occurs when you don't train enough for the model to capture the underlying behavior
-        \item Overfitting occurs when the training is so good that the neural network memorizes the data, including its underlying noise
-        \begin{itemize}
-            \item Recall: with enough parameters, neural networks learn anything
-        \end{itemize}
-    \end{itemize}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Testing for under/overfitting}
-
-    Usual trick: split data into disjoint \alert{training} and \alert{testing} sets
-    \begin{itemize}
-        \item Anywhere from 95/5 to 75/25 split is common
-        \item Train \emph{only} on the training set
-        \item Periodically check loss of test set
-        \begin{itemize}
-            \item Optimizer never sees test set: test set is honest check on NN fidelity
-        \end{itemize}
-    \end{itemize}
-    \pause
-
-    \includegraphics{loss}
-
-    General pattern
-    \begin{itemize}
-        \item Modulo minor stochastic fluctuations, training loss should monotonically decrease: NN gets better at learning data
-        \item Test loss usually at least slightly larger than training loss
-        \begin{itemize}
-            \item Because optimizer minimizes training loss but never sees test data
-        \end{itemize}
-        \item At some point, test loss increases: NN overfits to training data
-        \item Best NN generally \textcolor{Green4}{where test loss at a minimum}
-    \end{itemize}
-\end{frame}
-
-% Including train/validation/test, or put in separate section.
-
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "../nn"

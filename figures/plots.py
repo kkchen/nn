@@ -191,18 +191,19 @@ class Plots:
         train_loss = (0.07 * x + 1) ** -0.3 + np.random.normal(0, 0.01, len(x))
         test_loss_noiseless = (
             (0.07 * x + 1) ** -0.3
-            + 0.07
+            + 0.04
             + 0.05 * np.log(np.exp((x - 7000) / 1000) + 1)
         )
         argmin = np.argmin(test_loss_noiseless)
         test_loss = test_loss_noiseless + np.random.normal(0, 0.01, len(x))
 
-
-        plt.plot(x, train_loss, x, test_loss, lw=0.5)
-        plt.plot(argmin, test_loss_noiseless[argmin], 'go', markerfacecolor='none')
+        plt.plot(x, train_loss, 'b', x, test_loss, 'g', lw=0.5)
+        plt.plot(argmin, test_loss_noiseless[argmin], 'ro')
+        plt.grid(True)
         plt.axis((0, 10000, 0, 1))
         plt.xlabel('iteration')
         plt.ylabel('$L$')
+        plt.legend(('train', 'test'), loc='upper right', ncol=2)
         plt.tight_layout(0)
 
     def _set_cluster_data(self):
