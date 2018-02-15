@@ -222,13 +222,11 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{Example: $\Reals^2 \to \Reals$ ripple\footnote{Code: \blueurl{https://goo.gl/Yv8CW3}}}
-
-    % MSE, 200 parameters
-    % 1 layer: 0.08136436
-    % 2 layers: 0.004854659
-    % 3 layers: 0.001604323
-
+    \frametitle{%
+        Example: $\Reals^2 \to \Reals$ ripple\footnote{%
+            Code: \blueurl{https://goo.gl/Yv8CW3}%
+        }%
+    }
     \begin{columns}
         \begin{column}{0.5\textwidth}
             \centering
@@ -236,12 +234,14 @@
             Ground truth: $y = \dfrac{\cos(r)}{e^{0.4 (r - 8)} + 1}$
         \end{column}
         \hfill
+        \pause
         \begin{column}{0.5\textwidth}
             \centering
             \includegraphics[width=1.85in]{ripple_1layer} \\
             1 layer, 50 neurons, \\ 201 parameters: $\hat{R} = 8.1 \cdot 10^{-2}$
         \end{column}
     \end{columns}
+    \pause
 
     \begin{columns}
         \begin{column}{0.5\textwidth}
@@ -250,6 +250,7 @@
             2 layers, 17--8 neurons, \\ 204 parameters: $\hat{R} = 4.9 \cdot 10^{-3}$
         \end{column}
         \hfill
+        \pause
         \begin{column}{0.5\textwidth}
             \centering
             \includegraphics[width=1.85in]{ripple_3layer} \\

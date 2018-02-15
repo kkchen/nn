@@ -24,10 +24,10 @@
     \end{block}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[t]
     \frametitle{The trouble with gradient-based optimization}
 
-    Gradient-based methods \citep{PressNR} seek local minima. \\[1ex]
+    Gradient-based methods \citep{PressNR} seek local minima \\[1ex]
 
     The usual case:
     \begin{itemize}
@@ -36,6 +36,11 @@
         \item Better methods: conjugate gradient, quasi-Newton
         \item \alert{Easily falls into non-global minima}
     \end{itemize}
+
+    \begin{textblock}{6}(9, 11)
+        \includegraphics[width=\textwidth]{minima}
+    \end{textblock}
+
     \pause
 
     For neural networks:
@@ -50,10 +55,9 @@
     \frametitle{Stochastic gradient descent \& mini-batching}
     \begin{algorithmic}[1]
         \uncover<+->{\FOR{$\text{epoch} = 1, \ldots, n_\text{epochs}$}}
-        \uncover<+->{
-            \STATE Randomly partition\footnotemark[1] $\S$ into \alert{mini-batches} $\{\M_i\}_{i=1}^m$, where $|\M_1| = \cdots = |\M_m|$ is the \alert{mini-batch size}
-        }
-        \uncover<+->{\FOR{$i = 1, \ldots, m$}}
+        \uncover<+->{\STATE Randomize the data order of $\S$}
+        \uncover<+->{\WHILE{not done with $\S$}}
+        \uncover<+->{\STATE Peel off the next $k \ll |\S|$ elements of $\S$ into the \alert{mini-batch} $\M$}
         \uncover<+->{
             \STATE \label{item:gradient}
             Compute $\h = \p{\hat{R}(\f; \THETA; \M)}{\THETA}$ using only the mini-batch $\M$
@@ -61,32 +65,27 @@
         \uncover<+->{
             \STATE Take a small step against the gradient: $\THETA \leftarrow \THETA - \alpha\h$ with $0 < \alpha \ll 1$
         }
-        \uncover<3->{\ENDFOR}
+        \uncover<3->{\ENDWHILE}
         \ENDFOR
     \end{algorithmic}
     \vspace{1ex}
 
     \uncover<+->{Terminology:}
     \begin{itemize}[<.->]
+        \item \alert{Learning rate}: $\alpha$
+        \item \alert{Mini-batch size}: $k = |\M|$ (often just called \emph{batch size})
         \item \alert{Iteration}: a single gradient update
         \item \alert{Epoch}: a complete pass through the data
     \end{itemize}
-    \vspace{1ex}
-
-    \uncover<2->{%
-        \footnotesize
-        \footnotemark[1]The \alert{partition} means that $\M_i \subseteq \S$ and $|\M_i| > 0$ $\forall i$, $\displaystyle \S = \bigcup_{i=1}^m \M_i$, and $\M_i \cap \M_j = \varnothing$ for $i \ne j$.
-        I.e., randomize the data order in $\S$, and peel off $|\S| / m$ elements at a time.%
-    }
 \end{frame}
 
 \begin{frame}
     \frametitle{Why stochastic gradient descent \& mini-batching?}
-    It kills two birds with one stone.
+    It kills two birds with one stone
 
     \begin{block}{Tractability}
         \textcolor{red}{Gradient descent}: intractable to compute gradient $\p{\hat{R}(\f; \THETA; \S)}{\THETA}$ when $|\S| \approx \dim(\THETA) = \O(10^3 \text{--} 10^{10})$ \\[1ex]
-        \textcolor{blue}{SGD}: tractable when $|\M| = \O(10^1 \text{--} 10^3)$
+        \textcolor{blue}{SGD}: $\p{\hat{R}(\f; \THETA; \M)}{\THETA}$ tractable when $|\M| = \O(10^1 \text{--} 10^3)$
     \end{block}
 
     \begin{block}{Global minimization}
@@ -132,16 +131,16 @@
     \end{itemize}
     \pause
 
-    Choosing the mini-batch size
+    Choosing mini-batch size
     \begin{itemize}
-        \item Smaller mini-batch: more stochastic
+        \item Smaller: more stochastic
         \begin{itemize}
             \item Better at escaping non-global minima
         \end{itemize}
-        \item Larger mini-batch: less stochastic
+        \item Larger: less stochastic
         \begin{itemize}
             \item Better at converging to deep, narrow minima
-            \item Faster--better GPU optimization
+            \item Faster---better GPU optimization
             \item But limited by available GPU memory
         \end{itemize}
     \end{itemize}

@@ -30,7 +30,7 @@ class Plots:
 
     def plot(self):
         """Run the plotting method based on the tag; save or display."""
-        if 'cluster' in self.tag or 'clusters' in self.tag:
+        if 'cluster' in self.tag:
             self._set_cluster_data()
 
         if self.nprocs == 1:
@@ -137,6 +137,24 @@ class Plots:
         """The ripple with 3 hidden layer."""
         self._n_layer_ripple(3)
 
+    def _plot_minima(self):
+        """Plot a surface with multiple local minima."""
+        x = np.linspace(-1, 1, 1001)
+        y = np.linspace(-1, 1, 1001)
+        x, y = np.meshgrid(x, y)
+
+        z = (
+            -2 * np.exp(-(16 * ((x - 0.2) ** 2 + (y - 0.4) ** 2)))
+            - 1.3 * np.exp(-(8 * ((x + 0.4) ** 2 + (y + 0.1) ** 2)))
+            - 0.8 * np.exp(-(10 * ((x - 0.3) ** 2 + (y + 0.6) ** 2)))
+        )
+        fig = plt.figure(figsize=(3.5, 2.3))
+        ax = fig.gca(projection='3d')
+        ax.plot_surface(x, y, z, cmap=cm.jet_r)
+        ax.axis('off')
+        ax.dist = 8
+
+
     def _set_cluster_data(self):
         """Get the 2-D cluster data."""
         n = 100
@@ -226,14 +244,15 @@ class Plots:
             print('Plotting {}.'.format(tag))
 
         getattr(self, '_plot_' + tag)()
+        use_png = 'ripple' in tag or tag == 'minima'
 
         if self.save:
-            filename = '{}.{}'.format(tag, 'png' if 'ripple' in tag else 'eps')
+            filename = '{}.{}'.format(tag, 'png' if use_png else 'eps')
 
             if self.verbose:
                 print('Saving {}.'.format(filename))
 
-            if 'ripple' in tag:
+            if use_png:
                 plt.savefig(filename, dpi=300)
             else:
                 plt.savefig(filename)
@@ -271,7 +290,7 @@ class Plots:
         fig = plt.figure(figsize=(2.1, 1.6))
         ax = fig.gca(projection='3d')
         plt.axis('off')
-        ax.dist=6.75
+        ax.dist = 6.75
 
         return ax, x, y
 
