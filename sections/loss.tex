@@ -140,18 +140,18 @@
     \begin{block}{Model risk}
         \vspace{-1em}
         \begin{align*}
-            R(f) &:= \E_{\x \sim p_\X}(\E_{\y \mid \x}(L(\y, \f(\x)))) \\
+            R(\f) &:= \E_{\x \sim p_\X}(\E_{\y \mid \x}(L(\y, \f(\x)))) \\
             &= \int_\X \int_\Y L(\y, \f(\x)) \Prob(\y | \x) \, d\y \Prob(\x) \, d\x
         \end{align*}
     \end{block}
     \pause
 
-    Since we usually can't exhaust over all $\x \in \X$, select a batch $\B = \{(\x_i, \y_i)\}_{i=1}^m \subset \X \times \Y$, then use:
+    Since we usually can't exhaust over all $\x \in \X$, select a batch $\S = \{(\x_i, \y_i)\}_{i=1}^m \subset \X \times \Y$, then use:
 
     \begin{block}{Approximate model risk / batch loss}
         \vspace{-1em}
         \begin{align*}
-            \hat{R}(f) &:= \E_{(\x, \y) \in \B}(L(\y, \f(\x))) \\
+            \hat{R}(\f) &:= \E_{(\x, \y) \in \S}(L(\y, \f(\x))) \\
             &= \frac{1}{m} \sum_{i=1}^m L(\y_i, \f(\x_i))
         \end{align*}
     \end{block}

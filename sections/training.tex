@@ -1,0 +1,92 @@
+\section{Training}
+
+\subsection{}
+
+\begin{frame}
+    \frametitle{Recap \& training objective}
+
+    What we have so far
+    \begin{itemize}
+        \item<+-> A neural network $\f$
+        \begin{itemize}
+            \item User-selected \alert{architecture} (\# layers, \# neurons/layer, activations)
+            \item Parametrized by thousands--billions of \alert{weights} and \alert{biases} $\THETA = (\W_1, \b_1, \W_2, \b_2, \ldots)$
+            \item \alert{Predicts} $\yh$ from $\x$ via $\yh = \f(\x; \THETA)$
+            \item \alert{Universal approximation theorem}: $\f$ can model anything if $\THETA$ big enough
+        \end{itemize}
+        \item<+-> Gobs of \alert{data} pairs $(\x_i, \y_i)$
+        \item<+-> User-selected \alert{loss function} $L(\y, \yh)$
+        \item<+-> The desire to minimize \alert{model risk} $R(\f) = \E_{(\x, \y)}(L(\y, \f(\x; \THETA)))$
+    \end{itemize}
+
+    \begin{block}{Training objective}<+->
+        Iterate on $\THETA$ to minimize $R(\f)$
+    \end{block}
+\end{frame}
+
+\begin{frame}
+    \frametitle{The trouble with gradient-based optimization}
+
+    Gradient-based methods \citep{PressNR} seek local minima. \\[1ex]
+
+    The usual case:
+    \begin{itemize}
+        \item $\exists$ global minimization methods, but very slow
+        \item Direct gradient descent usually bad
+        \item Better methods: conjugate gradient, quasi-Newton
+        \item \alert{Easily falls into local minima that not globally minimal}
+    \end{itemize}
+    \pause
+
+    For neural networks:
+    \begin{itemize}
+        \item Given data set $\S = \{(\x_i, \y_i)\}$ with enormous $|\S|$
+        \item Want to find $\THETA$ to minimize approximate model risk $\displaystyle \hat{R}(\f; \THETA; \S) = \frac{1}{|\S|} \sum_{(\x, \y) \in \S} L(\y, \f(\x; \THETA))$
+        \item \alert{Intractable}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Stochastic gradient descent \& mini-batching}
+    \begin{algorithmic}[1]
+        \uncover<+->{\FOR{$\text{epoch} = 1, \ldots, n_\text{epochs}$}}
+        \uncover<+->{
+            \STATE Randomly partition\footnotemark[1] $\S$ into \alert{mini-batches} $\{\M_i\}_{i=1}^m$, where $|\M_1| = \cdots = |\M_m|$ is the \alert{mini-batch size}
+        }
+        \uncover<+->{\FOR{$i = 1, \ldots, m$}}
+        \uncover<+->{
+            \STATE \label{item:gradient}
+            Compute $\h = \p{\hat{R}(\f; \THETA; \M)}{\THETA}$ using only the mini-batch $\M$
+        }
+        \uncover<+->{
+            \STATE Take a small step against the gradient: $\THETA \leftarrow \THETA - \alpha\h$ with $0 < \alpha \ll 1$
+        }
+        \uncover<3->{\ENDFOR}
+        \ENDFOR
+    \end{algorithmic}
+    \vspace{1ex}
+
+    \uncover<+->{Terminology:}
+    \begin{itemize}[<.->]
+        \item \alert{Iteration}: a single gradient update
+        \item \alert{Epoch}: a complete pass through the data
+    \end{itemize}
+    \vspace{1ex}
+
+    \uncover<2->{%
+        \footnotesize
+        \footnotemark[1]The \alert{partition} means that $\M_i \subseteq \S$ and $|\M_i| > 0$ $\forall i$, $\displaystyle \S = \bigcup_{i=1}^m \M_i$, and $\M_i \cap \M_j = \varnothing$ for $i \ne j$.
+        I.e., randomize the data order in $\S$, and peel off $|\S| / m$ elements at a time.%
+    }
+\end{frame}
+
+% Initialization
+% Powers of 2.
+% Local/global minima
+% Including train/validation/test, or put in separate section.
+% Under/overfit
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../nn"
+%%% End:

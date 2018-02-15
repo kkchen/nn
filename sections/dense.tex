@@ -204,11 +204,8 @@
     Neural network with $\sigma = \text{ReLU}$ is piecewise linear function
     \begin{itemize}
         \item \alert{Expressivity} of ReLU network measured by \# linear pieces
-        \item For a network with width $w$ and depth $l$, \alert{$\max \text{expressivity} \sim w^l$} \citep{Pascanu13,MontufarNIPS14,Chen16}
-        \begin{itemize}
-            \item Polynomial in width
-            \item Exponential in depth!
-        \end{itemize}
+        \item For fixed width $w$ and depth $l$, \alert{$\max \text{expressivity} \sim w^l$} \citep{Pascanu13,MontufarNIPS14,Chen16}
+        \item In comparison, $\alert{\text{\# parameters}} = (q + 1) n_1 + (n_1 + 1) n_2 + \cdots + (n_{l-1} + 1) n_l + (n_l + 1) p \approx \alert{w^2 l}$
     \end{itemize}
     \pause
 

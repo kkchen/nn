@@ -5,6 +5,8 @@
 \usepackage[T1]{fontenc}
 \usepackage{newpxtext}
 \usepackage{newpxmath}
+\usepackage{algorithm}
+\usepackage{algorithmic}
 \usepackage{amsmath}
 \usepackage{bm}
 \usepackage{centernot}
@@ -14,8 +16,9 @@
 \usepackage{wasysym}
 
 % Sets.
-\newcommand*{\B}{\mathcal{B}}
+\newcommand*{\M}{\mathcal{M}}
 \newcommand*{\Reals}{\mathbb{R}}
+\renewcommand*{\S}{\mathcal{S}}
 \newcommand*{\X}{\mathcal{X}}
 \newcommand*{\Y}{\mathcal{Y}}
 \newcommand*{\Yh}{\hat{\Y}}
@@ -24,6 +27,7 @@
 \DeclareMathOperator{\E}{\mathrm{E}}
 \DeclareMathOperator{\Prob}{\mathrm{P}}
 \DeclareMathOperator*{\argmax}{arg\,max}
+\newcommand*{\p}[2]{\dfrac{\partial #1}{\partial #2}}
 \DeclareMathOperator{\softmax}{\mathrm{softmax}}
 
 % Matrices.
@@ -35,7 +39,9 @@
 \renewcommand*{\c}{\mathbf{c}}
 \newcommand*{\e}{\mathbf{e}}
 \newcommand*{\f}{\mathbf{f}}
+\newcommand*{\h}{\mathbf{h}}
 \newcommand*{\SIGMA}{\bm{\sigma}}
+\newcommand*{\THETA}{\bm{\theta}}
 \renewcommand*{\v}{\mathbf{v}}
 \newcommand*{\w}{\mathbf{w}}
 \newcommand*{\x}{\mathbf{x}}
@@ -127,7 +133,7 @@
 \include{sections/ml}
 \include{sections/loss}
 \include{sections/dense}
-\include{sections/optimization}
+\include{sections/training}
 \include{sections/regularization}
 \include{sections/cnn}
 \include{sections/software}
