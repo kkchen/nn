@@ -228,13 +228,15 @@ class Plots:
         getattr(self, '_plot_' + tag)()
 
         if self.save:
+            filename = '{}.{}'.format(tag, 'png' if 'ripple' in tag else 'eps')
+
             if self.verbose:
-                print('Saving {}.eps.'.format(tag))
+                print('Saving {}.'.format(filename))
 
             if 'ripple' in tag:
-                plt.savefig(tag + '.png', dpi=300)
+                plt.savefig(filename, dpi=300)
             else:
-                plt.savefig(tag + '.eps')
+                plt.savefig(filename)
 
         if self.display:
             if self.verbose:
@@ -269,7 +271,7 @@ class Plots:
         fig = plt.figure(figsize=(2.1, 1.6))
         ax = fig.gca(projection='3d')
         plt.axis('off')
-        ax.dist=6.7
+        ax.dist=6.75
 
         return ax, x, y
 

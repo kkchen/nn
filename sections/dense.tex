@@ -229,14 +229,33 @@
     % 2 layers: 0.004854659
     % 3 layers: 0.001604323
 
-    Challenge: using only $\sim$200 parameters, create the most accurate neural network in mean squared error sense
-    \includegraphics{ripple}
-    \hfill
-    \includegraphics{ripple_1layer}
+    \begin{columns}
+        \begin{column}{0.5\textwidth}
+            \centering
+            \includegraphics[width=1.95in]{ripple} \\
+            Ground truth: $y = \dfrac{\cos(r)}{e^{0.4 (r - 8)} + 1}$
+        \end{column}
+        \hfill
+        \begin{column}{0.5\textwidth}
+            \centering
+            \includegraphics[width=1.95in]{ripple_1layer} \\
+            1 layer, 50 neurons, 201 parameters: $\hat{R} = 8.1 \cdot 10^{-2}$
+        \end{column}
+    \end{columns}
 
-    \includegraphics{ripple_2layer}
-    \hfill
-    \includegraphics{ripple_3layer}
+    \begin{columns}
+        \begin{column}{0.5\textwidth}
+            \centering
+            \includegraphics[width=1.95in]{ripple_2layer} \\
+            2 layers, 17--8 neurons, 204 parameters: $\hat{R} = 4.9 \cdot 10^{-3}$
+        \end{column}
+        \hfill
+        \begin{column}{0.5\textwidth}
+            \centering
+            \includegraphics[width=1.95in]{ripple_3layer} \\
+            3 layers, 15--7--4 neurons, 194 parameters: $\hat{R} = 1.6 \cdot 10^{-3}$
+        \end{column}
+    \end{columns}
 \end{frame}
 
 \begin{frame}

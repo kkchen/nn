@@ -17,3 +17,7 @@
 *.synctex*
 *.toc
 auto/
+
+# Python ignores.
+*.pyc
+__pycache__
