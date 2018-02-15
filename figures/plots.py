@@ -182,6 +182,29 @@ class Plots:
         ax[1].set_title('Good model')
         ax[2].set_title('Overfitted')
 
+    @staticmethod
+    def _plot_loss():
+        """Plot example training and test loss."""
+        plt.figure(figsize=(4.25, 1.1))
+
+        x = np.arange(10000)
+        train_loss = (0.07 * x + 1) ** -0.3 + np.random.normal(0, 0.01, len(x))
+        test_loss_noiseless = (
+            (0.07 * x + 1) ** -0.3
+            + 0.07
+            + 0.05 * np.log(np.exp((x - 7000) / 1000) + 1)
+        )
+        argmin = np.argmin(test_loss_noiseless)
+        test_loss = test_loss_noiseless + np.random.normal(0, 0.01, len(x))
+
+
+        plt.plot(x, train_loss, x, test_loss, lw=0.5)
+        plt.plot(argmin, test_loss_noiseless[argmin], 'go', markerfacecolor='none')
+        plt.axis((0, 10000, 0, 1))
+        plt.xlabel('iteration')
+        plt.ylabel('$L$')
+        plt.tight_layout(0)
+
     def _set_cluster_data(self):
         """Get the 2-D cluster data."""
         n = 100
