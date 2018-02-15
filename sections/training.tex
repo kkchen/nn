@@ -111,7 +111,7 @@
     \uncover<+->{Better alternatives}
     \begin{itemize}[<+->]
         \item<.-> Momentum: $\THETA \leftarrow \THETA - \alpha \bnabla\hat{R} + \eta \mathbf{\Delta}\THETA$---encourages continuing previous update \citep{RumelhartNature86}
-        \item RMSprop: divide learning rate by mean of recent gradient norms \citep{HintonRMSProp}
+        \item RMSprop: divide learning rate by mean of recent gradient norms \citep{TielemanRMSProp}
         \item Adagrad: each parameter has own learning rate determined by its gradients \citep{DuchJMLR11}
         \item Adadelta: improves Adagrad by making learning rate decay less aggressive \citep{Zeiler12}
         \item \alert<+->{Adam}: adaptive learning rate \& momentum \citep{KingmaICLR15}

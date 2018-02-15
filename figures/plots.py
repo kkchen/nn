@@ -7,9 +7,13 @@ from multiprocessing import Pool
 import os
 import sys
 
+from matplotlib import cm
 from matplotlib import pyplot as plt
 from matplotlib import rc
+from mpl_toolkits.mplot3d import Axes3D
 import numpy as np
+
+from ripple import Ripple
 
 class Plots:
 
@@ -116,6 +120,23 @@ class Plots:
         plt.gca().set_yticks(range(-1, 5))
         plt.tight_layout(0)
 
+    def _plot_ripple(self):
+        """The ripple ground truth."""
+        ax, x, y = self._pre_ripple_plot()
+        ax.plot_surface(x, y, Ripple.f(x, y), cmap=cm.inferno)
+
+    def _plot_ripple_1layer(self):
+        """The ripple with 1 hidden layer."""
+        self._n_layer_ripple(1)
+
+    def _plot_ripple_2layer(self):
+        """The ripple with 2 hidden layer."""
+        self._n_layer_ripple(2)
+
+    def _plot_ripple_3layer(self):
+        """The ripple with 3 hidden layer."""
+        self._n_layer_ripple(3)
+
     def _set_cluster_data(self):
         """Get the 2-D cluster data."""
         n = 100
@@ -210,7 +231,10 @@ class Plots:
             if self.verbose:
                 print('Saving {}.eps.'.format(tag))
 
-            plt.savefig(tag + '.eps')
+            if 'ripple' in tag:
+                plt.savefig(tag + '.png', dpi=300)
+            else:
+                plt.savefig(tag + '.eps')
 
         if self.display:
             if self.verbose:
@@ -218,7 +242,8 @@ class Plots:
 
             plt.show()
 
-    def _label(self, ax, label, xshift, yshift):
+    @staticmethod
+    def _label(ax, label, xshift, yshift):
         """Place a subfigure label on the upper left of the axes."""
         xlim = ax.get_xlim()
         ylim = ax.get_ylim()
@@ -235,6 +260,24 @@ class Plots:
 
         plt.text(x, y, '({})'.format(label))
 
+    @staticmethod
+    def _pre_ripple_plot():
+        """Commands to run before making a ripple plot."""
+        x = np.linspace(-12, 12, 1001)
+        x, y = np.meshgrid(x, x)
+
+        fig = plt.figure(figsize=(2.1, 1.6))
+        ax = fig.gca(projection='3d')
+        plt.axis('off')
+        ax.dist=6.7
+
+        return ax, x, y
+
+    @staticmethod
+    def _n_layer_ripple(n):
+        z = np.load('outputs_{}layer.npy'.format(n))
+        ax, x, y = Plots._pre_ripple_plot()
+        ax.plot_surface(x, y, z, cmap=cm.inferno)
 
 def main():
     plots = Plots()

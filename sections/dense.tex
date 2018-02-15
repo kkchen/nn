@@ -222,6 +222,24 @@
 \end{frame}
 
 \begin{frame}
+    \frametitle{Example: $\Reals^2 \to \Reals$ ripple}
+
+    % MSE, 200 parameters
+    % 1 layer: 0.08136436
+    % 2 layers: 0.004854659
+    % 3 layers: 0.001604323
+
+    Challenge: using only $\sim$200 parameters, create the most accurate neural network in mean squared error sense
+    \includegraphics{ripple}
+    \hfill
+    \includegraphics{ripple_1layer}
+
+    \includegraphics{ripple_2layer}
+    \hfill
+    \includegraphics{ripple_3layer}
+\end{frame}
+
+\begin{frame}
     \frametitle{What can dense neural networks model?}
     \begin{block}{Universal approximation theorem}
         Anything, basically, if $\text{width} \to \infty$
@@ -242,4 +260,3 @@
 %%% mode: latex
 %%% TeX-master: "../nn"
 %%% End:
-
