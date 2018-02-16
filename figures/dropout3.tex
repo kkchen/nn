@@ -1,22 +1,43 @@
 \begin{tikzpicture}[node distance=3mm]
-    \dropoutnetwork{green}
+    % Box.
+    \draw [fill=green!10, rounded corners] (-0.75, -0.25) rectangle (1.75, 1.75);
 
-    \foreach \i/\j in {
-        0/0, 0/1, 0/2, 0/3, 0/4, 1/0, 1/2, 1/3, 1/4, 2/0, 2/1, 2/2%
-    } {
-        \draw (input \i) -- (dense 0\j);
+    % Nodes.
+    \node (input 0) [io mini] {};
+    \node (input 1) [io mini, right=of input 0] {};
+    \node (input 2) [io mini off, right=of input 1] {};
+
+    \node (dense 01) [neuron mini off, above=of input 0] {};
+    \node (dense 00) [neuron mini off, left=of dense 01] {};
+    \node (dense 02) [neuron mini, right=of dense 01] {};
+    \node (dense 03) [neuron mini off, right=of dense 02] {};
+    \node (dense 04) [neuron mini, right=of dense 03] {};
+
+    \node (dense 10) [neuron mini off, above=of dense 00, xshift=2.5mm] {};
+    \node (dense 11) [neuron mini, right=of dense 10] {};
+    \node (dense 12) [neuron mini, right=of dense 11] {};
+    \node (dense 13) [neuron mini, right=of dense 12] {};
+
+    \foreach \i in {0, 1} {
+        \pgfmathtruncatemacro{\j}{\i + 1}
+        \node (output \i) [io mini, above=of dense 1\j] {};
     }
 
-    \foreach \i/\j in {
-        0/1, 0/2, 0/3, 1/0, 2/0, 3/0, 3/2, 4/0, 4/1%
-    } {
-        \draw (dense 0\i) -- (dense 1\j);
+    % Connections.
+    \foreach \i in {2, 4} {
+        \foreach \j in {0, 1} {
+            \draw (input \j) -- (dense 0\i);
+        }
+
+        \foreach \j in {1, ..., 3} {
+            \draw (dense 0\i) -- (dense 1\j);
+        }
     }
 
-    \foreach \i/\j in {
-        0/0, 0/1, 1/0, 2/0, 2/1%
-    } {
-        \draw (dense 1\i) -- (output \j);
+    \foreach \i in {1, ..., 3} {
+        \foreach \j in {0, 1} {
+            \draw (dense 1\i) -- (output \j);
+        }
     }
 \end{tikzpicture}
 %%% Local Variables:

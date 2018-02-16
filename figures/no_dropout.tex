@@ -1,6 +1,33 @@
 \begin{tikzpicture}[node distance=3mm]
-    \dropoutnetwork{blue}
+    % Box.
+    \draw [fill=blue!10, rounded corners] (-0.75, -0.25) rectangle (1.75, 1.75);
 
+    % Nodes.
+    \node (input 0) [io mini] {};
+
+    \foreach \i in {1, 2} {
+        \pgfmathtruncatemacro{\j}{\i - 1}
+        \node (input \i) [io mini, right=of input \j] {};
+    }
+
+    \foreach \i in {0, ..., 2} {
+        \pgfmathtruncatemacro{\j}{\i + 1}
+        \node (dense 0\j) [neuron mini, above=of input \i] {};
+    }
+
+    \node (dense 00) [neuron mini, left=of dense 01] {};
+    \node (dense 04) [neuron mini, right=of dense 03] {};
+
+    \foreach \i in {0, ..., 3} {
+        \node (dense 1\i) [neuron mini, above=of dense 0\i, xshift=2.5mm] {};
+    }
+
+    \foreach \i in {0, 1} {
+        \pgfmathtruncatemacro{\j}{\i + 1}
+        \node (output \i) [io mini, above=of dense 1\j] {};
+    }
+
+    % Connections.
     \foreach \i in {0, ..., 4} {
         \foreach \j in {0, ..., 2} {
             \draw (input \j) -- (dense 0\i);

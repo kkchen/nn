@@ -112,9 +112,9 @@
     \begin{itemize}
         \item<+-> \alert{Dropout} \citep{SrivastavaJMLR14}
         \begin{itemize}[<.->]
-            \item During \textcolor{Green4}{training}, randomly remove some portion of connections
-            \item Often 20\% of inputs and 50\% of hidden connections
-            \item<+-> Put all connections back \& scale accordingly during \textcolor{blue}{inference}
+            \item During \textcolor{Green4}{training}, randomly remove some portion of nodes
+            \item Often 20\% of inputs and 50\% of hidden nodes
+            \item<+-> Put all nodes back \& scale accordingly during \textcolor{blue}{inference}
             \item<+-> Motivation: kind of like bagging, but much cheaper
             \item With $n \gg 1$ iterations, essentially average of $n$ models
             \item One of the best regularization techniques; use it!
@@ -133,7 +133,7 @@
         \item \alert{Batch normalization} \citep{IoffeICML15}
         \begin{itemize}
             \item Automatically shifts \& scales values to have mean 0 \& variance 1 for each mini-batch
-            \item Results in better behavior and easier learning: inputs to activations won't fly to $\pm \infty$
+            \item Results in better behavior and easier learning: inputs to activations won't vanish or explode
         \end{itemize}
     \end{itemize}
 \end{frame}
