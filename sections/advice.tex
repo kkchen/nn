@@ -100,7 +100,7 @@
     \begin{itemize}
         \item<+-> \alert{Normalize the data, or use batch normalization.}
         NNs learn better if inputs look standard normal and uncorrelated.
-        \item<+-> \alert{Be wary of extrapolation.}
+        \item<+-> \alert{Don't extrapolate.}
         Statistical models are meaningless outside their domain of training.
         \begin{itemize}
             \item E.g., sigmoid/ReLU activations have 0th/1st order extrapolation
@@ -141,14 +141,15 @@
         \item<+-> \alert{Stay on top of recent conferences and arXiv papers.}
         Papers seem to become obsolete after 2 years.
         \item<+-> \alert{Be aware of \emph{interpretability} criticisms, but do not fear them.}
-        \begin{itemize}
+        \begin{itemize}[<+->]
             \item Main reason physicists reject machine learning: \\[1ex]
 
             \emph{``So you made a model with 1,000,000,000 parameters, and you fit the data, but you haven't a clue what any of those parameters actually means, or why your model does what it does.''} \\[1ex]
 
             \ldots or something like that
-            \item ML community divided on whether interpretability is important
+            \item<+-> ML community divided on whether interpretability is important
             \item But don't ignore the results: \emph{ML works}, whether you understand its inner workings or not
+            \item (I drive a car everyday, and I understand its behavior, but I have no idea how it works)
         \end{itemize}
     \end{itemize}
 \end{frame}
