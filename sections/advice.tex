@@ -66,6 +66,31 @@
 
 \begin{frame}
     \frametitle{End-to-end machine learning}
+
+    \begin{block}{}
+        \alert{End-to-end}: give the model input \& output data, but don't tell it how to get from inputs to outputs.
+        Let the model figure it out.
+    \end{block}
+
+    \begin{center}
+        \input{figures/end_to_end}
+    \end{center}
+    \pause
+
+    \begin{block}{}
+        Alternative: define intermediate variables; train models from inputs to intermediate variables to outputs
+    \end{block}
+
+    \begin{center}
+        \input{figures/phoneme}
+    \end{center}
+    \pause
+
+    \begin{itemize}
+        \item End-to-end can learn very complex input--output relations\ldots
+        \item But requires enormous data and very powerful models/optimizers
+        \item Often best not to start with end-to-end
+    \end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -110,8 +135,21 @@
 
 \begin{frame}
     \frametitle{Engaging with the scientific community}
-    % Obsolete papers.
-    % Interpretability criticisms
+
+    \begin{itemize}
+        \item<+-> \alert{Stay on top of recent conferences and arXiv papers.}
+        Papers seem to become obsolete after 2 years.
+        \item<+-> \alert{Be aware of \emph{interpretability} criticisms, but do not fear them.}
+        \begin{itemize}
+            \item Main reason physicists reject machine learning: \\[1ex]
+
+            \emph{``So you made a model with 1,000,000,000 parameters, and you fit the data, but you haven't a clue what any of those parameters actually means, or why your model does what it does.''} \\[1ex]
+
+            \ldots or something like that
+            \item ML community divided on whether interpretability is important
+            \item But don't ignore the results: \emph{ML works}, whether you understand its inner workings or not
+        \end{itemize}
+    \end{itemize}
 \end{frame}
 
 %%% Local Variables:

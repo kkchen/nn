@@ -1,0 +1,13 @@
+\begin{tikzpicture}[node distance=1.5cm]
+    \node (audio) [draw, block, fill=yellow!20, align=center] {speech \\ audio};
+    \node (box) [draw, block, fill=black!20, minimum height=1.3cm, minimum width=1.3cm, align=center, right=of audio] {black box};
+    \node (text) [draw, block, fill=yellow!20, right=of box] {text};
+
+    \draw [path] (audio) -- (box);
+    \draw [path] (box) -- (text);
+\end{tikzpicture}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../nn"
+%%% End:

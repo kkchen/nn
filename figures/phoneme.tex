@@ -1,0 +1,21 @@
+\begin{tikzpicture}[node distance=4.4mm]
+    \node (audio) [draw, block, fill=yellow!20, align=center] {speech \\ audio};
+    \node (box 0) [draw, block, fill=black!20, right=of audio] {FFT};
+    \node (spectrum) [draw, block, fill=blue!20, right=of box 0] {spectrogram};
+    \node (box 1) [draw, block, fill=black!20, align=center, right=of spectrum] {black \\ box};
+    \node (phonemes) [draw, block, fill=blue!20, right=of box 1] {phonemes};
+    \node (box 2) [draw, block, fill=black!20, align=center, right=of phonemes] {black \\ box};
+    \node (text) [draw, block, fill=yellow!20, right=of box 2] {text};
+
+    \draw [path] (audio) -- (box 0);
+    \draw [path] (box 0) -- (spectrum);
+    \draw [path] (spectrum) -- (box 1);
+    \draw [path] (box 1) -- (phonemes);
+    \draw [path] (phonemes) -- (box 2);
+    \draw [path] (box 2) -- (text);
+\end{tikzpicture}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../nn"
+%%% End:
