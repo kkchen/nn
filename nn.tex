@@ -57,9 +57,11 @@
 % LaTeX things.
 \renewcommand{\thefootnote}{\fnsymbol{footnote}}
 
-% Other commands.
+% Links.
 \newcommand*{\bluelink}[2]{\href{#1}{\textcolor{blue}{#2}}}
 \newcommand*{\blueurl}[1]{\textcolor{blue}{\url{#1}}}
+
+% TikZ commands.
 \newcommand{\dropoutnetwork}[1]{
     \draw [fill=#1!10, rounded corners] (-0.75, -0.25) rectangle (1.75, 1.75);
 
@@ -87,6 +89,9 @@
         \node (output \i) [io mini, above=of dense 1\j] {};
     }
 }
+\newcommand{\entry}[2]{
+    \draw [thick] (#2, \pos - 0.2) -- (#2, \pos + 0.2) node [below, pos=0] {#1};
+}
 \newcommand{\mlpblock}{
     \begin{block}{}
         \vspace{-1em}
@@ -98,6 +103,11 @@
             \p{L}{\hat{y}_k} = \frac{2 (\hat{y}_k - y_k)}{p}
         \end{align*}
     \end{block}
+}
+\newcommand{\scale}[2]{
+    \draw [Latex-Latex, very thick] (-3.6, \pos) -- (3.6, \pos)
+    node [left, pos=0, align=right] {#1}
+    node [right, pos=1, align=left] {#2};
 }
 
 % Make a variant of \vdots without the top vertical space.
@@ -171,6 +181,8 @@
 % Bibliography commands.
 \bibliographystyle{plainnat}
 \setcitestyle{round}
+
+\includeonly{sections/advice}
 
 \begin{document}
 

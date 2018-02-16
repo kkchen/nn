@@ -2,12 +2,59 @@
 
 \subsection{}
 
-% General advice: use GPUs; start small; # parameters vs # data; halving width; normalize data; dropout
-% Software
-% End-to-end.
-% Obsolete papers.
-% float32, TPUs
-% Extrapolation.
+\begin{frame}
+    \frametitle{Hardware}
+
+    \begin{itemize}
+        \item \alert{Use GPUs.}
+        The bulk of forward and backprop is matrix--vector multiplies; common for GPUs to be $\O(10 \text{--} 100)\times$ faster
+        \item \alert{Use GPUs built for NNs.}
+        The NVIDIA Volta and Google tensor processing unit (TPU) are built from ground-up to be lightning fast for NNs (e.g., 16-bit multiply-add for 32-bit result)
+        \item \alert{Use mini-batch sizes and widths that are integer powers of 2.}
+        Not a hard rule, but GPUs tend to more efficient this way
+        \item \alert{Use 32-bit floats.}
+        Neural networks are not turbulence simulations; no tangible benefit to 64-bit doubles
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Software}
+
+    \begin{itemize}
+        \item $\exists$ many NN platforms; unclear which will win out in the end.
+        \item Most popular now: Keras, TensorFlow, PyTorch
+        \begin{itemize}
+            \item TensorFlow seems to be winning, but list changes rapidly
+        \end{itemize}
+        \item How do they compare in my opinion?
+    \end{itemize}
+
+    \begin{center}
+        \input{figures/software}
+    \end{center}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Neural network architecture}
+    % start small
+    % # parameters vs # data
+    % halving width
+    % excessive depth
+    % End-to-end.
+    % dropout
+\end{frame}
+
+\begin{frame}
+    \frametitle{Data}
+    % normalize data
+    % Extrapolation.
+\end{frame}
+
+\begin{frame}
+    \frametitle{Engaging with the scientific community}
+    % Obsolete papers.
+    % Interpretability criticisms
+\end{frame}
 
 %%% Local Variables:
 %%% mode: latex
