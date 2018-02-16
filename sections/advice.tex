@@ -39,14 +39,6 @@
 
 \begin{frame}
     \frametitle{Neural network architecture}
-    \input{figures/dropout1}
-    \hfill
-    \input{figures/dropout2}
-    \hfill
-    \input{figures/dropout3}
-    \hfill
-    \input{figures/no_dropout}
-
     \begin{itemize}[<+->]
         \item \alert{Use CNNs for spatial data \& RNNs for temporal data.}
         \item \alert{Start with architectures that are too small.}
@@ -54,6 +46,8 @@
         \item \alert{Scale up architectures until they overfit.}
         Check the relation between NN size and validation loss.
         Back off on size if validation loss increases.
+        \item \alert{Use pretraining.}
+        If applicable, borrow NN architecture from pre-existing model (e.g., ResNet), and initialize parameters to trained values from different task.
         \item \alert{Use dropout.}
         They are one of the best regularizers.
         \item \alert{Aim for $\text{\# parameters} \le \text{\# data}$.}
