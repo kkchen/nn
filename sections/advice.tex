@@ -4,12 +4,15 @@
 
 \begin{frame}
     \frametitle{Hardware}
+    \includegraphics[width=0.48\textwidth]{volta}
+    \hfill
+    \includegraphics[width=0.48\textwidth]{tpu}
 
-    \begin{itemize}
+    \begin{itemize}[<+->]
         \item \alert{Use GPUs.}
-        The bulk of forward and backprop is matrix--vector multiplies; common for GPUs to be $\O(10 \text{--} 100)\times$ faster
+        The bulk of forward and backprop is matrix--vector multiplies; common for GPUs to be $\O(10 \text{--} 100)\times$ faster than CPUs
         \item \alert{Use GPUs built for NNs.}
-        The NVIDIA Volta and Google tensor processing unit (TPU) are built from ground-up to be lightning fast for NNs (e.g., 16-bit multiply-add for 32-bit result)
+        NVIDIA Volta and Google tensor processing unit (TPU) are built from ground-up to be lightning fast for NNs (e.g., 16-bit multiply-add for 32-bit result)
         \item \alert{Use mini-batch sizes and widths that are integer powers of 2.}
         Not a hard rule, but GPUs tend to more efficient this way
         \item \alert{Use 32-bit floats.}
@@ -19,13 +22,13 @@
 
 \begin{frame}
     \frametitle{Software}
-
     \begin{itemize}
         \item $\exists$ many NN platforms; unclear which will win out in the end.
         \item Most popular now: Keras, TensorFlow, PyTorch
         \begin{itemize}
             \item TensorFlow seems to be winning, but list changes rapidly
         \end{itemize}
+        \pause
         \item How do they compare in my opinion?
     \end{itemize}
 
@@ -36,18 +39,73 @@
 
 \begin{frame}
     \frametitle{Neural network architecture}
-    % start small
-    % # parameters vs # data
-    % halving width
-    % excessive depth
-    % End-to-end.
-    % dropout
+    \input{figures/dropout1}
+    \hfill
+    \input{figures/dropout2}
+    \hfill
+    \input{figures/dropout3}
+    \hfill
+    \input{figures/no_dropout}
+
+    \begin{itemize}[<+->]
+        \item \alert{Start with architectures that are too small.}
+        NNs take a long time to train; make problems show up immediately.
+        \item \alert{Scale up architectures until they overfit.}
+        Check the relation between NN size and validation loss.
+        Back off on size if validation loss increases.
+        \item \alert{Use dropout.}
+        They are one of the best regularizers.
+        \item \alert{Aim for $\text{\# parameters} \le \text{\# data}$.}
+        Helps prevent overfitting.
+        \item \alert{Let layer $i$ be \sfrac{1}{2}--\sfrac{3}{4} the width of layer $i - 1$.}
+        Layers closer to the input have greater expressive power.
+        \item \alert{Beware of excessive depth.}
+        They make NNs much harder to train.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{End-to-end machine learning}
 \end{frame}
 
 \begin{frame}
     \frametitle{Data}
-    % normalize data
-    % Extrapolation.
+
+    \begin{itemize}
+        \item<+-> \alert{Normalize the data, or use batch normalization.}
+        NNs learn better if inputs look standard normal and uncorrelated.
+        \item<+-> \alert{Be wary of extrapolation.}
+        Statistical models are meaningless outside their domain of training.
+        \begin{itemize}
+            \item E.g., sigmoid/ReLU activations have 0th/1st order extrapolation
+        \end{itemize}
+    \end{itemize}
+
+    \begin{columns}
+        \begin{column}{0.4\textwidth}
+            \centering
+            \footnotesize
+
+            \uncover<+->{
+                \includegraphics[width=1.5in]{ripple} \\
+                ground truth, $[-12, 12] \times [-12, 12]$
+                \includegraphics[width=1.5in]{extended_ripple} \\
+                ground truth, $[-18, 18] \times [-18, 18]$
+            }
+        \end{column}
+
+        \begin{column}{0.6\textwidth}
+            \centering
+            \footnotesize
+
+            \uncover<+->{
+                \includegraphics[width=1.5in]{ripple_2layer} \\
+                17--8 neurons, $[-12, 12] \times [-12, 12]$
+                \includegraphics[width=1.5in]{extrapolated_ripple} \\
+                above model extrapolated to $[-18, 18] \times [-18, 18]$
+            }
+        \end{column}
+    \end{columns}
 \end{frame}
 
 \begin{frame}

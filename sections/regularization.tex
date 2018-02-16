@@ -58,7 +58,7 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{Training loss vs.~test loss}
+    \frametitle{Training loss vs.\ test loss}
     \includegraphics{loss}
 
     General pattern
@@ -129,12 +129,11 @@
     \hfill
     \uncover<2->{\input{figures/no_dropout}}
 
-    \uncover<+->{Finally, not actually regularization (more like the opposite), but:}
     \begin{itemize}
-        \item<.-> Boosting \citep[e.g.,][]{FreundJCSS97}
+        \item \alert{Batch normalization} \citep{IoffeICML15}
         \begin{itemize}
-            \item Repeatedly train $n$ NNs, where NN $i$ more strongly emphasizes data that NN $i - 1$ erred on
-            \item Then compute average of all NNs, weighted by each NN's accuracy
+            \item Automatically shifts \& scales values to have mean 0 \& variance 1 for each mini-batch
+            \item Results in better behavior and easier learning: inputs to activations won't fly to $\pm \infty$
         \end{itemize}
     \end{itemize}
 \end{frame}

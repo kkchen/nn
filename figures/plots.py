@@ -182,6 +182,16 @@ class Plots:
         ax[1].set_title('Good model')
         ax[2].set_title('Overfitted')
 
+    def _plot_extended_ripple(self):
+        """Plot the ripple on a larger domain."""
+        ax, x, y = self._pre_extrapolate_ripple()
+        ax.plot_surface(x, y, Ripple.f(x, y), cmap=cm.inferno)
+
+    def _plot_extrapolated_ripple(self):
+        z = np.load('extrapolate_2layer.npy')
+        ax, x, y = Plots._pre_extrapolate_ripple()
+        ax.plot_surface(x, y, z, cmap=cm.inferno)
+
     @staticmethod
     def _plot_loss():
         """Plot example training and test loss."""
@@ -350,6 +360,19 @@ class Plots:
         z = np.load('outputs_{}layer.npy'.format(n))
         ax, x, y = Plots._pre_ripple_plot()
         ax.plot_surface(x, y, z, cmap=cm.inferno)
+
+    @staticmethod
+    def _pre_extrapolate_ripple():
+        """Commands to run before making big (extrapolated) ripple plots."""
+        x = np.linspace(-18, 18, 1501)
+        x, y = np.meshgrid(x, x)
+
+        fig = plt.figure(figsize=(3.15, 2.4))
+        ax = fig.gca(projection='3d')
+        plt.axis('off')
+        ax.dist = 6.75
+
+        return ax, x, y
 
 def main():
     plots = Plots()

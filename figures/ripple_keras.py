@@ -47,7 +47,10 @@ class KerasDense:
 
         for layer in range(1, self._layers):
             self._model.add(
-                keras.layers.Dense(n_neurons[self._layers-1][layer], self._activation)
+                keras.layers.Dense(
+                    n_neurons[self._layers-1][layer],
+                    self._activation
+                )
             )
 
         self._model.add(keras.layers.Dense(1))
