@@ -74,25 +74,70 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{Regularization techniques}
+    \frametitle{Some regularization techniques (1/2)}
 
     \begin{block}{}
         Regularization: modifications that reduce generalization error
     \end{block}
 
     \begin{itemize}
-        \item Early stopping
-        \item Weight penalization
-        \item Dropout
-        \item Bagging
-        \item Boosting
+        \item<+-> Early stopping
+        \item<+-> Don't make NNs too big
+        \begin{itemize}
+            \item Rule of thumb: $\text{\# parameters} \le \text{\# data}$
+        \end{itemize}
+        \item<+-> $L^2$ regularization: use loss $\hat{L}(\y, \f(\x; \THETA)) = L(\y, \f(\x; \THETA)) + \alpha \|\THETA\|_2^2$
+        \begin{itemize}
+            \item Reduces weights, especially in directions that affect $L$ little
+        \end{itemize}
+        \item<+-> $L^1$ regularization: use loss $\hat{L}(\y, \f(\x; \THETA)) = L(\y, \f(\x; \THETA)) + \alpha \|\THETA\|_1$
+        \begin{itemize}
+            \item Promotes sparsity in $\THETA$
+        \end{itemize}
+        \item<+-> Add noise to NN input during training \citep{SietsmaNN91}
+        \begin{itemize}
+            \item Very non-intuitive to engineers
+            \item Prevents overfitting: ``fuzzes'' out bad data
+        \end{itemize}
+        \item<+-> Bagging (bootstrap aggregating) \citep{BreimanML94}
+        \begin{itemize}
+            \item For data of size $n$, draw $d$ samples with replacement $m$ times
+            \item Train one NN on each of the $m$ sets \& average results
+        \end{itemize}
     \end{itemize}
 \end{frame}
 
-% Dropout
-% Noise
-% Weight clipping
-% Weight penalty
+\begin{frame}
+    \frametitle{Some regularization techniques (2/2)}
+    \begin{itemize}
+        \item<+-> \alert{Dropout} \citep{SrivastavaJMLR14}
+        \begin{itemize}[<.->]
+            \item During \textcolor{Green4}{training}, randomly remove some portion of connections
+            \item Often 20\% of inputs and 50\% of hidden connections
+            \item<+-> Put all connections back \& scale accordingly during \textcolor{blue}{inference}
+            \item<+-> Motivation: kind of like bagging, but much cheaper
+            \item With $n \gg 1$ iterations, essentially average of $n$ models
+            \item One of the best regularization techniques; use it!
+        \end{itemize}
+    \end{itemize}
+
+    \input{figures/dropout1}
+    \hfill
+    \input{figures/dropout2}
+    \hfill
+    \input{figures/dropout3}
+    \hfill
+    \uncover<2->{\input{figures/no_dropout}}
+
+    \uncover<+->{Finally, not actually regularization (more like the opposite), but:}
+    \begin{itemize}
+        \item<.-> Boosting \citep[e.g.,][]{FreundJCSS97}
+        \begin{itemize}
+            \item Repeatedly train $n$ NNs, where NN $i$ more strongly emphasizes data that NN $i - 1$ erred on
+            \item Then compute average of all NNs, weighted by each NN's accuracy
+        \end{itemize}
+    \end{itemize}
+\end{frame}
 
 %%% Local Variables:
 %%% mode: latex

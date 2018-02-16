@@ -1,0 +1,23 @@
+\begin{tikzpicture}[node distance=3mm]
+    \dropoutnetwork{blue}
+
+    \foreach \i in {0, ..., 4} {
+        \foreach \j in {0, ..., 2} {
+            \draw (input \j) -- (dense 0\i);
+        }
+
+        \foreach \j in {0, ..., 3} {
+            \draw (dense 0\i) -- (dense 1\j);
+        }
+    }
+
+    \foreach \i in {0, 1} {
+        \foreach \j in {0, ..., 3} {
+            \draw (dense 1\j) -- (output \i);
+        }
+    }
+\end{tikzpicture}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../nn"
+%%% End:

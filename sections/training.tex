@@ -83,17 +83,7 @@
 
 \begin{frame}
     \frametitle{Backpropagation example (2/3)}
-
-    \begin{block}{}
-        \vspace{-1em}
-        \begin{align*}
-            \hat{y}_k &= \sum_{j=1}^n v_{kj} \sigma\left(\sum_{i=1}^q w_{ji} x_i + b_j\right) + c_k,
-            \quad
-            k = 1, \ldots, p \\
-            L(\y, \yh) &= \frac{1}{p} \sum_{k=1}^p (y_k - \hat{y}_k)^2, \qquad
-            \p{L}{\hat{y}_k} = \frac{2 (\hat{y}_k - y_k)}{p}
-        \end{align*}
-    \end{block}
+    \mlpblock
     \pause
 
     \begin{align*}
@@ -107,17 +97,7 @@
 
 \begin{frame}
     \frametitle{Backpropagation example (3/3)}
-
-    \begin{block}{}
-        \vspace{-1em}
-        \begin{align*}
-            \hat{y}_k &= \sum_{j=1}^n v_{kj} \sigma\left(\sum_{i=1}^q w_{ji} x_i + b_j\right) + c_k,
-            \quad
-            k = 1, \ldots, p \\
-            L(\y, \yh) &= \frac{1}{p} \sum_{k=1}^p (y_k - \hat{y}_k)^2, \qquad
-            \p{L}{\hat{y}_k} = \frac{2 (\hat{y}_k - y_k)}{p}
-        \end{align*}
-    \end{block}
+    \mlpblock
     \pause
 
     \begin{align*}

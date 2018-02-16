@@ -58,8 +58,47 @@
 \renewcommand{\thefootnote}{\fnsymbol{footnote}}
 
 % Other commands.
-\newcommand{\bluelink}[2]{\href{#1}{\textcolor{blue}{#2}}}
-\newcommand{\blueurl}[1]{\textcolor{blue}{\url{#1}}}
+\newcommand*{\bluelink}[2]{\href{#1}{\textcolor{blue}{#2}}}
+\newcommand*{\blueurl}[1]{\textcolor{blue}{\url{#1}}}
+\newcommand{\dropoutnetwork}[1]{
+    \draw [fill=#1!10, rounded corners] (-0.75, -0.25) rectangle (1.75, 1.75);
+
+    \node (input 0) [io mini] {};
+
+    \foreach \i in {1, 2} {
+        \pgfmathtruncatemacro{\j}{\i - 1}
+        \node (input \i) [io mini, right=of input \j] {};
+    }
+
+    \foreach \i in {0, ..., 2} {
+        \pgfmathtruncatemacro{\j}{\i + 1}
+        \node (dense 0\j) [neuron mini, above=of input \i] {};
+    }
+
+    \node (dense 00) [neuron mini, left=of dense 01] {};
+    \node (dense 04) [neuron mini, right=of dense 03] {};
+
+    \foreach \i in {0, ..., 3} {
+        \node (dense 1\i) [neuron mini, above=of dense 0\i, xshift=2.5mm] {};
+    }
+
+    \foreach \i in {0, 1} {
+        \pgfmathtruncatemacro{\j}{\i + 1}
+        \node (output \i) [io mini, above=of dense 1\j] {};
+    }
+}
+\newcommand{\mlpblock}{
+    \begin{block}{}
+        \vspace{-1em}
+        \begin{align*}
+            \hat{y}_k &= \sum_{j=1}^n v_{kj} \sigma\left(\sum_{i=1}^q w_{ji} x_i + b_j\right) + c_k,
+            \quad
+            k = 1, \ldots, p \\
+            L(\y, \yh) &= \frac{1}{p} \sum_{k=1}^p (y_k - \hat{y}_k)^2, \qquad
+            \p{L}{\hat{y}_k} = \frac{2 (\hat{y}_k - y_k)}{p}
+        \end{align*}
+    \end{block}
+}
 
 % Make a variant of \vdots without the top vertical space.
 \makeatletter
@@ -103,7 +142,9 @@
 \tikzstyle{affine} = [draw, block, fill=blue!20]
 \tikzstyle{block} = [minimum width=7mm, minimum height=7mm, thick, rectangle, rounded corners, font=\small, inner sep=2.5pt]
 \tikzstyle{io} = [neuron, fill=yellow!20]
+\tikzstyle{io mini} = [neuron mini, fill=yellow!20]
 \tikzstyle{neuron} = [draw, minimum width=5mm, minimum height=5mm, thick, rectangle, rounded corners, inner sep=0pt, fill=red!20]
+\tikzstyle{neuron mini} = [draw, minimum width=2mm, minimum height=2mm, circle, inner sep=0pt, fill=red!20]
 \tikzstyle{path} = [-Latex, thick]
 \tikzstyle{scalar} = [draw, block, fill=yellow!20, text height=1.5ex, text depth=0.25ex]
 
@@ -130,6 +171,8 @@
 % Bibliography commands.
 \bibliographystyle{plainnat}
 \setcitestyle{round}
+
+\includeonly{sections/regularization}
 
 \begin{document}
 
