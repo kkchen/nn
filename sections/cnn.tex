@@ -58,11 +58,11 @@
     \begin{itemize}
         \item<+-> LeNet \citep{LeCunIEEE98}: 18.9\% top-5 error
         \begin{itemize}
-            \item 2 convolutional layers (size 5, 5) $\to$ 3 dense layers (size 120, 84, 10)
+            \item 2 convolutional layers (size $5 \times 5 \times 6$, $5 \times 5 \times 16$) $\to$ 3 dense layers (size 120, 84, 10)
         \end{itemize}
         \item<+-> AlexNet \citep{KrizhevskyNIPS12}: 17.0\%
         \begin{itemize}
-            \item 5 convolutional layers (size 11, 5, 3, 3, 3) $\to$ 3 dense layers (size 4096, 4096, 1000)
+            \item 5 convolutional layers (size $11 \times 11 \times 3 \times 96$, $5 \times 5 \times 48 \times 256$, $3 \times 3 \times 256 \times 384$, $3 \times 3 \times 192 \times 384$, $3 \times 3 \times 192 \times 256$) $\to$ 3 dense layers (size 4096, 4096, 1000)
         \end{itemize}
         \item<+-> ZF Net \citep{ZeilerECCV14}: 11.2\%
         \begin{itemize}
