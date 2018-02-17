@@ -27,10 +27,10 @@
 \begin{frame}
     \frametitle{2-D convolution}
     \begin{columns}
-        \begin{column}{0.37\textwidth}
+        \begin{column}{0.41\textwidth}
             \input{figures/convolution}
         \end{column}
-        \begin{column}{0.63\textwidth}
+        \begin{column}{0.59\textwidth}
             Given
             \begin{itemize}[<+->]
                 \item \textcolor{blue}{RGB image}, dimension $w \times h \times 3$
@@ -54,6 +54,42 @@
 
 \begin{frame}
     \frametitle{What's the point?}
+
+    \begin{columns}
+        \begin{column}{0.31\textwidth}
+            \input{figures/filter}
+        \end{column}
+        \begin{column}{0.69\textwidth}
+            Overly simplified example:
+            \begin{itemize}[<+->]
+                \item Suppose one of the class label is ``car''
+                \item Cars have wheels
+                \item Suppose one of the filters has a round shape
+                \item For most $m \times m \times 3$ blocks, convolution produces noise
+                \item<10-> But if block contains tire, then convolution hits $\implies$ large value
+            \end{itemize}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Filters \& pooling}
+
+    \begin{columns}
+        \begin{column}{0.4\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{filters} \\
+            \footnotesize
+            AlexNet filters \citep{KrizhevskyNIPS12}
+        \end{column}
+
+        \begin{column}{0.6\textwidth}
+            Reality not that simple
+            \begin{itemize}
+                \item Trained filters find edges, arcs, color patches, etc.
+            \end{itemize}
+        \end{column}
+    \end{columns}
 \end{frame}
 
 \begin{frame}
@@ -73,7 +109,7 @@
                     \item $32 \times 32$ color images
                     \item CIFAR-10 test error: 35\% \citep{RanzatoAISTATS10} to 2.1\% \citep{Real18}
                 \end{itemize}
-                \item Early 2010s: ImageNet---$\O(10^7)$ images, $\O(10^4)$ labels
+                \item<+-> Early 2010s: ImageNet---$\O(10^7)$ images, $\O(10^4)$ labels
             \end{itemize}
         \end{column}
         \begin{column}{0.45\textwidth}

@@ -1,0 +1,65 @@
+\begin{tikzpicture}[x=1.5mm, y=1.5mm, auto]
+    % The image.
+    \foreach \depth in {2, ..., 0} {
+        \image{-\depth}{\depth}
+    }
+
+    % Tires.
+    \foreach \i in {5.5, 15.5} {
+        \visible<2-3>{\draw [very thick] (\i, -15.5) circle (1.5);}
+    }
+
+    % A filter with tires.
+    \visible<3>{
+        \foreach \depth in {2, ..., 0} {
+            \filter{-\depth}{-28 + \depth}
+        }
+
+        \draw [very thick] (2.5, -30.5) circle (1.5);
+    }
+
+    % Start the convolution.
+    \foreach \i in {0, ..., 5} {
+        \pgfmathtruncatemacro{\overlay}{\i + 4}
+
+        % Overlay the filter on the image.
+        \visible<\overlay>{
+            \foreach \depth in {2, ..., 0} {
+                \image{-\depth}{\depth}
+                \filter{\i - \depth}{\depth}
+                \draw [very thick, gray] (\i + 2.5, -2.5) circle (1.5);
+            }
+
+            % Tires.
+            \foreach \i in {5.5, 15.5} {
+                \visible<\overlay>{\draw [very thick] (\i, -15.5) circle (1.5);}
+            }
+        }
+
+        \visible<\overlay->{\featuremap{\i + 4}{-28}{1}}
+        \visible<\overlay>{\draw [path] (\i + 2.5, -2.5) -- (\i + 4.5, -28.5);}
+    }
+
+    % Complete the feature map.
+    \visible<10->{
+        \foreach \depth in {2, ..., 0} {
+            \image{-\depth}{\depth}
+        }
+
+        \featuremap{4}{-28}{16}
+
+        \foreach \i in {5.5, 15.5} {
+            \filter{\i - 2.5}{-13} % A filter matching the tire.
+            \draw [very thick] (\i, -15.5) circle (1.5); % Tires.
+
+            % Lit-up feature map elements.
+            \draw [very thick, fill=green] (\i + 1.5, -41) rectangle (\i + 2.5, -42);
+            \draw [path] (\i, -15.5) -- (\i + 2, -41.5);
+        }
+    }
+
+\end{tikzpicture}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../nn"
+%%% End:
