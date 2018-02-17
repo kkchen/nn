@@ -14,98 +14,59 @@
     \setcounter{beamerpauses}{2}
 
     % The detector stage outputs.
-    \visible<+->{
-        \foreach \i/\n in {0/9, 1/0, 2/3, 3/5, 4/0} {
-            \node (conv 0\i) at (\i, 0) [number] {\n};
-        }
-
-        \foreach \i/\n in {0/8, 1/4, 2/4, 3/1, 4/7} {
-            \node (conv 1\i) at (\i, -1) [number] {\n};
-        }
-
-        \foreach \i/\n in {0/4, 1/1, 2/2, 3/4, 4/5} {
-            \node (conv 2\i) at (\i, -2) [number] {\n};
-        }
-
-        \foreach \i/\n in {0/2, 1/3, 2/3, 3/4, 4/3} {
-            \node (conv 3\i) at (\i, -3) [number] {\n};
-        }
-
-        \foreach \i/\n in {0/3, 1/9, 2/6, 3/2, 4/1} {
-            \node (conv 4\i) at (\i, -4) [number] {\n};
-        }
+    \foreach \i/\n in {0/9, 1/0, 2/3, 3/5, 4/0} {
+        \node (conv 0\i) at (\i, 0) [number] {\n};
     }
 
-    % Start pooling, one by one.
-    \visible<+->{\node (pool 00) at (0, -6) [number] {9};}
-    \visible<.>{
-        \draw [very thick] (-0.5, 0.5) rectangle (1.5, -1.5);
-        \draw [path] (conv 10.315) -- (pool 00);
+    \foreach \i/\n in {0/8, 1/4, 2/4, 3/1, 4/7} {
+        \node (conv 1\i) at (\i, -1) [number] {\n};
     }
 
-    \foreach \i\n in {1/9, 2/5, 3/7} {
-        \visible<+->{\node (pool 0\i) at (\i, -6) [number] {\n};}
-
-        \visible<.>{
-            \draw [very thick] (\i - 1.5, 0.5) rectangle (\i + 1.5, -1.5);
-            \draw [path] (conv 1\i) -- (pool 0\i);
-        }
+    \foreach \i/\n in {0/4, 1/1, 2/2, 3/4, 4/5} {
+        \node (conv 2\i) at (\i, -2) [number] {\n};
     }
 
-    \visible<+->{\node (pool 04) at (4, -6) [number] {7};}
-    \visible<.>{
-        \draw [very thick] (2.5, 0.5) rectangle (4.5, -1.5);
-        \draw [path] (conv 14.225) -- (pool 04);
+    \foreach \i/\n in {0/2, 1/3, 2/3, 3/4, 4/3} {
+        \node (conv 3\i) at (\i, -3) [number] {\n};
     }
 
-    \visible<+->{\node (pool 10) at (0, -7) [number] {9};}
-    \visible<.>{
-        \draw [very thick] (-0.5, 0.5) rectangle (1.5, -2.5);
-        \draw [path] (conv 20.315) -- (pool 10);
+    \foreach \i/\n in {0/3, 1/9, 2/6, 3/2, 4/1} {
+        \node (conv 4\i) at (\i, -4) [number] {\n};
     }
 
-    \foreach \i\n in {1/9, 2/5} {
-        \visible<+->{\node (pool 1\i) at (\i, -7) [number] {\n};}
-
-        \visible<.>{
-            \draw [very thick] (\i - 1.5, 0.5) rectangle (\i + 1.5, -2.5);
-            \draw [path] (conv 2\i) -- (pool 1\i);
-        }
+    % The pooling.
+    \foreach \i/\n in {0/9, 1/9, 2/5, 3/7, 4/7} {
+        \node at (\i, -6) [number] {\n};
+    }
+    \foreach \i/\n in {0/9, 1/9, 2/5, 3/7, 4/7} {
+        \node (pool 1\i) at (\i, -7) [number] {\n};
+    }
+    \foreach \i/\n in {0/8, 1/8, 2/4, 3/7, 4/7} {
+        \node (pool 2\i) at (\i, -8) [number] {\n};
+    }
+    \foreach \i/\n in {0/9, 1/9, 2/9, 3/6, 4/5} {
+        \node at (\i, -9) [number] {\n};
+    }
+    \foreach \i/\n in {0/9, 1/9, 2/9, 3/6, 4/4} {
+        \node at (\i, -10) [number] {\n};
     }
 
-    % The rest of the pooling.
-    \visible<+->{
-        \foreach \i/\n in {3/7, 4/7} {
-            \node at (\i, -7) [number] {\n};
-        }
-        \foreach \i/\n in {0/8, 1/8, 2/4, 3/7, 4/7} {
-            \node (pool 3\i) at (\i, -8) [number] {\n};
-        }
-        \foreach \i/\n in {0/9, 1/9, 2/9, 3/6, 4/5} {
-            \node at (\i, -9) [number] {\n};
-        }
-        \foreach \i/\n in {0/9, 1/9, 2/9, 3/6, 4/4} {
-            \node at (\i, -10) [number] {\n};
-        }
-    }
+    \draw [very thick] (-0.5, 0.5) rectangle (2.5, -2.5);
+    \draw [path] (conv 21) -- (pool 11);
 
     % Downsampling.
-    \visible<+->{
-        \foreach \i in {0, 2} {
-            \foreach \j in {0, -2} {
-                \draw [very thick] (\i + 0.5, \j - 6.5) rectangle (\i + 1.5, \j - 7.5);
-            }
+    \foreach \i in {0, 2} {
+        \foreach \j in {0, -2} {
+            \draw [very thick] (\i + 0.5, \j - 6.5) rectangle (\i + 1.5, \j - 7.5);
         }
-
-        \draw [-Latex, ultra thick] (pool 34) -- (6.5, -8);
     }
 
-    \visible<.->{
-        \node at (7, -7.5) [number] {9};
-        \node at (8, -7.5) [number] {7};
-        \node at (7, -8.5) [number] {9};
-        \node at (8, -8.5) [number] {6};
-    }
+    \draw [-Latex, ultra thick] (pool 24) -- (6.5, -8);
+
+    \node at (7, -7.5) [number] {9};
+    \node at (8, -7.5) [number] {7};
+    \node at (7, -8.5) [number] {9};
+    \node at (8, -8.5) [number] {6};
 \end{tikzpicture}
 %%% Local Variables:
 %%% mode: latex
