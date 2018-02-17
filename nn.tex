@@ -1,4 +1,4 @@
-\documentclass[x11names, 10pt, handout]{beamer}
+\documentclass[x11names, 10pt]{beamer}
 
 \usefonttheme{professionalfonts}
 
@@ -63,9 +63,24 @@
 \newcommand*{\blueurl}[1]{\textcolor{blue}{\url{#1}}}
 
 % TikZ commands.
+
+% Entry on a horizontal arrow.
 \newcommand{\entry}[2]{
     \draw [thick] (#2, \pos - 0.2) -- (#2, \pos + 0.2) node [below, pos=0] {#1};
 }
+
+% Args: top left x coordinate, top left y coordinate, size
+\newcommand{\featuremap}[3]{\grid{green}{#1}{#2}{#3}}
+% Args: top left x coordinate, top left y coordinate
+\newcommand{\filter}[2]{\grid{red}{#1}{#2}{5}}
+% Args: color, top left x coordinate, top left y coordinate, size
+\newcommand{\grid}[4]{
+    \fill [#1!20] (#2, #3) rectangle (#2 + #4, #3 - #4);
+    \draw [image] (#2, #3) grid (#2 + #4, #3 - #4);
+    \draw [very thick] (#2, #3) rectangle (#2 + #4, #3 - #4);
+}
+% Args: top left x coordinate, top left y coordinate
+\newcommand{\image}[2]{\grid{blue}{#1}{#2}{20}}
 \newcommand{\mlpblock}{
     \begin{block}{}
         \vspace{-1em}
@@ -125,6 +140,7 @@
 \tikzstyle{activation} = [draw, block, fill=green!20]
 \tikzstyle{affine} = [draw, block, fill=blue!20]
 \tikzstyle{block} = [minimum width=7mm, minimum height=7mm, thick, rectangle, rounded corners, font=\small, inner sep=2.5pt]
+\tikzstyle{image} = [step=1.5mm, gray, very thin]
 \tikzstyle{io} = [neuron, fill=yellow!20]
 \tikzstyle{io mini} = [neuron mini, fill=yellow]
 \tikzstyle{io mini off} = [neuron mini, fill=yellow!20, draw=black!20]
@@ -157,6 +173,8 @@
 % Bibliography commands.
 \bibliographystyle{plainnat}
 \setcitestyle{round}
+
+\includeonly{sections/cnn}
 
 \begin{document}
 

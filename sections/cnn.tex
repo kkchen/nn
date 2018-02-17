@@ -25,6 +25,38 @@
 \end{frame}
 
 \begin{frame}
+    \frametitle{2-D convolution}
+    \begin{columns}
+        \begin{column}{0.37\textwidth}
+            \input{figures/convolution}
+        \end{column}
+        \begin{column}{0.63\textwidth}
+            Given
+            \begin{itemize}[<+->]
+                \item \textcolor{blue}{RGB image}, dimension $w \times h \times 3$
+                \item A \alert{filter}/\alert{kernel}, dimension $m \times m \times 3$, $m = \O(1 \text{--} 10) \ll w, h$
+            \end{itemize}
+            \uncover<+->{
+                For every $m \times m$ block in the 2-D image, \textcolor{Green4}{convolve} with the filter:
+                }
+            \begin{itemize}
+                \item<.-> Element-wise multiply $m \times m \times 3$ block by filter ($\Reals^{m \times m \times 3} \to \Reals^{m \times m \times 3}$)
+                \item<.-> Sum the result ($\Reals^{m \times m \times 3} \to \Reals$)
+                \item<9-> $w - m + 1$ horizontal block positions \& $h - m + 1$ vertical block positions $\implies$ produces \textcolor{Green4}{feature map} in $\Reals^{(w-m+1) \times (h-m+1)}$
+            \end{itemize}
+            \uncover<10->{Repeat for $k$ filters}
+            \begin{itemize}
+                \item<10-> Yields $k$ feature maps in $\Reals^{(w-m+1) \times (h-m+1) \times k}$
+            \end{itemize}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{What's the point?}
+\end{frame}
+
+\begin{frame}
     \frametitle{Rich history that authors expect you to know}
     \begin{columns}
         \begin{column}{0.55\textwidth}
@@ -54,11 +86,11 @@
 \begin{frame}
     \frametitle{CNN architectures that authors expect you to know}
 
-    Famous architectures + \% test samples with labels not in top 5:
+    \% ImageNet test samples with labels not in top 5:
     \begin{itemize}
         \item<+-> LeNet \citep{LeCunIEEE98}: 18.9\% top-5 error
         \begin{itemize}
-            \item 2 convolutional layers (size $5 \times 5 \times 6$, $5 \times 5 \times 16$) $\to$ 3 dense layers (size 120, 84, 10)
+            \item 2 convolutional layers (size $5 \times 5 \times 6$, $5 \times 5 \times 6 \times 16$) $\to$ 3 dense layers (size 120, 84, 10)
         \end{itemize}
         \item<+-> AlexNet \citep{KrizhevskyNIPS12}: 17.0\%
         \begin{itemize}

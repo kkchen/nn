@@ -1,0 +1,62 @@
+\begin{tikzpicture}[x=1.5mm, y=1.5mm, auto]
+    \foreach \depth in {2, ..., 0} {
+        \visible<1-2>{\image{-\depth}{\depth}}
+        \visible<2>{\filter{-\depth}{-28 + \depth}}
+    }
+
+    \visible<1>{
+        \draw [Latex-Latex] (0, -21) -- node [below, font=\footnotesize] {$w$} (20, -21);
+        \draw [Latex-Latex] (21, 0) -- node [font=\footnotesize] {$h$} (21, -20);
+        \draw [Latex-Latex] (-1, -21) -- node [below, font=\footnotesize, rotate=315] {$3$} (-3, -19);
+    }
+
+    \visible<2>{
+        \draw [Latex-Latex] (0, -34) -- node [below, font=\footnotesize] {$m$} (5, -34);
+        \draw [Latex-Latex] (6, -28) -- node [font=\footnotesize] {$m$} (6, -33);
+        \draw [Latex-Latex] (-1, -34) -- node [below, font=\footnotesize, rotate=315] {$3$} (-3, -32);
+    }
+
+    \foreach \i in {0, ..., 5} {
+        \pgfmathtruncatemacro{\overlay}{\i + 3}
+        \foreach \depth in {2, ..., 0} {
+            \visible<\overlay>{
+                \image{-\depth}{\depth}
+                \filter{\i - \depth}{\depth}
+            }
+        }
+
+        \visible<\overlay->{\featuremap{\i + 4}{-28}{1}}
+        \visible<\overlay>{\draw [path] (\i + 2.5, -2.5) -- (\i + 4.5, -28.5);}
+    }
+
+    \visible<9>{
+        \foreach \depth in {2, ..., 0} {
+            \image{-\depth}{\depth}
+            \filter{15 - \depth}{-15 + \depth}
+        }
+
+        \featuremap{4}{-28}{16}
+        \draw [path] (17.5, -17.5) -- (19.5, -43.5);
+    }
+
+    \visible<9->{
+        \draw [Latex-Latex] (4, -45) -- node [below, font=\footnotesize] {$w - m + 1$} (20, -45);
+        \draw [Latex-Latex] (21, -28) -- node [below, font=\footnotesize, rotate=90] {$h - m + 1$} (21, -44);
+    }
+
+    \visible<10->{
+        \foreach \depth in {2, ..., 0} {
+            \image{-\depth}{\depth}
+        }
+
+        \foreach \depth in {5, ..., 0} {
+            \featuremap{4 - \depth}{-28 + \depth}{16}
+        }
+
+        \draw [Latex-Latex] (3, -45) -- node [below, font=\footnotesize, rotate=315] {$k$} (-2, -40);
+    }
+\end{tikzpicture}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../nn"
+%%% End:
