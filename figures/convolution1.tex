@@ -1,6 +1,61 @@
 \begin{tikzpicture}[x=1.5mm, y=1.5mm, auto]
+    % Feature map.
     \foreach \depth in {5, ..., 0} {
         \featuremap{4 - \depth}{\depth}{16}
+    }
+
+    % Lit-up feature map elements.
+    \draw [very thick, fill=blue!65] (9, 1) rectangle (13, 0);
+
+    \foreach \i in {5.5, 15.5} {
+        \draw [very thick, fill=green] (\i + 1.5, -7) rectangle (\i + 2.5, -8);
+    }
+
+    \visible<2->{
+        \draw [-Latex, ultra thick] (19, -17) .. controls (19, -20) and (17, -22) .. (16, -23);
+    }
+
+    \visible<2-4>{
+        % Activated, pooled, downsampled.
+        \foreach \depth in {5, ..., 0} {
+            \featuremap{8 - \depth}{\depth - 25}{8}
+        }
+
+        % Lit-up feature map elements.
+        \draw [very thick, fill=blue!65] (10, -24) rectangle (12, -25);
+
+        \foreach \i in {10, 13} {
+            \draw [very thick, fill=green] (\i, -28) rectangle (\i + 1, -29);
+        }
+    }
+
+    % Filter.
+    \visible<4->{
+        \foreach \depth in {5, ..., 0} {
+            \smallfilter{10 - \depth}{\depth - 42}
+        }
+
+        \draw [very thick, fill=blue!65] (10, -41) rectangle (12, -42);
+
+        \foreach \i in {10, 13} {
+            \draw [very thick, fill=green] (\i, -45) rectangle (\i + 1, -46);
+        }
+    }
+
+    % Applied filter.
+    \visible<5->{
+        % Activated, pooled, downsampled.
+        \foreach \depth in {5, ..., 0} {
+            \featuremap{8 - \depth}{\depth - 25}{8}
+            \smallfilter{10 - \depth}{\depth - 25}
+        }
+
+        % Lit-up feature map elements.
+        \draw [very thick, fill=blue!65] (10, -24) rectangle (12, -25);
+
+        \foreach \i in {10, 13} {
+            \draw [very thick, fill=green] (\i, -28) rectangle (\i + 1, -29);
+        }
     }
 \end{tikzpicture}
 

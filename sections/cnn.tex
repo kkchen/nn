@@ -123,14 +123,27 @@
 \begin{frame}
     \frametitle{Adding depth}
 
-    \input{figures/convolution1}
+    \begin{columns}
+        \begin{column}{0.32\textwidth}
+            \input{figures/convolution1}
+        \end{column}
 
-    So we have feature maps that light up when patterns match.
-    Now what?%
+        \begin{column}{0.68\textwidth}
+            \uncover<+->{So we have feature maps that light up when patterns match,}
+            \uncover<+->{+ bias, nonlinear activation, pooling, \& downsampling.}
+            \uncover<+->{Now what?}
+            \begin{itemize}
+                \item<.-> Add more layers for \emph{depth}
+                \item<+-> Overly simplified example: if layer 1 filters detect \textcolor{Green4}{tires} and \textcolor{blue}{roof}, \alert{layer 2 filter} can detect tires + roof at proper orientation
+                \item<6-> Repeat \emph{ad infinitum}
+                \item<6-> Further layers add \depth{abstraction} to visual feature detection
+            \end{itemize}
+        \end{column}
+    \end{columns}
 \end{frame}
 
 \begin{frame}
-    \frametitle{Rich history that authors expect you to know}
+    \frametitle{Data sets that authors expect you to know}
     \begin{columns}
         \begin{column}{0.55\textwidth}
             \begin{itemize}
@@ -151,7 +164,7 @@
         \end{column}
         \begin{column}{0.45\textwidth}
             \includegraphics[width=\textwidth]{mnist} \\[5mm]
-            \uncover<.->{\includegraphics[width=\textwidth]{imagenet}}
+            \visible<.->{\includegraphics[width=\textwidth]{imagenet}}
         \end{column}
     \end{columns}
 \end{frame}

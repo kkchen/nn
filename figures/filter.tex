@@ -49,12 +49,12 @@
         \featuremap{4}{-28}{16}
 
         \foreach \i in {5.5, 15.5} {
-            \filter{\i - 2.5}{-13} % A filter matching the tire.
-            \draw [very thick] (\i, -15.5) circle (1.5); % Tires.
+            \filter{\i - 2.5}{-7} % A filter matching the tire.
+            \draw [very thick] (\i, -9.5) circle (1.5); % Tires.
 
             % Lit-up feature map elements.
-            \draw [very thick, fill=green] (\i + 1.5, -41) rectangle (\i + 2.5, -42);
-            \draw [path] (\i, -15.5) -- (\i + 2, -41.5);
+            \draw [very thick, fill=green] (\i + 1.5, -35) rectangle (\i + 2.5, -36);
+            \draw [path] (\i, -9.5) -- (\i + 2, -35.5);
         }
     }
 
