@@ -54,12 +54,32 @@
 \begin{frame}
     \frametitle{CNN architectures that authors expect you to know}
 
+    Famous architectures + \% test samples with labels not in top 5:
     \begin{itemize}
-        \item LeNet \citep{LeCunIEEE98}
-        \item AlexNet \citep{KrizhevskyNIPS12}
-        \item VGGNet \citep{Simonyan14}
-        \item GoogLeNet/Inception \citep{SzegedyIEEECVPR15}
-        \item ResNet \citep{He15b}
+        \item<+-> LeNet \citep{LeCunIEEE98}: 18.9\% top-5 error
+        \begin{itemize}
+            \item 2 convolutional layers (size 5, 5) $\to$ 3 dense layers (size 120, 84, 10)
+        \end{itemize}
+        \item<+-> AlexNet \citep{KrizhevskyNIPS12}: 17.0\%
+        \begin{itemize}
+            \item 5 convolutional layers (size 11, 5, 3, 3, 3) $\to$ 3 dense layers (size 4096, 4096, 1000)
+        \end{itemize}
+        \item<+-> ZF Net \citep{ZeilerECCV14}: 11.2\%
+        \begin{itemize}
+            \item Minor improvement to AlexNet
+        \end{itemize}
+        \item<+-> VGGNet \citep{Simonyan14}: 7.7\%
+        \begin{itemize}
+            \item Replace AlexNet's $11 \times 11$ and $5 \times 5$ filters with deep $3 \times 3$ filters
+        \end{itemize}
+        \item<+-> GoogLeNet/Inception \citep{SzegedyIEEECVPR15}: 6.67\%
+        \begin{itemize}
+            \item Reduces work by using \emph{Inception modules} that combine size 1, 3, and 5 convolutions
+        \end{itemize}
+        \item<+-> ResNet \citep{He15b}: 3.57\%
+        \begin{itemize}
+            \item Instead of feeding convolutional output to next layer, feed convolutional input + output
+        \end{itemize}
     \end{itemize}
 \end{frame}
 
