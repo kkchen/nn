@@ -9,11 +9,13 @@
         I know almost nothing about CNNs, but not discussing them would be sacrilegious.
         I'll do my best.
     \end{block}
+    \pause
 
     \begin{itemize}
         \item Much of deep learning revolves around image classification
         \item A huge proportion of early major breakthroughs in deep learning involved CNNs for image classification
     \end{itemize}
+    \pause
 
     \begin{block}{Spatial invariance}
         CNNs leverage the fact that images are \alert{spatially invariant}
@@ -36,18 +38,20 @@
                 \item \textcolor{blue}{RGB image}, dimension $w \times h \times 3$
                 \item A \alert{filter}/\alert{kernel}, dimension $m \times m \times 3$, $m = \O(1 \text{--} 10) \ll w, h$
             \end{itemize}
-            \uncover<+->{
-                For every $m \times m$ block in the 2-D image, \textcolor{Green4}{convolve} with the filter:
-                }
-            \begin{itemize}
-                \item<.-> Element-wise multiply $m \times m \times 3$ block by filter ($\Reals^{m \times m \times 3} \to \Reals^{m \times m \times 3}$)
-                \item<.-> Sum the result ($\Reals^{m \times m \times 3} \to \Reals$)
-                \item<9-> $w - m + 1$ horizontal block positions \& $h - m + 1$ vertical block positions $\implies$ produces \textcolor{Green4}{feature map} in $\Reals^{(w-m+1) \times (h-m+1)}$
+            \uncover<+->{For every $m \times m$ block in the 2-D image:}
+            \begin{itemize}[<.->]
+                \item Element-wise multiply $m \times m \times 3$ block by filter ($\Reals^{m \times m \times 3} \to \Reals^{m \times m \times 3}$)
+                \item Sum the result ($\Reals^{m \times m \times 3} \to \Reals$)
+                \setcounter{beamerpauses}{9}
+                \item<+-> $w - m + 1$ horizontal block positions \& $h - m + 1$ vertical block positions $\implies$ produces \textcolor{Green4}{feature map} in $\Reals^{(w-m+1) \times (h-m+1)}$
             \end{itemize}
-            \uncover<10->{Repeat for $k$ filters}
+
+            \uncover<+->{Repeat for $k$ filters}
             \begin{itemize}
-                \item<10-> Yields $k$ feature maps in $\Reals^{(w-m+1) \times (h-m+1) \times k}$
+                \item<.-> Yields $k$ feature maps in $\Reals^{(w-m+1) \times (h-m+1) \times k}$
             \end{itemize}
+
+            \uncover<+->{Can take $\text{\alert{stride}} > 1$ when sliding filter}
         \end{column}
     \end{columns}
 \end{frame}
@@ -66,21 +70,30 @@
                 \item Cars have wheels
                 \item Suppose one of the filters has a round shape
                 \item For most $m \times m \times 3$ blocks, convolution produces noise
-                \item<10-> But if block contains tire, then convolution hits $\implies$ large value
+                \setcounter{beamerpauses}{10}
+                \item If block contains tire, then convolution hits $\implies$ large value
+            \end{itemize}
+
+            \uncover<+->{The abstract idea: CNNs surpass dense NNs for images because}
+            \begin{itemize}[<.->]
+                \item \alert{Sparse connectivity}: $(\text{filter size}) \ll (\text{image size})$
+                \item \alert{Shared parameters}/\alert{tied weights}: same filters applied to every block in image
             \end{itemize}
         \end{column}
     \end{columns}
 \end{frame}
 
 \begin{frame}
-    \frametitle{Filters \& pooling}
+    \frametitle{Filters, pooling, \& downsampling}
 
     \begin{columns}
         \begin{column}{0.4\textwidth}
             \centering
             \includegraphics[width=\textwidth]{filters} \\
-            \footnotesize
-            AlexNet filters \citep{KrizhevskyNIPS12}
+            {\footnotesize AlexNet filters \citep{KrizhevskyNIPS12}}
+            \vspace{5mm}
+
+            \input{figures/pooling}
         \end{column}
 
         \begin{column}{0.6\textwidth}
@@ -88,8 +101,32 @@
             \begin{itemize}
                 \item Trained filters find edges, arcs, color patches, etc.
             \end{itemize}
+
+            \setcounter{beamerpauses}{2}
+            \uncover<+->{Next, add bias and apply nonlinear activation function, then\ldots}
+
+            \begin{block}{Pooling}<+->
+                Replace each output with some statistic (e.g., max) on nearby region
+            \end{block}
+
+            \begin{itemize}[<.->]
+                \item Improves invariance: makes exact positions less important
+            \end{itemize}
+
+            \begin{block}{Downsampling}<12->
+                Reduces dimensionality for efficiency
+            \end{block}
         \end{column}
     \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Adding depth}
+
+    \input{figures/convolution1}
+
+    So we have feature maps that light up when patterns match.
+    Now what?%
 \end{frame}
 
 \begin{frame}
