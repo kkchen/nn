@@ -35,9 +35,8 @@
         Since model risk $R$ is average over data of losses $L(\y, \f(\x; \THETA))$, gradient $\p{R}{\THETA}$ is average over data of $\p{L}{\THETA}$
     }
 
-    \begin{block}{}<+->
-        Backpropagation is how to compute $\p{L}{\THETA}$.
-        It's literally just the chain rule.
+    \begin{block}{Backpropagation}<+->
+        Chain rule to compute $\p{L}{\THETA}$
     \end{block}
 
     \begin{itemize}
@@ -61,7 +60,6 @@
         \item $n$ neurons with ReLU activation in hidden layer
         \item Mean squared error loss
     \end{itemize}
-    \pause
 
     \begin{block}{}
         \vspace{-1em}
@@ -81,7 +79,7 @@
     \end{equation*}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[t]
     \frametitle{Backpropagation example (2/3)}
     \mlpblock
     \pause
@@ -95,7 +93,7 @@
     \end{align*}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[t]
     \frametitle{Backpropagation example (3/3)}
     \mlpblock
     \pause
@@ -144,7 +142,7 @@
         \uncover<+->{\FOR{$\text{epoch} = 1, \ldots, n_\text{epochs}$}}
         \uncover<+->{\STATE Randomize the data order of $\S$}
         \uncover<+->{\WHILE{not done with $\S$}}
-        \uncover<+->{\STATE Peel off the next $k \ll |\S|$ elements of $\S$ into the \alert{mini-batch} $\M$}
+        \uncover<+->{\STATE Peel off the next $k \ll |\S|$ elements of $\S$ into \alert{mini-batch} $\M$}
         \uncover<+->{
             \STATE \label{item:gradient}
             Compute $\h = \p{R(\f; \THETA; \M)}{\THETA}$ using only the mini-batch $\M$
@@ -174,6 +172,7 @@
         \textcolor{red}{Gradient descent}: intractable to compute gradient $\p{R(\f; \THETA; \S)}{\THETA}$ when $|\S| \approx \dim(\THETA) = \O(10^3 \text{--} 10^{10})$ \\[1ex]
         \textcolor{blue}{SGD}: $\p{R(\f; \THETA; \M)}{\THETA}$ tractable when $|\M| = \O(10^1 \text{--} 10^3)$
     \end{block}
+    \pause
 
     \begin{block}{Global minimization}
         \textcolor{red}{Gradient descent}: easily falls into local minima \\[1ex]

@@ -8,9 +8,9 @@
     \begin{block}{My definition}
         The study of computational algorithms
         \begin{itemize}
-            \item that \alert{predict} outputs or patterns from inputs;
+            \item that \alert{predict outputs} or \alert{discover patterns} from inputs;
             \item whose behavior is determined by \alert{model parameters};
-            \item that \alert{learn} how to make predictions (``inference'')by fitting (``training'') the model parameters to data;
+            \item that \alert{learn} how to make predictions (``inference'') by fitting (``training'') the model parameters to data;
             \item that \alert{iteratively} improve their model parameters via continual training.
         \end{itemize}
     \end{block}
@@ -117,7 +117,7 @@
         \item Text-to-speech: $\x =$ words, $\y =$ speech audio
         \item Denoising: $\x = \text{data} + \text{noise}$, $\y = \text{data}$
         \item Anomaly detection: $\x =$ (time, location, amount, type) of credit card purchase, $y = \Prob(\text{fraud})$
-        \item Prognosis: $\x =$ conditions of existing medical condition, $y =$ expected remaining life
+        \item Prognosis: $\x =$ measures of existing medical conditions, $y =$ expected remaining life
     \end{itemize}
     \pause
 
@@ -252,7 +252,7 @@
     \uncover<4->{Examples:}
     \begin{itemize}
         \item<4-> Generative modeling: given \textcolor<5->{blue}{pictures of volcanoes}, generate \textcolor<5->{Green4}{new ones that look realistic}
-        \item<6-> Determine if loan/insurance applicant is low/medium/high-risk
+        \item<6-> Cluster loan/insurance applicants as low/medium/high-risk
     \end{itemize}
 
     \temporal<2>{%
@@ -290,7 +290,7 @@
         \begin{itemize}
             \item $\exists$ tons of data in the world, but mostly unlabeled
         \end{itemize}
-        \item Semi-supervised learning: usually, small amount of labeled data + lots of unlabeled data
+        \item Semi-supervised learning: usually small amount of labeled data + lots of unlabeled data
     \end{itemize}
 \end{frame}
 
@@ -321,7 +321,7 @@
             }
             \begin{itemize}[<2->]
                 \item \alert<3->{Dense (fully-connected) NN: generic}
-                \item Convolutional NN: for spatial data
+                \item \alert<3->{Convolutional NN: for spatial data}
                 \item \alert<3->{Recurrent NN: for temporal data (Thursday's topic)}
                 \item Autoencoders: for data representations
                 \item Reinforcement learning: for AI/games

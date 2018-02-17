@@ -5,7 +5,7 @@
 \begin{frame}
     \frametitle{The neuron: equations}
 
-    Consider an input $\x \in \Reals^q$.
+    Consider an input $\x \in \Reals^q$
     \begin{block}{}
         Consider some \emph{weight vector} $\w \in \Reals^q$ and \emph{bias} $b \in \Reals$.
         The mapping
@@ -13,7 +13,7 @@
             g &: \Reals^q \to \Reals \\
             &\hspace{1.25ex} \x \mapsto \w \cdot \x + b
         \end{align*}
-        is an \alert{affine transformation}.
+        is an \alert{affine transformation}
     \end{block}
     \pause
 
@@ -39,21 +39,20 @@
 
 \begin{frame}
     \frametitle{The neuron: geometric interpretation}
-
-    \begin{itemize}
-        \item Activation functions $\sigma(x)$ typically most ``interesting'' at $x = 0$
+    \begin{itemize}[<.->]
+        \item<+-> Activation functions $\sigma(x)$ typically most ``interesting'' at $x = 0$
         \item For neuron $\phi(x) = \sigma(\w \cdot \x + b)$, \textcolor{Green4}{hyperplane} $\w \cdot \x + b = 0$ is a natural boundary in $\X$
-        \item Simple example:
+        \item<+-> Simple example:
         \begin{itemize}
             \item $\x =$ (sex, age, weight, height, LDL, HDL, exercise hrs/wk, smoker)
             \item $y =$ heart disease risk
-            \item Medical intuition: larger risk for men, older, heavier, shorter, higher LDL, lower HDL, less exercise, smoker
+            \item<+-> Medical intuition: larger $y$ for men, older, heavier, shorter, higher LDL, lower HDL, less exercise, smoker
             \item Geometric interpretation: draw \textcolor{Green4}{hyperplane} through $\Reals^8$ best separating \alert{high-risk} from \textcolor{blue}{low-risk}
         \end{itemize}
     \end{itemize}
 
     \centering
-    \includegraphics{plane}
+    \visible<.->{\includegraphics{plane}}
 \end{frame}
 
 \begin{frame}
@@ -73,7 +72,7 @@
     \end{block}
     \pause
 
-    Let the model output $\y \in \Reals^p$ be affine transformations of $\z$: given
+    Let model output $\y \in \Reals^p$ be affine transformations of $\z$: given
     \begin{itemize}
         \item weight vectors $\v_k \in \Reals^n$, $k = 1, \ldots, p$
         \item biases $c_k \in \Reals$, $k = 1, \ldots, p$
@@ -122,8 +121,8 @@
     \pause
 
     \begin{itemize}
-        \item Weight matrix $\V \in \Reals^{q \times n}$
-        \item Bias vector $\cc \in \Reals^q$
+        \item Weight matrix $\V \in \Reals^{p \times n}$
+        \item Bias vector $\cc \in \Reals^p$
     \end{itemize}
 
     \begin{block}{Single hidden-layer dense neural network}
@@ -203,7 +202,7 @@
     \input{figures/deep}
     \vspace{1mm}
 
-    Common but not necessary for $\SIGMA$ to be the same in each layer
+    \uncover<3->{Common but not necessary for $\SIGMA$ to be the same in each layer}
 \end{frame}
 
 \begin{frame}
@@ -211,14 +210,12 @@
     \begin{itemize}
         \item Depth: \# layers
         \item Width: \# neurons in each layer (need not be fixed)
-    \end{itemize}
-    \pause
-
-    Neural network with $\sigma = \text{ReLU}$ is piecewise linear function
-    \begin{itemize}
-        \item \alert{Expressivity} of ReLU network measured by \# linear pieces
+        \pause
+        \item $\alert{\text{\# parameters}} = (q + 1) n_1 + (n_1 + 1) n_2 + \cdots + (n_{l-1} + 1) n_l + (n_l + 1) p \approx \alert{w^2 l}$
         \item For fixed width $w$ and depth $l$, \alert{$\max \text{expressivity} \sim w^l$} \citep{Pascanu13,MontufarNIPS14,Chen16}
-        \item In comparison, $\alert{\text{\# parameters}} = (q + 1) n_1 + (n_1 + 1) n_2 + \cdots + (n_{l-1} + 1) n_l + (n_l + 1) p \approx \alert{w^2 l}$
+        \begin{itemize}
+            \item Polynomial in $w$ but exponential in $l$!
+        \end{itemize}
     \end{itemize}
     \pause
 
@@ -237,8 +234,7 @@
 \begin{frame}
     \frametitle{%
         Example: $\Reals^2 \to \Reals$ ripple\footnote{%
-            Code: \blueurl{https://goo.gl/Yv8CW3}.
-            Trained to convergence: $\sim8 \cdot 10^7$ samples.%
+            Code: \blueurl{https://goo.gl/Yv8CW3}.%
         }%
     }
     \begin{columns}
@@ -248,14 +244,12 @@
             Ground truth: $y = \dfrac{\cos(r)}{e^{0.4 (r - 8)} + 1}$
         \end{column}
         \hfill
-        \pause
         \begin{column}{0.5\textwidth}
             \centering
             \includegraphics[width=1.85in]{ripple_1layer} \\
             1 layer, 50 neurons, \\ 201 parameters: $R = 8.1 \cdot 10^{-2}$
         \end{column}
     \end{columns}
-    \pause
 
     \begin{columns}
         \begin{column}{0.5\textwidth}
@@ -264,7 +258,6 @@
             2 layers, 17--8 neurons, \\ 204 parameters: $R = 4.9 \cdot 10^{-3}$
         \end{column}
         \hfill
-        \pause
         \begin{column}{0.5\textwidth}
             \centering
             \includegraphics[width=1.85in]{ripple_3layer} \\

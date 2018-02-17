@@ -15,8 +15,8 @@
     \pause
 
     \begin{itemize}
-        \item Underfitting: didn't train enough for the model to capture the underlying behavior
-        \item Overfitting: training so good that neural network memorizes the data, including underlying noise
+        \item Underfitted: didn't train enough for the model to capture the underlying behavior
+        \item Overfitted: training so good that neural network memorized the data, including underlying noise
         \begin{itemize}
             \item Recall: with enough parameters, neural networks learn anything
         \end{itemize}
@@ -44,11 +44,13 @@
             \item Weights \& biases are \alert{parameters}---iteratively improved
             \item Design choices (\# layers, \# neurons, optimizer, \# epochs, etc.) are \alert{hyperparameters}---selected by ML designer
         \end{itemize}
+        \pause
         \item Select different sets of hyperparameters; for each:
         \begin{itemize}
             \item Train only on \textcolor{blue}{training set}, as before
             \item Compute validation loss on \textcolor{orange}{validation set}
         \end{itemize}
+        \pause
         \item Pick hyperparameters with lowest validation loss
         \item Then re-evaluate loss on \textcolor{Green4}{test data}
         \begin{itemize}
@@ -68,6 +70,7 @@
         \begin{itemize}
             \item Because optimizer minimizes training loss but never sees test data
         \end{itemize}
+        \pause
         \item At some point, test loss increases: NN overfits to training data
         \item \alert{Early stopping}: use NN with minimum test loss
     \end{itemize}
@@ -114,7 +117,7 @@
         \begin{itemize}[<.->]
             \item During \textcolor{Green4}{training}, randomly remove some portion of nodes
             \item Often 20\% of inputs and 50\% of hidden nodes
-            \item<+-> Put all nodes back \& scale accordingly during \textcolor{blue}{inference}
+            \item<+-> Put all nodes back \& scale accordingly during \textcolor{blue}{inference} (predictions)
             \item<+-> Motivation: kind of like bagging, but much cheaper
             \item With $n \gg 1$ iterations, essentially average of $n$ models
             \item One of the best regularization techniques; use it!
@@ -130,7 +133,7 @@
     \uncover<2->{\input{figures/no_dropout}}
 
     \begin{itemize}
-        \item \alert{Batch normalization} \citep{IoffeICML15}
+        \item<+-> \alert{Batch normalization} \citep{IoffeICML15}
         \begin{itemize}
             \item Automatically shifts \& scales values to have mean 0 \& variance 1 for each mini-batch
             \item Results in better behavior and easier learning: inputs to activations won't vanish or explode

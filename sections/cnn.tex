@@ -12,8 +12,7 @@
     \pause
 
     \begin{itemize}
-        \item Much of deep learning revolves around image classification
-        \item A huge proportion of early major breakthroughs in deep learning involved CNNs for image classification
+        \item Much of deep learning---and many major breakthroughs---revolves around image classification
     \end{itemize}
     \pause
 
@@ -36,14 +35,14 @@
             Given
             \begin{itemize}[<+->]
                 \item \textcolor{blue}{RGB image}, dimension $w \times h \times 3$
-                \item A \alert{filter}/\alert{kernel}, dimension $m \times m \times 3$, $m = \O(1 \text{--} 10) \ll w, h$
+                \item Trainable \alert{filter}/\alert{kernel}, dimension $m \times m \times 3$, $m = \O(1 \text{--} 10) \ll w, h$
             \end{itemize}
             \uncover<+->{For every $m \times m$ block in the 2-D image:}
             \begin{itemize}[<.->]
                 \item Element-wise multiply $m \times m \times 3$ block by filter ($\Reals^{m \times m \times 3} \to \Reals^{m \times m \times 3}$)
                 \item Sum the result ($\Reals^{m \times m \times 3} \to \Reals$)
                 \setcounter{beamerpauses}{9}
-                \item<+-> $w - m + 1$ horizontal block positions \& $h - m + 1$ vertical block positions $\implies$ produces \textcolor{Green4}{feature map} in $\Reals^{(w-m+1) \times (h-m+1)}$
+                \item<+-> $w - m + 1$ horizontal positions \& $h - m + 1$ vertical positions $\implies$ \textcolor{Green4}{feature map} in $\Reals^{(w-m+1) \times (h-m+1)}$
             \end{itemize}
 
             \uncover<+->{Repeat for $k$ filters}
@@ -51,7 +50,7 @@
                 \item<.-> Yields $k$ feature maps in $\Reals^{(w-m+1) \times (h-m+1) \times k}$
             \end{itemize}
 
-            \uncover<+->{Can take $\text{\alert{stride}} > 1$ when sliding filter}
+            \uncover<+->{Can use $\text{\alert{stride}} > 1$ and/or apply \alert{padding} on edges}
         \end{column}
     \end{columns}
 \end{frame}
@@ -74,7 +73,7 @@
                 \item If block contains tire, then convolution hits $\implies$ large value
             \end{itemize}
 
-            \uncover<+->{The abstract idea: CNNs surpass dense NNs for images because}
+            \uncover<+->{Abstract idea: CNNs surpass dense NNs for images because}
             \begin{itemize}[<.->]
                 \item \alert{Sparse connectivity}: $(\text{filter size}) \ll (\text{image size})$
                 \item \alert{Shared parameters}/\alert{tied weights}: same filters applied to every block in image
@@ -129,14 +128,14 @@
         \end{column}
 
         \begin{column}{0.68\textwidth}
-            \uncover<+->{So we have feature maps that light up when patterns match,}
+            \uncover<+->{We have feature maps that light up when patterns match,}
             \uncover<+->{+ bias, nonlinear activation, pooling, \& downsampling.}
             \uncover<+->{Now what?}
             \begin{itemize}
                 \item<.-> Add more layers for \emph{depth}
                 \item<+-> Overly simplified example: if layer 1 filters detect \textcolor{Green4}{tires} and \textcolor{blue}{roof}, \alert{layer 2 filter} can detect tires + roof at proper orientation
                 \item<6-> Repeat \emph{ad infinitum}
-                \item<6-> Further layers add \depth{abstraction} to visual feature detection
+                \item<6-> Further layers add \emph{abstraction} to visual feature detection
             \end{itemize}
         \end{column}
     \end{columns}
